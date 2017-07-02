@@ -1,0 +1,158 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/LayoutPadrao.xhtml">
+
+	<ui:define name="corpo">
+		<h1 class="aw-page-title">Cadastro Individual</h1>
+		<h:form id="frm">
+			<f:metadata>
+				<f:viewAction action="#{cadastroAnimalBean.initialize}" />
+			</f:metadata>
+
+			<p:toolbar>
+				<p:toolbarGroup>
+					<p:commandButton value="Salvar"
+						action="#{cadastroAnimalBean.salvar}" update="@form" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:messages id="msgs" autoUpdate="false" />
+
+			<div class="ui-fluid">
+				<p:panelGrid columns="4" layout="grid"
+					styleClass="ui-panelgrid-blank"
+					columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+
+					<p:outputLabel value="Indenti&#173;ficador" for="itIndentificador" />
+					<p:inputText id="itIndentificador"
+						value="#{cadastroAnimalBean.animal.indentificador}" />
+
+					<p:outputLabel value="Data Cadastro: " for="dtCadastro" />
+					<p:calendar id="dtCadastro" disabled="true"
+						value="#{cadastroAnimalBean.animal.dtCadastro}" />
+				</p:panelGrid>
+
+
+				<p:panelGrid columns="3" layout="grid"
+					styleClass="ui-panelgrid-blank"
+					columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-6">
+					<p:outputLabel value="Data Nascimento" for="dtNascimento" />
+					<p:calendar id="dtNascimento"
+						value="#{cadastroAnimalBean.animal.dtNascimento}"
+						pattern="dd/MM/yyyy" mask="true"
+						disabled="#{cadastroAnimalBean.dtNascExata}" />
+					<p:outputPanel deferred="true" deferredMode="visible">
+						<div class="ballon ui-messages-info ui-corner-all">
+							Caso Preferir Coloque uma Data Estimada do Nascimento do Animal <br />
+							Abilite o Campo Dt. Nasc. Estimada Clicando no Botão Abaixo
+						</div>
+					</p:outputPanel>
+
+
+				</p:panelGrid>
+
+				<p:panelGrid columns="4" layout="grid"
+					styleClass="ui-panelgrid-blank"
+					columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-1, ui-grid-col-5">
+					<p:outputLabel value="Dt. Nasc. Estimada:" />
+					<p:inputMask mask="99/9999 à 99/9999" id="dtNascEstimada"
+						value="#{cadastroAnimalBean.txtDtEstimada}"
+						disabled="#{cadastroAnimalBean.dtNascEstimada}">
+						<p:ajax event="change"
+							listener="#{cadastroAnimalBean.validarData}" update="msgs"
+							process="dtNascEstimada" />
+					</p:inputMask>
+					<p:selectBooleanButton id="value1"
+						value="#{cadastroAnimalBean.dtNascEstimada}" onLabel="Sim"
+						offLabel="Não">
+						<p:ajax update="dtNascEstimada, dtNascimento"
+							listener="#{cadastroAnimalBean.addMessage}" />
+					</p:selectBooleanButton>
+					<p:outputLabel value="Usar Data Estimada ?" />
+				</p:panelGrid>
+				<p:panelGrid columns="4" layout="grid"
+					styleClass="ui-panelgrid-blank"
+					columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+					<p:outputLabel value="Raça: " for="somRaca" />
+					<p:selectOneMenu id="somRaca"
+						converter="omnifaces.SelectItemsConverter"
+						value="#{cadastroAnimalBean.animal.raca}" filter="true">
+						<f:selectItem itemLabel="Selecione" />
+						<f:selectItems value="#{cadastroAnimalBean.racas}" var="raca"
+							itemLabel="#{raca.descricao}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Sexo:" for="sorSexo" />
+					<p:selectOneRadio id="sorSexo" style="float: left; width: 150px"
+						value="#{cadastroAnimalBean.animal.sexo}">
+						<f:selectItem itemLabel="M" itemValue="M" />
+						<f:selectItem itemLabel="F" itemValue="F" />
+					</p:selectOneRadio>
+
+					<p:outputLabel value="Descrição" for="itDescricao" />
+					<p:inputText id="itDescricao"
+						value="#{cadastroAnimalBean.animal.descricao}" />
+				</p:panelGrid>
+
+				<p:panelGrid id="pg1" columns="5" layout="grid"
+					styleClass="ui-panelgrid-blank"
+					columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-3, ui-grid-col-1">
+
+					<p:outputLabel value="Procedência: " for="somProcedencia" />
+					<p:selectOneMenu id="somProcedencia"
+						value="#{cadastroAnimalBean.animal.procedencia}">
+						<p:ajax
+							listener="#{cadastroAnimalBean.habilitarDesabilitarCampos}"
+							update="pg1, pg2" process="@this" />
+						<f:selectItem itemLabel="Selecione" />
+						<f:selectItems value="#{cadastroAnimalBean.procedencia}"
+							var="proc" itemLabel="#{proc.descricao}" itemValue="#{proc}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Mãe: " for="itMae" />
+					<p:inputText id="itMae"
+						value="#{cadastroAnimalBean.mae.indentificador}"
+						disabled="#{cadastroAnimalBean.itMaeDisabled}" />
+					<p:commandButton icon="fa fa-search-plus"
+						action="#{cadastroAnimalBean.listarFemeas}"
+						disabled="#{cadastroAnimalBean.itMaeDisabled}"
+						oncomplete="PF('selecionarMaeDialog').show()" process="@this"
+						update="itMae, selecionarMaeDialog" />
+				</p:panelGrid>
+
+				<p:panelGrid id="pg2" columns="6" layout="grid"
+					styleClass="ui-panelgrid-blank"
+					columnClasses="ui-grid-col-2, ui-grid-col-3,ui-grid-col-1, ui-grid-col-2, ui-grid-col-3, ui-grid-col-1">
+					<p:outputLabel value="Inseminação: " for="itInseminacao" />
+					<p:inputText id="itInseminacao"
+						disabled="#{cadastroAnimalBean.itInseminacaoDisabled}" />
+					<p:commandButton icon="fa fa-search-plus"
+						disabled="#{cadastroAnimalBean.itInseminacaoDisabled}" />
+
+					<p:outputLabel value="Pai: " for="itPai" />
+					<p:inputText id="itPai"
+						disabled="#{cadastroAnimalBean.itPaiDisabled}"
+						value="#{cadastroAnimalBean.pai.indentificador}" />
+					<p:commandButton icon="fa fa-search-plus"
+						disabled="#{cadastroAnimalBean.itPaiDisabled}"
+						action="#{cadastroAnimalBean.listarMachos}"
+						oncomplete="PF('selecionarPaiDialog').show()" process="@this"
+						update="itPai, selecionarPaiDialog" />
+				</p:panelGrid>
+
+				<p:panelGrid columns="2" layout="grid"
+					styleClass="ui-panelgrid-blank"
+					columnClasses="ui-grid-col-2, ui-grid-col-10">
+
+					<p:outputLabel value="Obs: " for="itaObs" />
+					<p:inputTextarea id="itaObs" />
+				</p:panelGrid>
+			</div>
+			<ui:include src="SelecionarAnimalMae.xhtml" />
+			<ui:include src="SelecionarAnimalPai.xhtml" />
+		</h:form>
+	</ui:define>
+</ui:composition>

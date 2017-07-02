@@ -1,0 +1,3 @@
+INSERT INTO raca(descricao) VALUES ('Nelore'), ('Horlandesa');
+
+INSERT INTO animal (descricao, dt_cadastro, dt_nascimento, indentificador, procedencia, sexo, raca_id) VALUES ('Boi Azulao', '2017-01-01', '2008-01-01', '1233', 'ANIMAL_COMPRADO', 'M', 1), ('Boi To', '2017-01-01', '2008-01-01', '1234', 'ANIMAL_COMPRADO', 'M', 1), ('Vaca Amarela', '2017-01-01', '2008-01-01', '1235', 'ANIMAL_COMPRADO', 'F', 1), ('Vaca Lenga', '2017-01-01', '2008-01-01', '1236', 'ANIMAL_COMPRADO', 'F', 1), ('Vaca Truta', '2017-01-01', '2008-01-01', '1237', 'ANIMAL_COMPRADO', 'F', 1), ('Vaca Twister', '2017-01-01', '2008-01-01', '1238', 'ANIMAL_COMPRADO', 'F', 1), ('Vaca Tropicalia', '2017-01-01', '2008-01-01', '1239', 'ANIMAL_COMPRADO', 'F', 1);
