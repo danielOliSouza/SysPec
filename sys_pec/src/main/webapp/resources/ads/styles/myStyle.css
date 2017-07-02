@@ -1,0 +1,26 @@
+label {
+	font-weight: bold;
+}
+
+*, *:before, *:after {
+     box-sizing: content-box; !important;
+}
+
+.ui-grid-row {
+	margin-top: 20px;	
+}
+
+.ballon {
+	border-radius: 10px	;
+	border-style: solid;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-top: 0 !important;
+}
+
+.ui-datatable-data tr{
+	border-bottom: 1px solid #AAA !important;
+}
+.ui-column-title {
+	font-weight: bold;
+}
