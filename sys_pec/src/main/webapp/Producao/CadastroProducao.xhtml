@@ -14,6 +14,9 @@
 
 		<h:form>
 			<div class="ui-fluid">
+
+				<p:messages id="msgs" autoUpdate="false" />
+
 				<p:panelGrid columns="4" layout="grid"
 					styleClass="ui-panelgrid-blank"
 					columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
@@ -40,7 +43,7 @@
 					</f:facet>
 				</p:toolbar>
 
-				<p:dataTable var="ordenha"
+				<p:dataTable var="ordenha" id="dtbOrdenhas"
 					value="#{cadastroOrdenhaBean.extracao.ordenhas}" reflow="true"
 					rows="5" paginator="true" style="margin-top: 25px;">
 					<p:column headerText="Indentificador">
@@ -49,7 +52,7 @@
 					<p:column headerText="Descricao">
 						<h:outputText value="#{ordenha.animal.descricao}" />
 					</p:column>
-					<p:column headerText="Qtd" >
+					<p:column headerText="Qtd">
 						<h:outputText value="#{ordenha.qtd}" />
 					</p:column>
 				</p:dataTable>
@@ -62,6 +65,13 @@
 						value="#{cadastroOrdenhaBean.extracao.obs}" />
 				</p:panelGrid>
 				<ui:include src="InserirOrdenha.xhtml" />
+
+				<p:toolbar style="margin-top: 25px; padding-right: 25px">
+					<f:facet name="right">
+						<p:commandButton value="Salvar" process="@form"
+						action="#{cadastroOrdenhaBean.salvar}" update="msgs"/>
+					</f:facet>
+				</p:toolbar>
 			</div>
 		</h:form>
 	</ui:define>

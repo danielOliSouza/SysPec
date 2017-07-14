@@ -35,7 +35,6 @@ public class Extracao implements Serializable{
 	private Date dtCadastro = new Date();
 	
 	@NotNull
-	@NotEmpty
 	@Column(name="dt_extracao_inicio")
 	private Date dtExtracaoInicio = new Date();
 	

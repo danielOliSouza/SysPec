@@ -7,23 +7,35 @@
 	<p:dialog id="inserirOrdenhaDialog" widgetVar="inserirOrdenhaDialog"
 		header="Inserir Ordenha" resizable="false" responsive="true"
 		style="max-width: 800px;">
+		
 		<div class="ui-fluid">
+		
+		<p:messages id="msgsDialog" autoUpdate="true" />
+		
 			<p:panelGrid columns="4" layout="grid"
 				styleClass="ui-panelgrid-blank"
 				columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
 				<p:outputLabel value="Animal: " for="somAnimal: " />
-				<p:selectOneMenu id="somAnimal" filter="true"
+				<p:selectOneMenu id="somAnimal" filter="true" required="false"
 					converter="omnifaces.SelectItemsConverter"
-					value="#{cadastroOrdenhaBean.novaOrdenha.animal}">
-					<f:selectItem itemLabel="Selecione" />
+					value="#{cadastroOrdenhaBean.novaOrdenha.animal}"
+					filterMatchMode="contains">
 					<f:selectItems value="#{cadastroOrdenhaBean.animaisFemeas}"
-						var="animal" itemValue="#{animal}"
+						var="animal" itemValue="#{animal}" 
 						itemLabel="#{animal.indentificador} - #{animal.descricao}" />
 				</p:selectOneMenu>
 				<p:outputLabel value="Qtd. :" for="inQtd" />
-				<p:inputNumber id="inQtd"
+				<p:inputNumber id="inQtd" required="false"
 					value="#{cadastroOrdenhaBean.novaOrdenha.qtd}" />
 			</p:panelGrid>
+			<p:toolbar style="margin-top: 25px;">
+				<f:facet name="left">
+					<p:commandButton value="Inserir Ordenha"
+						action="#{cadastroOrdenhaBean.addOrdenha}"
+						process="inserirOrdenhaDialog"  update="@form:dtbOrdenhas, inserirOrdenhaDialog"
+						oncomplete="PF('inserirOrdenhaDialog').show()"/>
+				</f:facet>
+			</p:toolbar>
 		</div>
 	</p:dialog>
 </ui:composition>

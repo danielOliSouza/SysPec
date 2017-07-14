@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.ads.syspec.model.Animal;
@@ -13,31 +14,47 @@ import br.com.ads.syspec.model.Extracao;
 import br.com.ads.syspec.model.Ordenha;
 import br.com.ads.syspec.model.Procedencia;
 import br.com.ads.syspec.model.Raca;
+import br.com.ads.syspec.repository.AnimalRepository;
+import br.com.ads.syspec.service.ExtracaoService;
+import br.com.ads.syspec.util.FacesMessages;
 
 @Named
 @ViewScoped
 public class CadastroOrdenhaBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	@Inject
+	private ExtracaoService extracaoService;
+	@Inject
+	private FacesMessages messages;
+	@Inject 
+	private AnimalRepository animalRepository;
+	
 	private List<Animal> animaisFemeas = new ArrayList<>();
 	private Extracao extracao = new Extracao();
 	private Ordenha novaOrdenha = new Ordenha();
 	
 	public void initialize() {
-		for(int i=0; i < 10; i++) {
-			Animal animal = new Animal();
-			animal.setDescricao("Animal F - " + String.valueOf(i));
-			animal.setDtNascimento(new Date());
-			animal.setId(new Long(i));
-			animal.setIndentificador(String.valueOf(i));
-			animal.setProcedencia(Procedencia.ANIMAL_COMPRADO);
-			animal.setRaca(new Raca());
-			animal.setSexo("F");
-			
-			animaisFemeas.add(animal);
-		}
+		animaisFemeas = animalRepository.findPorSexo("F");
 	}
 	
+	public void addOrdenha() {
+		try {
+			extracaoService.addOrdenha(novaOrdenha, extracao);
+			novaOrdenha= new Ordenha();
+		} catch (Exception e) {
+			messages.error(e.getMessage());
+		}
+		
+	}
+	
+	public void salvar() {
+		try {
+			extracaoService.salvar(extracao);
+		} catch (Exception e) {
+			messages.error(e.getMessage());
+		}
+	}
 	
 	public Extracao getExtracao() {
 		return extracao;
