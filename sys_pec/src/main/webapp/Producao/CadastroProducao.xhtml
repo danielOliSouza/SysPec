@@ -7,20 +7,29 @@
 
 	<ui:define name="corpo">
 		<h1 class="aw-page-title">Cadastro Produção</h1>
+
+		<f:metadata>
+			<f:viewAction action="#{cadastroOrdenhaBean.initialize}" />
+		</f:metadata>
+
 		<h:form>
 			<div class="ui-fluid">
 				<p:panelGrid columns="4" layout="grid"
 					styleClass="ui-panelgrid-blank"
 					columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
 					<p:outputLabel value="Núm: " for="itCod" />
-					<p:inputText id="itCod" disabled="true" />
+					<p:inputText id="itCod" disabled="true"
+						value="#{cadastroOrdenhaBean.extracao.id}" />
 					<p:outputLabel value="Data Cadastro: " for="cDtCadastro" />
-					<p:calendar id="cDtCadastro" disabled="true" />
+					<p:calendar id="cDtCadastro" disabled="true"
+						value="#{cadastroOrdenhaBean.extracao.dtCadastro}" />
 
 					<p:outputLabel value="Hora Inicio Extração" for="cDtExtracaoInicio" />
-					<p:calendar id="cDtExtracaoInicio" pattern="MM/dd/yyyy HH:mm:ss" />
+					<p:calendar id="cDtExtracaoInicio" pattern="MM/dd/yyyy HH:mm:ss"
+						value="#{cadastroOrdenhaBean.extracao.dtExtracaoInicio}" />
 					<p:outputLabel value="Hora Fim Extração" for="cDtExtracaoFim" />
-					<p:calendar id="cDtExtracaoFim" pattern="MM/dd/yyyy HH:mm:ss" />
+					<p:calendar id="cDtExtracaoFim" pattern="MM/dd/yyyy HH:mm:ss"
+						value="#{cadastroOrdenhaBean.extracao.dtExtracaoFim}" />
 
 				</p:panelGrid>
 
@@ -30,16 +39,27 @@
 							onclick="PF('inserirOrdenhaDialog').show()" process="@this" />
 					</f:facet>
 				</p:toolbar>
-				
-				<p:dataTable var="car" value="#{dtBasicView.cars}" reflow="true"
+
+				<p:dataTable var="ordenha"
+					value="#{cadastroOrdenhaBean.extracao.ordenhas}" reflow="true"
 					rows="5" paginator="true" style="margin-top: 25px;">
+					<p:column headerText="Indentificador">
+						<h:outputText value="#{ordenha.animal.indentificador}" />
+					</p:column>
+					<p:column headerText="Descricao">
+						<h:outputText value="#{ordenha.animal.descricao}" />
+					</p:column>
+					<p:column headerText="Qtd" >
+						<h:outputText value="#{ordenha.qtd}" />
+					</p:column>
 				</p:dataTable>
-				
+
 				<p:panelGrid columns="2" layout="grid"
 					styleClass="ui-panelgrid-blank"
 					columnClasses="ui-grid-col-2, ui-grid-col-12">
-					<p:outputLabel value="Obs. :" for="itaObs"/>
-					<p:inputTextarea id="itaObs" required="false"/>	
+					<p:outputLabel value="Obs. :" for="itaObs" />
+					<p:inputTextarea id="itaObs" required="false"
+						value="#{cadastroOrdenhaBean.extracao.obs}" />
 				</p:panelGrid>
 				<ui:include src="InserirOrdenha.xhtml" />
 			</div>

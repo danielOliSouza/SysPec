@@ -11,12 +11,18 @@
 			<p:panelGrid columns="4" layout="grid"
 				styleClass="ui-panelgrid-blank"
 				columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
-				<p:outputLabel value="Animal: " for="somAnimal: "/>
-				<p:selectOneMenu id="somAnimal" filter="true">
-					<f:selectItem itemLabel="Selecione"/>
+				<p:outputLabel value="Animal: " for="somAnimal: " />
+				<p:selectOneMenu id="somAnimal" filter="true"
+					converter="omnifaces.SelectItemsConverter"
+					value="#{cadastroOrdenhaBean.novaOrdenha.animal}">
+					<f:selectItem itemLabel="Selecione" />
+					<f:selectItems value="#{cadastroOrdenhaBean.animaisFemeas}"
+						var="animal" itemValue="#{animal}"
+						itemLabel="#{animal.indentificador} - #{animal.descricao}" />
 				</p:selectOneMenu>
-				<p:outputLabel value="Qtd. :" for="inQtd"/>
-				<p:inputNumber id="inQtd"/>
+				<p:outputLabel value="Qtd. :" for="inQtd" />
+				<p:inputNumber id="inQtd"
+					value="#{cadastroOrdenhaBean.novaOrdenha.qtd}" />
 			</p:panelGrid>
 		</div>
 	</p:dialog>
