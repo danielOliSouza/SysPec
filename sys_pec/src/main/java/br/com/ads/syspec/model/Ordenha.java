@@ -27,8 +27,7 @@ public class Ordenha implements Serializable{
 	@NotNull
 	private Extracao extracao;
 	
-	@NotEmpty
-	private String qtd;
+	private double qtd;
 
 	public long getId() {
 		return id;
@@ -54,11 +53,11 @@ public class Ordenha implements Serializable{
 		this.extracao = extracao;
 	}
 
-	public String getQtd() {
+	public double getQtd() {
 		return qtd;
 	}
 
-	public void setQtd(String qtd) {
+	public void setQtd(double qtd) {
 		this.qtd = qtd;
 	}
 }
