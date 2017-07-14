@@ -1,0 +1,23 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:dialog id="inserirOrdenhaDialog" widgetVar="inserirOrdenhaDialog"
+		header="Inserir Ordenha" resizable="false" responsive="true"
+		style="max-width: 800px;">
+		<div class="ui-fluid">
+			<p:panelGrid columns="4" layout="grid"
+				styleClass="ui-panelgrid-blank"
+				columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+				<p:outputLabel value="Animal: " for="somAnimal: "/>
+				<p:selectOneMenu id="somAnimal" filter="true">
+					<f:selectItem itemLabel="Selecione"/>
+				</p:selectOneMenu>
+				<p:outputLabel value="Qtd. :" for="inQtd"/>
+				<p:inputNumber id="inQtd"/>
+			</p:panelGrid>
+		</div>
+	</p:dialog>
+</ui:composition>

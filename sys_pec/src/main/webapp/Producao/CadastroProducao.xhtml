@@ -7,5 +7,42 @@
 
 	<ui:define name="corpo">
 		<h1 class="aw-page-title">Cadastro Produção</h1>
+		<h:form>
+			<div class="ui-fluid">
+				<p:panelGrid columns="4" layout="grid"
+					styleClass="ui-panelgrid-blank"
+					columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+					<p:outputLabel value="Núm: " for="itCod" />
+					<p:inputText id="itCod" disabled="true" />
+					<p:outputLabel value="Data Cadastro: " for="cDtCadastro" />
+					<p:calendar id="cDtCadastro" disabled="true" />
+
+					<p:outputLabel value="Hora Inicio Extração" for="cDtExtracaoInicio" />
+					<p:calendar id="cDtExtracaoInicio" pattern="MM/dd/yyyy HH:mm:ss" />
+					<p:outputLabel value="Hora Fim Extração" for="cDtExtracaoFim" />
+					<p:calendar id="cDtExtracaoFim" pattern="MM/dd/yyyy HH:mm:ss" />
+
+				</p:panelGrid>
+
+				<p:toolbar style="margin-top: 25px;">
+					<f:facet name="left">
+						<p:commandButton value="Add. Ordenha"
+							onclick="PF('inserirOrdenhaDialog').show()" process="@this" />
+					</f:facet>
+				</p:toolbar>
+				
+				<p:dataTable var="car" value="#{dtBasicView.cars}" reflow="true"
+					rows="5" paginator="true" style="margin-top: 25px;">
+				</p:dataTable>
+				
+				<p:panelGrid columns="2" layout="grid"
+					styleClass="ui-panelgrid-blank"
+					columnClasses="ui-grid-col-2, ui-grid-col-12">
+					<p:outputLabel value="Obs. :" for="itaObs"/>
+					<p:inputTextarea id="itaObs" required="false"/>	
+				</p:panelGrid>
+				<ui:include src="InserirOrdenha.xhtml" />
+			</div>
+		</h:form>
 	</ui:define>
 </ui:composition>
