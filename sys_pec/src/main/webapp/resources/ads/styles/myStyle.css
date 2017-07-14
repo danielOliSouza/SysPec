@@ -24,3 +24,6 @@ label {
 .ui-column-title {
 	font-weight: bold;
 }
+.ui-dialog{
+	width: 100% !important;
+}
