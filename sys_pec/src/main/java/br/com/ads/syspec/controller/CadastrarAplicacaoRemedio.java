@@ -17,11 +17,15 @@ public class CadastrarAplicacaoRemedio implements Serializable{
 	private Date dtAplicacao;
 	private String tipoAplicacao;
 	private Insumo remedio;
+	private List<Insumo> insumosRemedios;
 	private List<AplicacaoRemedio> aplicacaoes;
 
 	
-	//Getters And Setters
 	
+	
+	
+	
+	//Getters And Setters
 	public Date getDtAplicacao() {
 		return dtAplicacao;
 	}
@@ -45,5 +49,11 @@ public class CadastrarAplicacaoRemedio implements Serializable{
 	}
 	public void setAplicacaoes(List<AplicacaoRemedio> aplicacaoes) {
 		this.aplicacaoes = aplicacaoes;
+	}
+	public List<Insumo> getInsumosRemedios() {
+		return insumosRemedios;
+	}
+	public void setInsumosRemedios(List<Insumo> insumosRemedios) {
+		this.insumosRemedios = insumosRemedios;
 	}
 }

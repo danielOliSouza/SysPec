@@ -21,28 +21,23 @@
 				<p:panelGrid columns="4" layout="grid"
 					styleClass="ui-panelgrid-blank"
 					columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
-					<p:outputLabel value="Núm: " for="itCod" />
-					<p:inputText id="itCod" disabled="true" />
-
-					<p:outputLabel value="Data Cadastro: " for="cDtCadastro" />
-					<p:calendar id="cDtCadastro" disabled="true" />
-
 					<p:outputLabel value="Data da Aplicação" for="cDtAplicacao" />
-					<p:calendar id="cDtAplicacao" />
+					<p:calendar id="cDtAplicacao" value="#{cadastrarAplicacaoRemedio.dtAplicacao}"/>
 
 					<p:outputLabel value="Tipo: " for="somTipo" />
-					<p:selectOneMenu id="somTipo">
+					<p:selectOneMenu id="somTipo" value="#{cadastrarAplicacaoRemedio.tipoAplicacao}">
 						<f:selectItem itemLabel="MASSA" itemValue="MASSA" />
 						<f:selectItem itemLabel="ISOLADA" itemValue="ISOLADA" />
 					</p:selectOneMenu>
 
 					<p:outputLabel value="Vacina: " for="somVacina" />
-					<p:selectOneMenu id="somVacina">
+					<p:selectOneMenu id="somVacina" value="#{cadastrarAplicacaoRemedio.remedio}">
 						<f:selectItem itemLabel="Selecione" />
 					</p:selectOneMenu>
 				</p:panelGrid>
-				<p:dataTable reflow="true" rows="5" paginator="true">
+				<p:dataTable reflow="true" rows="5" paginator="true" var="aplicacao" value="#{cadastrarAplicacaoRemedio.aplicacaoes}">
 					<p:column headerText="Indentificador">
+						
 					</p:column>
 					<p:column headerText="Descrição">
 					</p:column>
