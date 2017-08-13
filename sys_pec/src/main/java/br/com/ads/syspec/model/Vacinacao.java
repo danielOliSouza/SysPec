@@ -35,7 +35,7 @@ public class Vacinacao {
 	private String tipo;
 	@NotNull
 	@OneToOne
-	private Insumo remedio;
+	private Remedio remedio;
 	private String campanha;
 	@NotNull
 	@OneToMany(mappedBy="vacinacao", cascade=CascadeType.ALL)
@@ -64,10 +64,10 @@ public class Vacinacao {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	public Insumo getRemedio() {
+	public Remedio getRemedio() {
 		return remedio;
 	}
-	public void setRemedio(Insumo remedio) {
+	public void setRemedio(Remedio remedio) {
 		this.remedio = remedio;
 	}
 	public String getCampanha() {

@@ -16,6 +16,8 @@ import br.com.ads.syspec.model.Remedio;
 import br.com.ads.syspec.model.Vacinacao;
 import br.com.ads.syspec.repository.AnimalRepository;
 import br.com.ads.syspec.repository.RemedioRepository;
+import br.com.ads.syspec.service.VacinaService;
+import br.com.ads.syspec.util.ValidacaoUtil;
 
 @Named
 @ViewScoped
@@ -26,6 +28,8 @@ public class CadastrarAplicacaoRemedio implements Serializable{
 	private br.com.ads.syspec.util.FacesMessages messages;
 	@Inject 
 	private RemedioRepository remedioRepository;
+	@Inject
+	private VacinaService vacinaService;
 	
 	private Vacinacao vacinacao = new Vacinacao();
 	private AplicacaoRemedio novaAplicacao = new AplicacaoRemedio();
@@ -40,13 +44,27 @@ public class CadastrarAplicacaoRemedio implements Serializable{
 	}
 
 	public void addAplicacao(){
-		vacinacao.addAplicacaoRemedios(novaAplicacao);
-		novaAplicacao = new AplicacaoRemedio();
-		messages.info("Add Com Sucesso");
+		ValidacaoUtil vUtil = new ValidacaoUtil();
+		
+		if(vacinaService.addAplicacaoRemedio(novaAplicacao, vacinacao, vUtil)){
+			novaAplicacao = new AplicacaoRemedio();
+			vacinacao = new Vacinacao();
+			messages.info("Add Com Sucesso");
+		}
+		else
+			messages.error(vUtil.getMensagemToString());
+		
 	}
 	
 	public void salvar(){
-		messages.info("Ainda Não Foi Implementado");
+		ValidacaoUtil vUtil = new ValidacaoUtil();
+		
+		System.out.println("OK");
+		
+		if(vacinaService.salvar(vacinacao, vUtil))
+			messages.info(vUtil.getMensagemToString());
+		else
+			messages.error(vUtil.getMensagemToString());
 	}
 	public Vacinacao getVacinacao() {
 		return vacinacao;
