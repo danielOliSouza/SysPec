@@ -1,0 +1,54 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/LayoutPadrao.xhtml">
+
+	<ui:define name="corpo">
+		<h1 class="aw-page-title">Cadastrar Semen</h1>
+		<h:form id="frm">
+			<p:messages id="msgs" autoUpdate="false" />
+
+			<div class="ui-fluid">
+				<p:panelGrid columns="4" layout="grid"
+					styleClass="ui-panelgrid-blank"
+					columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+					<p:outputLabel value="Cód :" for="itCod" />
+					<p:inputText id="itCod" disabled="true"/>
+
+					<p:outputLabel value="Descrição" for="itDescricao" />
+					<p:inputText id="itDescricao" />
+
+					<p:outputLabel value="Data Aquisição" for="cDtAquisicao" />
+					<p:calendar id="cDtAquisicao" />
+
+					<p:outputLabel value="Raça" for="somRaca" />
+					<p:selectOneMenu id="somRaca" />
+
+				</p:panelGrid>
+
+
+				<p:dataTable reflow="true" rows="5" paginator="true">
+					<p:column headerText="Cód">
+					</p:column>
+					<p:column headerText="Descrição">
+					</p:column>
+					<p:column headerText="Data Aquisição">
+					</p:column>
+					<p:column headerText="Raça">
+					</p:column>
+				</p:dataTable>
+
+				<p:toolbar>
+					<p:toolbarGroup>
+						<p:commandButton value="Salvar e Add Estoque" update="@form" />
+					</p:toolbarGroup>
+					<p:toolbarGroup>
+						<p:commandButton value="Salvar" update="@form" />
+					</p:toolbarGroup>
+				</p:toolbar>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

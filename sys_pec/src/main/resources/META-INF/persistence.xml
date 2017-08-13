@@ -4,7 +4,15 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="SYSPEC">
 		<class>br.com.ads.syspec.model.Animal</class>
+		<class>br.com.ads.syspec.model.AplicacaoRemedio</class>
+		<class>br.com.ads.syspec.model.Extracao</class>
+		<class>br.com.ads.syspec.model.Insumo</class>
+		<class>br.com.ads.syspec.model.Nutricao</class>
+		<class>br.com.ads.syspec.model.Ordenha</class>
 		<class>br.com.ads.syspec.model.Raca</class>
+		<class>br.com.ads.syspec.model.Remedio</class>
+		<class>br.com.ads.syspec.model.Semen</class>
+		<class>br.com.ads.syspec.model.Vacinacao</class>
 
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/syspec" />
