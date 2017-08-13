@@ -7,48 +7,113 @@
 
 	<ui:define name="corpo">
 		<h1 class="aw-page-title">Cadastrar Semen</h1>
+
+		<f:metadata>
+			<f:viewAction action="#{cadastrarInsumoSemen.initialize}" />
+		</f:metadata>
+
 		<h:form id="frm">
-			<p:messages id="msgs" autoUpdate="false" />
+			<p:messages id="msgs" autoUpdate="true" />
 
 			<div class="ui-fluid">
 				<p:panelGrid columns="4" layout="grid"
 					styleClass="ui-panelgrid-blank"
 					columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
 					<p:outputLabel value="Cód :" for="itCod" />
-					<p:inputText id="itCod" disabled="true"/>
+					<p:inputText id="itCod" disabled="true"
+						value="#{cadastrarInsumoSemen.semen.id}" />
 
-					<p:outputLabel value="Descrição" for="itDescricao" />
-					<p:inputText id="itDescricao" />
-
-					<p:outputLabel value="Data Aquisição" for="cDtAquisicao" />
-					<p:calendar id="cDtAquisicao" />
 
 					<p:outputLabel value="Raça" for="somRaca" />
-					<p:selectOneMenu id="somRaca" />
+					<p:selectOneMenu id="somRaca" filter="true" required="false"
+						converter="omnifaces.SelectItemsConverter"
+						value="#{cadastrarInsumoSemen.semen.raca}"
+						filterMatchMode="contains">
+						<f:selectItems value="#{cadastrarInsumoSemen.racas}" var="raca"
+							itemValue="#{raca}" itemLabel="#{raca.descricao}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Descricao" for="inDescricao" />
+					<p:inputText value="#{cadastrarInsumoSemen.semen.descricao}"
+						id="inDescricao" />
+
+
+					<p:outputLabel value="Animal: " for="somAnimal">
+						<p:commandButton icon="fa fa-question" title="Icon Only" style="max-width: 30px" process="@this" onclick="PF('infoAnimal').show(	)"/>
+					</p:outputLabel>
+					<p:selectOneMenu id="somAnimal" filter="true" required="false"
+						converter="omnifaces.SelectItemsConverter"
+						value="#{cadastrarInsumoSemen.semen.animal}"
+						filterMatchMode="contains">
+						<f:selectItem itemLabel=" " itemValue="#{null}" />
+						<f:selectItems value="#{cadastrarInsumoSemen.animalMachos}"
+							var="animal" itemValue="#{animal}"
+							itemLabel="#{animal.indentificador} - #{animal.descricao}" />
+					</p:selectOneMenu>
 
 				</p:panelGrid>
 
-
-				<p:dataTable reflow="true" rows="5" paginator="true">
+				<p:dataTable reflow="true" rows="5" paginator="true" var="semen"
+					value="#{cadastrarInsumoSemen.semens}">
 					<p:column headerText="Cód">
+						<h:outputText value="#{semen.id}" />
 					</p:column>
 					<p:column headerText="Descrição">
-					</p:column>
-					<p:column headerText="Data Aquisição">
+						<h:outputText value="#{semen.descricao}" />
 					</p:column>
 					<p:column headerText="Raça">
+						<h:outputText value="#{semen.raca.descricao}" />
+					</p:column>
+					<p:column headerText="Fornecedor">
+						<h:outputText value="#{semen.fornecedor}" />
+					</p:column>
+					<p:column headerText="Estoque">
+						<h:outputText value="{não implementado}" />
 					</p:column>
 				</p:dataTable>
 
-				<p:toolbar>
+				<p:toolbar style="margin-top: 10px">
 					<p:toolbarGroup>
-						<p:commandButton value="Salvar e Add Estoque" update="@form" />
-					</p:toolbarGroup>
-					<p:toolbarGroup>
-						<p:commandButton value="Salvar" update="@form" />
+						<p:commandButton value="Salvar" onclick="PF('qtdEstoque').show()"
+							process="@form" />
 					</p:toolbarGroup>
 				</p:toolbar>
 			</div>
+
+			<p:dialog id="qtdEstoque" widgetVar="qtdEstoque"
+				header="Insira a Qtd " resizable="false" responsive="true"
+				style="max-width:400px;">
+
+				<div class="ui-fluid">
+					<p:separator />
+					<p:messages id="msgsDialog" autoUpdate="true" />
+					<div class="ui-fluid">
+						<p:panelGrid columns="2" layout="grid"
+							styleClass="ui-panelgrid-blank"
+							columnClasses="ui-grid-col-6, ui-grid-col-6">
+							<p:outputLabel value="QTD. Estoque" for="inQtdEstoque" />
+							<p:inputNumber id="inQtdEstoque" />
+
+							<p:commandButton value="OK"
+								action="#{cadastrarInsumoSemen.salvar}" update="@form"
+								process="@form" />
+							<p:commandButton value="CANCELAR"
+								oncomplete="PF('qtdEstoque').hide()" process="@this" />
+						</p:panelGrid>
+					</div>
+				</div>
+			</p:dialog>
+			
+			<p:dialog id="infoAnimal" header="INFORMAÇÂO" widgetVar="infoAnimal" resizable="false" responsive="true"
+				style="max-width:400px;">
+
+				<div class="ui-fluid">
+					<div class="ui-fluid">
+						<p:separator/>
+						<p:outputLabel value="Selecione um animal caso o semen seja de um MACHO da Propriedade"/>
+					</div>
+				</div>
+			</p:dialog>
 		</h:form>
 	</ui:define>
 </ui:composition>

@@ -29,13 +29,14 @@ public abstract class Insumo implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	@NotEmpty
+	@Column(unique=true)
 	private String descricao;
-	@NotEmpty
+	
 	private String fornecedor;
 	@NotNull
 	@Column(name="dt_cadastro")
 	@Temporal(TemporalType.DATE)
-	private Date dtCadastro;
+	private Date dtCadastro = new Date();
 	
 	public long getId() {
 		return id;
@@ -61,4 +62,5 @@ public abstract class Insumo implements Serializable{
 	public void setDtCadastro(Date dtCadastro) {
 		this.dtCadastro = dtCadastro;
 	}
+	
 }
