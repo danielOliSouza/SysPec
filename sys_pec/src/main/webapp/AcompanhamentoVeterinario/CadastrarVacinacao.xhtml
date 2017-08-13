@@ -7,11 +7,16 @@
 
 	<ui:define name="corpo">
 		<h1 class="aw-page-title">Cadastrar Aplicação de Vacina</h1>
+		
+		<f:metadata>
+			<f:viewAction action="#{cadastrarAplicacaoRemedio.initialize}" />
+		</f:metadata>
+		
 		<h:form id="frm">
 			<p:toolbar>
 				<p:toolbarGroup>
 					<p:commandButton value="Salvar"
-						action="#{cadastroAnimalBean.salvar}" update="@form" />
+						action="#{cadastrarAplicacaoRemedio.salvar}" update="@form" />
 				</p:toolbarGroup>
 			</p:toolbar>
 
@@ -22,47 +27,57 @@
 					styleClass="ui-panelgrid-blank"
 					columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
 					<p:outputLabel value="Data da Aplicação" for="cDtAplicacao" />
-					<p:calendar id="cDtAplicacao" value="#{cadastrarAplicacaoRemedio.dtAplicacao}"/>
+					<p:calendar id="cDtAplicacao"
+						value="#{cadastrarAplicacaoRemedio.vacinacao.dtAplicao}" />
 
 					<p:outputLabel value="Tipo: " for="somTipo" />
-					<p:selectOneMenu id="somTipo" value="#{cadastrarAplicacaoRemedio.tipoAplicacao}">
+					<p:selectOneMenu id="somTipo"
+						value="#{cadastrarAplicacaoRemedio.vacinacao.tipo}">
 						<f:selectItem itemLabel="MASSA" itemValue="MASSA" />
 						<f:selectItem itemLabel="ISOLADA" itemValue="ISOLADA" />
 					</p:selectOneMenu>
 
 					<p:outputLabel value="Vacina: " for="somVacina" />
-					<p:selectOneMenu id="somVacina" value="#{cadastrarAplicacaoRemedio.remedio}">
-						<f:selectItem itemLabel="Selecione" />
+					<p:selectOneMenu id="somVacina" filter="true" required="false"
+						converter="omnifaces.SelectItemsConverter"
+						value="#{cadastrarAplicacaoRemedio.vacinacao.tipo}"
+						filterMatchMode="contains">
+						<f:selectItems value="#{cadastrarAplicacaoRemedio.remedios}"
+							var="remedio" itemValue="#{remedio}"
+							itemLabel="#{remedio.id} - #{remedio.descricao}" />
 					</p:selectOneMenu>
+					<p:outputLabel value="Campanha: "/>
+					<p:inputText value="#{cadastrarAplicacaoRemedio.vacinacao.campanha}"/>
 				</p:panelGrid>
-				<p:dataTable reflow="true" rows="5" paginator="true" var="aplicacao" value="#{cadastrarAplicacaoRemedio.aplicacaoes}">
+				<p:toolbar>
+					<p:toolbarGroup>
+					<p:commandButton value="Add Aplicação"
+						oncomplete="PF('addAplicacao').show()" process="@this"/>
+					</p:toolbarGroup>
+				</p:toolbar>
+
+
+				<p:dataTable id="dtbAplicacao" reflow="true" rows="5" paginator="true" var="aplicacao"
+					value="#{cadastrarAplicacaoRemedio.vacinacao.aplicacaoRemedios}">
 					<p:column headerText="Indentificador">
-						
+						<h:outputLabel value="#{aplicacao.animal.indentificador}"/>
 					</p:column>
 					<p:column headerText="Descrição">
+						<h:outputLabel value="#{aplicacao.animal.descricao}"/>
 					</p:column>
 					<p:column headerText="Sexo">
+						<h:outputLabel value="#{aplicacao.animal.sexo}"/>
 					</p:column>
-					<p:column headerText="Doses">
-						<p:cellEditor>
-							<f:facet name="output">
-
-							</f:facet>
-							<f:facet name="input">
-							</f:facet>
-						</p:cellEditor>
+					<p:column headerText="Dose">
+						<h:outputLabel value="#{aplicacao.qtdDose} ML"/>
 					</p:column>
 					<p:column headerText="Obs">
-						<p:cellEditor>
-							<f:facet name="output">
-
-							</f:facet>
-							<f:facet name="input">
-							</f:facet>
-						</p:cellEditor>
-					</p:column>
+						<h:outputLabel value="#{aplicacao.obs}"/>
+					</p:column>	
 				</p:dataTable>
 			</div>
+			
+			<ui:include src="AddAplicacao.xhtml" />
 		</h:form>
 	</ui:define>
 </ui:composition>

@@ -33,4 +33,8 @@ public class AnimalRepository implements Serializable {
 			return null;
 		}
 	}
+
+	public List<Animal> findAll() {
+		return manager.createQuery("FROM Animal", Animal.class).getResultList();
+	}
 }
