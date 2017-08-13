@@ -36,6 +36,10 @@
 					<p:outputLabel value="Descricao" for="inDescricao" />
 					<p:inputText value="#{cadastrarInsumoSemen.semen.descricao}"
 						id="inDescricao" />
+						
+					<p:outputLabel value="Fornecedor" for="intFornecedor" />
+					<p:inputText value="#{cadastrarInsumoSemen.semen.fornecedor}"
+						id="intFornecedor" />
 
 
 					<p:outputLabel value="Animal: " for="somAnimal">
@@ -66,6 +70,9 @@
 					</p:column>
 					<p:column headerText="Fornecedor">
 						<h:outputText value="#{semen.fornecedor}" />
+					</p:column>
+					<p:column headerText="Animal">
+						<h:outputText value="#{semen.animal.indentificador}" />
 					</p:column>
 					<p:column headerText="Estoque">
 						<h:outputText value="{não implementado}" />
