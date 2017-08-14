@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -26,8 +26,7 @@ public class CadastrarInsumoRemedio implements Serializable{
 	
 	private Remedio remedio = new Remedio();
 	private List<Remedio> remedios = new ArrayList<>();
-	
-	
+
 	public void initialize(){
 		remedios = remedioRepository.findAll();
 		System.out.println(remedios.size());
