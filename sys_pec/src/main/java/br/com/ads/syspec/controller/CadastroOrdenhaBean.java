@@ -51,6 +51,7 @@ public class CadastroOrdenhaBean implements Serializable{
 	public void salvar() {
 		try {
 			extracaoService.salvar(extracao);
+			extracao = new Extracao();
 		} catch (Exception e) {
 			messages.error(e.getMessage());
 		}
