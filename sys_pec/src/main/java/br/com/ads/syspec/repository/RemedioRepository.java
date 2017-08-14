@@ -13,7 +13,11 @@ public class RemedioRepository implements Serializable{
 	private EntityManager manager;
 	
 	public List<Remedio> findAll() {
-		return manager.createQuery("FROM Remedio", Remedio.class).getResultList();
+		return manager.createQuery("FROM Remedio ORDER BY id DESC", Remedio.class).getResultList();
+	}
+
+	public void guardar(Remedio remedio) {
+		manager.merge(remedio);
 	}
 
 }
