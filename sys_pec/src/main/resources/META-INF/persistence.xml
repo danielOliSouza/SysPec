@@ -6,6 +6,7 @@
 		<class>br.com.ads.syspec.model.Animal</class>
 		<class>br.com.ads.syspec.model.AplicacaoRemedio</class>
 		<class>br.com.ads.syspec.model.Extracao</class>
+		<class>br.com.ads.syspec.model.Inseminacao</class>
 		<class>br.com.ads.syspec.model.Insumo</class>
 		<class>br.com.ads.syspec.model.Nutricao</class>
 		<class>br.com.ads.syspec.model.Ordenha</class>
@@ -20,7 +21,7 @@
 			<property name="javax.persistence.jdbc.password" value="postgres" />
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
 
-			<!--property name="javax.persistence.schema-generation.database.action" value="drop-and-create" -->
+			<!--property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/-->
       		<property name="javax.persistence.schema-generation.create-source" value="metadata" />
       		<!--  property name="javax.persistence.sql-load-script-source" value="META-INF/popular.sql" -->
       		<property name="hibernate.hbm2ddl.auto" value="update" />
