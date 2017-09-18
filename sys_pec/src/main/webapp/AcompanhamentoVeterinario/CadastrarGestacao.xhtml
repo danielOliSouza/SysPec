@@ -1,0 +1,101 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/LayoutPadrao.xhtml">
+
+	<ui:define name="corpo">
+		<h1 class="aw-page-title">Gestações</h1>
+
+		<f:metadata>
+			<f:viewAction action="PF('insereAnimal').show()" />
+		</f:metadata>
+
+		<h:form id="frm">
+			<p:messages id="msgs" autoUpdate="false" />
+			<div class="ui-fluid">
+				<p:panelGrid columns="4" layout="grid"
+					styleClass="ui-panelgrid-blank"
+					columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+
+					<p:outputLabel value="Indentificador: " />
+					<p:inputText id="itIndentificador" disabled="true"
+						value="#{cadastrarGestacaoBean.gestacao.animal.indentificador}" />
+
+					<p:outputLabel value="Descricao: " />
+					<p:inputText id="itDescricao" disabled="true"
+						value="#{cadastrarGestacaoBean.gestacao.animal.descricao}" />
+						
+					<p:outputLabel value="Pai/Inseminacao " />
+					<p:inputText disabled="true"
+						value="#{cadastrarGestacaoBean.paiORInseminacao}" />
+
+					<p:outputLabel value="Tipo: " />
+					<p:selectOneMenu id="tipo" value="#{cadastrarGestacaoBean.ordinalTipoGestacao}" widgetVar="wgvTipo">
+						<f:selectItem itemLabel="Selecione ..."/>
+						<f:selectItem itemLabel="NATURAL" itemValue="2"/>
+						<f:selectItem itemLabel="INSEMINACAO" itemValue="1"/>
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Dt. Inicio Gestacao" />
+					<p:calendar value="#{cadastrarGestacaoBean.gestacao.dtInicioGestacao}"/>
+					
+					<p:outputLabel value="Dt. Parto" />
+					<p:calendar value="#{cadastrarGestacaoBean.gestacao.dtParto}"/>
+
+				</p:panelGrid>
+
+				<p:panelGrid columns="2" layout="grid"
+					styleClass="ui-panelgrid-blank"
+					columnClasses="ui-grid-col-2, ui-grid-col-10">
+					<p:outputLabel value="Obs. " />
+					<p:inputTextarea />
+
+					<h:outputLabel value="Nutrições" />
+					<p:selectCheckboxMenu label="Nutrições" multiple="true"
+						filter="true" filterMatchMode="startsWith"
+						panelStyle="width:250px">
+
+					</p:selectCheckboxMenu>
+				</p:panelGrid>
+
+				<p:toolbar>
+					<p:toolbarGroup>
+						<p:commandButton value="Salvar" update="@form" />
+					</p:toolbarGroup>
+				</p:toolbar>
+
+			</div>
+			<p:dialog id="insereAnimal" widgetVar="insereAnimal" modal="true"
+				header="Inserir Animal" resizable="false" responsive="true"
+				style="max-width: 800px;" closable="false">
+				<div class="ui-fluid">
+					<p:panelGrid columns="2" layout="grid"
+						styleClass="ui-panelgrid-blank"
+						columnClasses="ui-grid-col-2, ui-grid-col-10">
+						<p:outputLabel value="Animal: " />
+						<p:selectOneMenu id="advanced" effect="fade" filter="true"
+							filterMatchMode="contains"
+							value="#{cadastrarGestacaoBean.gestacao.animal}"
+							converter="omnifaces.SelectItemsConverter">
+							<f:selectItem itemLabel="Selecione" />
+							<f:selectItems value="#{cadastrarGestacaoBean.animals}"
+								var="animal"
+								itemLabel="#{animal.indentificador} - #{animal.descricao}" />
+							<p:ajax event="change" update="@form"
+								onsuccess="PF('insereAnimal').show()" />
+						</p:selectOneMenu>
+					</p:panelGrid>
+				</div>
+			</p:dialog>
+		</h:form>
+
+		<script>
+			window.onload = function() {
+				PF('insereAnimal').show();
+				
+			}
+		</script>
+	</ui:define>
+</ui:composition>

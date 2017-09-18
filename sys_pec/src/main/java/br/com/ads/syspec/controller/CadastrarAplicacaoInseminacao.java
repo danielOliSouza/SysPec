@@ -2,6 +2,7 @@ package br.com.ads.syspec.controller;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.view.ViewScoped;
@@ -10,6 +11,7 @@ import javax.inject.Named;
 
 import br.com.ads.syspec.model.Animal;
 import br.com.ads.syspec.model.Inseminacao;
+import br.com.ads.syspec.model.Procedencia;
 import br.com.ads.syspec.model.Semen;
 import br.com.ads.syspec.repository.AnimalRepository;
 import br.com.ads.syspec.repository.InseminacaoRepository;
@@ -38,6 +40,24 @@ public class CadastrarAplicacaoInseminacao implements Serializable{
 	
 	
 	public void initialize() {
+		/*Inseminacao in = new Inseminacao();
+		
+		Animal a = new Animal();
+		a.setDescricao("Teste 01");
+		a.setDtCadastro(new Date());
+		a.setDtNascimento(new Date());
+		a.setId(1L);
+		a.setIndentificador("Teste 02");
+		a.setProcedencia(Procedencia.ANIMAL_COMPRADO);
+		a.setSexo("F");
+		
+		in.setAnimal(a);
+		in.setDtInsemincao(new Date());
+		in.setId(1L);
+		in.setSemen(new Semen());
+		
+		insemincoes.add(in);*/
+		
 		insemincoes = inseminacaoRepository.findAll();
 		animalsFemeas = animalRepository.findPorSexo("F");
 		semens = semenRepository.findAll();
