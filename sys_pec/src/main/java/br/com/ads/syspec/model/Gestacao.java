@@ -4,9 +4,14 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Gestacao implements Serializable{
@@ -14,18 +19,20 @@ public class Gestacao implements Serializable{
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Long id;
 	
+	@OneToOne
 	private Animal animal = new Animal();
 
+	@Temporal(TemporalType.DATE)
 	private Date dtInicioGestacao = new Date();
-	
+	@Temporal(TemporalType.DATE)
 	private Date dtParto = new Date();
 	
 	private String obs;
-	
+	@Enumerated(EnumType.STRING)
 	private Procedencia procedencia;
-	
+	@OneToOne
 	private Inseminacao inseminacao;
-	
+	@OneToOne
 	private Animal pai;
 	
 	public Long getId() {

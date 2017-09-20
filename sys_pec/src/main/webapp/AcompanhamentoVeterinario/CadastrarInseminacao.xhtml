@@ -35,7 +35,9 @@
 					</h:outputLabel>
 				</p:column>
 				<p:column headerText="Prenha ?">
-					<h:outputLabel />
+					 <p:selectBooleanCheckbox value="#{insem.gestacao}">
+					 	<p:ajax event="change" oncomplete="redirect(#{insem.id})"/>
+					 </p:selectBooleanCheckbox>
 				</p:column>
 				<p:column headerText="Obs">
 					<h:outputLabel value="#{insem.obs}" />
@@ -49,5 +51,10 @@
 			</p:toolbar>
 			<ui:include src="NovaInseminacao.xhtml" />
 		</h:form>
+		<script>
+			function redirect(id) {
+				window.location.replace("/sys_pec/AcompanhamentoVeterinario/CadastrarGestacao.xhtml?idinsem=" + id);
+			}
+		</script>
 	</ui:define>
 </ui:composition>

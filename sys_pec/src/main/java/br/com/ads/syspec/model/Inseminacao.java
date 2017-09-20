@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Inseminacao implements Serializable{
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NotNull
 	@OneToOne
@@ -27,6 +27,7 @@ public class Inseminacao implements Serializable{
 	@Temporal(TemporalType.DATE)
 	private Date dtInsemincao = new Date();
 	private String obs;
+	private boolean gestacao;
 	
 	public Long getId() {
 		return id;
@@ -57,6 +58,12 @@ public class Inseminacao implements Serializable{
 	}
 	public void setObs(String obs) {
 		this.obs = obs;
+	}
+	public boolean isGestacao() {
+		return gestacao;
+	}
+	public void setGestacao(boolean gestacao) {
+		this.gestacao = gestacao;
 	}
 	
 }
