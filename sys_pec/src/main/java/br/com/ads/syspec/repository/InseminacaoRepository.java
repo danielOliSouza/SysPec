@@ -16,12 +16,18 @@ public class InseminacaoRepository implements Serializable {
 		return manager.createQuery("FROM Inseminacao ORDER BY dtInsemincao, id DESC", Inseminacao.class)
 				.getResultList();
 	}
-
+	
+	public Inseminacao findById(Long id){
+		return manager.find(Inseminacao.class, id);
+	}
+	
 	public void guardar(Inseminacao inseminacao) {
-		try {
 		manager.merge(inseminacao);
-		}catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
+	}
+	
+	public List<Inseminacao> findPorAnimal(Long animalId){
+		return manager.createQuery("FROM Inseminacao  WHERE animal_id = :animalId ORDER BY dtInsemincao, id DESC", Inseminacao.class)
+				.setParameter("animalId", animalId)
+				.getResultList();
 	}
 }
