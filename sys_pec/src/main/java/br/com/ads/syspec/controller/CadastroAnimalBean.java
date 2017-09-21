@@ -38,7 +38,7 @@ public class CadastroAnimalBean implements Serializable {
 	@Inject
 	private FacesMessages messages;
 	
-	private Animal animal;
+	private Animal animal = new Animal();
 	private List<Raca> racas;
 	private List<Animal> animaisFemeas = new ArrayList<>();
 	private List<Animal> animaisMachos = new ArrayList<>();

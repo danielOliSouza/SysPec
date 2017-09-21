@@ -3,6 +3,7 @@ package br.com.ads.syspec.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -30,7 +31,7 @@ public class Gestacao implements Serializable{
 	private String obs;
 	@Enumerated(EnumType.STRING)
 	private Procedencia procedencia;
-	@OneToOne
+	@OneToOne(cascade=CascadeType.MERGE)
 	private Inseminacao inseminacao;
 	@OneToOne
 	private Animal pai;

@@ -53,13 +53,12 @@ public class CadastrarGestacaoBean implements Serializable{
 			if(!parameterOne.isEmpty()) {
 				Long id = new Long (Integer.valueOf(parameterOne));
 				Inseminacao insem = inseminacaoRepository.findById(id);
+				insem.setGestacao(true);
 				gestacao.setAnimal(insem.getAnimal());
 				gestacao.setProcedencia(Procedencia.NASCIMENTO_INSEMINACAO);
 				gestacao.setInseminacao(insem);
 			}
-		}catch(Exception e) {
-
-		}
+		}catch(Exception e) {}
 
 
 		animalsMachos = animalRepository.findPorSexo("M");

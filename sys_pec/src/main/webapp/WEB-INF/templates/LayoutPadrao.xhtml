@@ -8,14 +8,14 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<meta http-equiv= "Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title><ui:insert name="titulo">Sistema de Pedidos de Venda</ui:insert></title>
-	<h:outputStylesheet library="ads" name="styles/font-family-raleway.css"/>
-	<h:outputStylesheet library="ads" name="styles/font-awesome.min.css"/>
-	<h:outputStylesheet library="ads" name="styles/w3.css"/>
-	<h:outputStylesheet library="ads" name="styles/myStyle.css"/>
+	<h:outputStylesheet library="ads" name="styles/font-family-raleway.css" />
+	<h:outputStylesheet library="ads" name="styles/font-awesome.min.css" />
+	<h:outputStylesheet library="ads" name="styles/w3.css" />
+	<h:outputStylesheet library="ads" name="styles/myStyle.css" />
 	<meta name="viewport" content="width=device-width, user-scalable=no" />
-</h:head>   
+</h:head>
 
 <h:body class="w3-light-grey">
 
@@ -32,28 +32,48 @@
 	<!-- Sidebar/menu -->
 	<nav class="w3-sidebar w3-collapse w3-white w3-animate-left"
 		style="z-index: 3; width: 300px;" id="mySidebar">
-		<br/>
+		<br />
 		<div class="w3-container w3-row">
 			<div class="w3-col s4">
 				<img src="/w3images/avatar2.png" class="w3-circle w3-margin-right"
 					style="width: 46px" />
 			</div>
 			<div class="w3-col s8 w3-bar">
-				<span>Welcome, <strong>Mike</strong></span><br/>
-				<a href="#" class="w3-bar-item w3-button"><i
-					class="fa fa-envelope"></i></a> <a href="#"
-					class="w3-bar-item w3-button"><i class="fa fa-user"></i></a> <a
-					href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
+				<span>Welcome, <strong>Mike</strong></span><br /> <a href="#"
+					class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a> <a
+					href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
+				<a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
 			</div>
 		</div>
-		<hr/>
+		<hr />
 		<div class="w3-container">
 			<h5>Dashboard</h5>
 		</div>
 		<div class="w3-bar-block">
 			<a href="#"
 				class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black"
-				onclick="w3_close()" title="close menu"><i
+				onclick="w3_close()" title="close menu"> 
+				<h:form>
+					<p:slideMenu style="width:100%">
+				        <p:submenu label="Animal" icon="ui-icon-refresh">
+				            <p:menuitem value="Cadastro Individual" icon="ui-icon-disk" action="/Animal/CadastroNovoAnimalIndividual.xhtml?faces-redirect=true"/>
+				            <p:menuitem value="Cadastro Multiplo" icon="ui-icon-arrowrefresh-1-w"/>
+				        </p:submenu>
+				        <p:submenu label="Acompanhamento Veterinario" icon="ui-icon-refresh">
+				            <p:menuitem value="Gestacao" icon="ui-icon-disk" action="/AcompanhamentoVeterinario/CadastrarGestacao.xhmtl?faces-redirect=true" />
+				             <p:menuitem value="Vacinacao" icon="ui-icon-arrowrefresh-1-w" action="/AcompanhamentoVeterinario/CadastrarVacinacao.xhtml?faces-redirect=true"/>
+				            <p:menuitem value="Inseminacao" icon="ui-icon-arrowrefresh-1-w" action="/AcompanhamentoVeterinario/CadastrarInseminacao.xhtml?faces-redirect=true"/>
+				        </p:submenu>
+				        <p:submenu label="Insumo " icon="ui-icon-refresh">
+				            <p:menuitem value="Nutricao" icon="ui-icon-disk" action="/Insumo/CadastroInsumoNutricao.xhtml?faces-redirect=true" />
+				             <p:menuitem value="Remedio" icon="ui-icon-arrowrefresh-1-w" action="/Insumo/CadastroInsumoRemedio.xhtml?faces-redirect=true"/>
+				            <p:menuitem value="Semen" icon="ui-icon-arrowrefresh-1-w" action="/Insumo/CadastroInsumoSemen.xhtml?faces-redirect=true"/>
+				        </p:submenu>
+				        <p:submenu label="Producao " icon="ui-icon-refresh">
+				            <p:menuitem value="Cadastrar" icon="ui-icon-disk" action="/Producao/CadastroProducao.xhtml?faces-redirect=true" />
+				        </p:submenu>
+				    </p:slideMenu>
+				</h:form> <!-- <i
 				class="fa fa-remove fa-fw"></i>  Close Menu</a> <a href="#"
 				class="w3-bar-item w3-button w3-padding w3-blue"><i
 				class="fa fa-users fa-fw"></i>  Overview</a> <a href="#"
@@ -72,8 +92,8 @@
 				class="w3-bar-item w3-button w3-padding"><i
 				class="fa fa-history fa-fw"></i>  History</a> <a href="#"
 				class="w3-bar-item w3-button w3-padding"><i
-				class="fa fa-cog fa-fw"></i>  Settings</a><br/>
-			<br/>
+				class="fa fa-cog fa-fw"></i>  Settings 
+				--></a><br /> <br />
 		</div>
 	</nav>
 
@@ -93,11 +113,11 @@
 			</h5>
 		</header>
 
-				
+
 		<div id="conteudo" style="padding-left: 40px;">
-			<ui:insert name="corpo"/>
+			<ui:insert name="corpo" />
 		</div>
-				
+
 		<!-- Footer -->
 		<footer class="w3-container w3-padding-16 w3-light-grey">
 			<h4>FOOTER</h4>
