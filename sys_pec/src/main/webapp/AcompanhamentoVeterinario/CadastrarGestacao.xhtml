@@ -7,10 +7,10 @@
 
 	<ui:define name="corpo">
 		<h1 class="aw-page-title">Gestações</h1>
-		
-			<f:metadata>
-				<f:viewAction action="#{cadastrarGestacaoBean.initialize}" />
-			</f:metadata>
+
+		<f:metadata>
+			<f:viewAction action="#{cadastrarGestacaoBean.initialize}" />
+		</f:metadata>
 
 		<h:form id="frm">
 			<p:messages id="msgs" autoUpdate="true" />
@@ -41,7 +41,7 @@
 
 						<!-- ATENÇÃO !!! Caso mudar os 'itemLabels' tambem deve se mudar a function 'opemModal()' -->
 						<!-- Pois ela leva em consideração ps itemLabels -->
-						<p:ajax event="change" onsuccess="openModal()" update="tipo"/>
+						<p:ajax event="change" onsuccess="openModal()" update="tipo" />
 					</p:selectOneMenu>
 
 					<p:outputLabel value="Dt. Inicio Gestacao" />
@@ -49,9 +49,24 @@
 						value="#{cadastrarGestacaoBean.gestacao.dtInicioGestacao}" />
 
 					<p:outputLabel value="Dt. Parto" />
-					<p:calendar value="#{cadastrarGestacaoBean.gestacao.dtParto}" />
+					<p:calendar value="#{cadastrarGestacaoBean.gestacao.dtParto}"
+						required="false" />
 
+					<h:outputLabel />
+					<h:outputLabel />
+					<h:outputLabel />
+
+					<p:panel>
+						<p:outputLabel value="Parto com Sucesso? " for="sucess" />
+						<p:selectBooleanCheckbox id="sucess" value="#{cadastrarGestacaoBean.gestacao.partoSucesso}">
+							<p:ajax event="change" process="@form"
+								listener="#{cadastrarGestacaoBean.openCadastroAnimal}" />
+						</p:selectBooleanCheckbox>
+					</p:panel>
 				</p:panelGrid>
+
+
+
 
 				<p:panelGrid columns="2" layout="grid"
 					styleClass="ui-panelgrid-blank"
@@ -69,7 +84,8 @@
 
 				<p:toolbar>
 					<p:toolbarGroup>
-						<p:commandButton value="Salvar" update="@form" action="#{cadastrarGestacaoBean.salvar}"/>
+						<p:commandButton value="Salvar" update="@form"
+							action="#{cadastrarGestacaoBean.salvar}" />
 					</p:toolbarGroup>
 				</p:toolbar>
 
@@ -103,8 +119,9 @@
 				<div class="ui-fluid">
 					<p:dataTable reflow="true" scrollable="true" scrollHeight="150"
 						emptyMessage="Sem Animais" widgetVar="animalTable"
-						rowKey="#{animal.id}" value="#{cadastrarGestacaoBean.animalsMachos}"
-						var="animal" selectionMode="single" >
+						rowKey="#{animal.id}"
+						value="#{cadastrarGestacaoBean.animalsMachos}" var="animal"
+						selectionMode="single">
 						<f:facet name="header">
 							<p:outputPanel>
 								<h:outputText value="Search all fields:" />
@@ -116,15 +133,17 @@
 						<p:column headerText="Indentificador">
 							<h:outputText value="#{animal.indentificador}" />
 						</p:column>
-						<p:column headerText="Descricao" >
-					        <h:outputText value="#{animal.descricao}" />
-					    </p:column>
-					    <p:column headerText="Raça">
-					        <h:outputText value="#{animal.raca.descricao}" />
-					    </p:column>
-					    
-					    
-					    <p:ajax event="rowSelect" listener="#{cadastrarGestacaoBean.inserePai}" oncomplete="PF('modalNatural').hide()" update="@form:paiOrInsem"/>
+						<p:column headerText="Descricao">
+							<h:outputText value="#{animal.descricao}" />
+						</p:column>
+						<p:column headerText="Raça">
+							<h:outputText value="#{animal.raca.descricao}" />
+						</p:column>
+
+
+						<p:ajax event="rowSelect"
+							listener="#{cadastrarGestacaoBean.inserePai}"
+							oncomplete="PF('modalNatural').hide()" update="@form:paiOrInsem" />
 					</p:dataTable>
 				</div>
 			</p:dialog>
@@ -132,11 +151,12 @@
 			<p:dialog id="modalInsem" widgetVar="modalInsem" modal="true"
 				header="Inserir Inseminacao" resizable="false" responsive="true"
 				style="max-width: 800px;">
-					<div class="ui-fluid">
+				<div class="ui-fluid">
 					<p:dataTable reflow="true" scrollable="true" scrollHeight="150"
 						emptyMessage="Sem Animais" widgetVar="insemTable"
-						rowKey="#{ins.id}" value="#{cadastrarGestacaoBean.inseminacaoPorAnimal}"
-						var="ins" selectionMode="single" id="dtIns">
+						rowKey="#{ins.id}"
+						value="#{cadastrarGestacaoBean.inseminacaoPorAnimal}" var="ins"
+						selectionMode="single" id="dtIns">
 						<f:facet name="header">
 							<p:outputPanel>
 								<h:outputText value="Search all fields:" />
@@ -150,17 +170,19 @@
 						</p:column>
 						<p:column headerText="Dt. Inseminacao">
 							<h:outputText value="#{ins.dtInsemincao}" />
-						</p:column>			
+						</p:column>
 						<p:column headerText="Dt. Inseminacao">
 							<h:outputText value="#{ins.obs}" />
 						</p:column>
 						<p:column headerText="Semen">
 							<h:outputText value="#{ins.semen.descricao}" />
-						</p:column>		
+						</p:column>
 						<p:column headerText="Animal">
 							<h:outputText value="#{ins.animal.indentificador}" />
-						</p:column>	
-					    <p:ajax event="rowSelect" listener="#{cadastrarGestacaoBean.insereInseminacao}" oncomplete="PF('modalInsem').hide()" update="@form:paiOrInsem"/>
+						</p:column>
+						<p:ajax event="rowSelect"
+							listener="#{cadastrarGestacaoBean.insereInseminacao}"
+							oncomplete="PF('modalInsem').hide()" update="@form:paiOrInsem" />
 					</p:dataTable>
 				</div>
 			</p:dialog>
@@ -169,28 +191,28 @@
 		<script>
 			window.onload = function() {
 				var idin = parseInt($.urlParam("idinsem"));
-				if(!$.isNumeric(idin))
+				if (!$.isNumeric(idin))
 					PF('insereAnimal').show();
 			}
-			
-			$.urlParam = function(name){
-			    var results = new RegExp('[\?&amp;]' + name + '=([^&amp;#]*)').exec(window.location.href);
-			    if (results==null){
-			       return null;
-			    }
-			    else{
-			       return decodeURI(results[1]) || 0;
-			    }
-			}
 
+			$.urlParam = function(name) {
+				var results = new RegExp('[\?&amp;]' + name + '=([^&amp;#]*)')
+						.exec(window.location.href);
+				if (results == null) {
+					return null;
+				} else {
+					return decodeURI(results[1]) || 0;
+				}
+			}
 		</script>
 		<script>
-			function openModal(){
-				var tipo = PF('wgvTipo').jq.find(".ui-selectonemenu-label").first().text();
+			function openModal() {
+				var tipo = PF('wgvTipo').jq.find(".ui-selectonemenu-label")
+						.first().text();
 				console.log(tipo);
-				if(tipo == "NATURAL")
+				if (tipo == "NATURAL")
 					PF("modalNatural").show();
-				else if(tipo == "INSEMINACAO")
+				else if (tipo == "INSEMINACAO")
 					PF("modalInsem").show();
 			}
 		</script>
