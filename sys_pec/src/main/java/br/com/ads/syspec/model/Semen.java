@@ -25,4 +25,34 @@ public class Semen extends Insumo{
 	public void setRaca(Raca raca) {
 		this.raca = raca;
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((animal == null) ? 0 : animal.hashCode());
+		result = prime * result + ((raca == null) ? 0 : raca.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Semen other = (Semen) obj;
+		if (animal == null) {
+			if (other.animal != null)
+				return false;
+		} else if (!animal.equals(other.animal))
+			return false;
+		if (raca == null) {
+			if (other.raca != null)
+				return false;
+		} else if (!raca.equals(other.raca))
+			return false;
+		return true;
+	}
+	
 }

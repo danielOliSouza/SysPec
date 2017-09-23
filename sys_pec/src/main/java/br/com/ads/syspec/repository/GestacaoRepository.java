@@ -12,6 +12,10 @@ public class GestacaoRepository implements Serializable{
 	private EntityManager manager;
 
 	public void guardar(Gestacao gestacao) {
-		manager.merge(gestacao);
+		gestacao.setId(manager.merge(gestacao).getId());
+	}
+
+	public Gestacao findById(Long id) {
+		return manager.find(Gestacao.class, id);
 	}
 }

@@ -30,4 +30,9 @@ public class InseminacaoRepository implements Serializable {
 				.setParameter("animalId", animalId)
 				.getResultList();
 	}
+	public List<Inseminacao> findSemCria(){
+		return manager.createQuery("FROM Inseminacao as i WHERE NOT EXISTS"
+				+ "(SELECT a.inseminacao.id from Animal as a WHERE a.inseminacao.id = i.id)", Inseminacao.class)
+				.getResultList();
+	}
 }

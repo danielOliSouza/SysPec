@@ -38,3 +38,6 @@ INSERT INTO inseminacao (dtinsemincao, animal_id, semen_id, gestacao) values ('2
 INSERT INTO inseminacao (dtinsemincao, animal_id, semen_id, gestacao) values ('2017-01-01', 5, 9,false);
 INSERT INTO inseminacao (dtinsemincao, animal_id, semen_id, gestacao) values ('2017-01-01', 4, 7,false);
 INSERT INTO inseminacao (dtinsemincao, animal_id, semen_id, gestacao) values ('2017-01-01', 4, 7,false);
+
+INSERT INTO gestacao (dtiniciogestacao, dtparto, partosucesso, procedencia, animal_id, inseminacao_id) values ('2017-09-22', '2017-09-22', false, 'NASCIMENTO_INSEMINACAO', 5, 3)
+INSERT INTO gestacao (dtiniciogestacao, dtparto, partosucesso, procedencia, animal_id, pai_id) values ('2017-09-22', '2017-09-22', false, 'NASCIMENTO_INSEMINACAO', 5, 1)

@@ -26,7 +26,7 @@ public class Gestacao implements Serializable{
 	@Temporal(TemporalType.DATE)
 	private Date dtInicioGestacao = new Date();
 	@Temporal(TemporalType.DATE)
-	private Date dtParto = new Date();
+	private Date dtParto;
 	
 	private String obs;
 	@Enumerated(EnumType.STRING)
@@ -35,6 +35,8 @@ public class Gestacao implements Serializable{
 	private Inseminacao inseminacao;
 	@OneToOne
 	private Animal pai;
+	
+	private Boolean partoSucesso = false;
 	
 	public Long getId() {
 		return id;
@@ -98,6 +100,84 @@ public class Gestacao implements Serializable{
 
 	public void setPai(Animal pai) {
 		this.pai = pai;
+	}
+
+	public Boolean getPartoSucesso() {
+		return partoSucesso;
+	}
+
+	public void setPartoSucesso(Boolean partoSucesso) {
+		this.partoSucesso = partoSucesso;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((animal == null) ? 0 : animal.hashCode());
+		result = prime * result + ((dtInicioGestacao == null) ? 0 : dtInicioGestacao.hashCode());
+		result = prime * result + ((dtParto == null) ? 0 : dtParto.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((inseminacao == null) ? 0 : inseminacao.hashCode());
+		result = prime * result + ((obs == null) ? 0 : obs.hashCode());
+		result = prime * result + ((pai == null) ? 0 : pai.hashCode());
+		result = prime * result + ((partoSucesso == null) ? 0 : partoSucesso.hashCode());
+		result = prime * result + ((procedencia == null) ? 0 : procedencia.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Gestacao other = (Gestacao) obj;
+		if (animal == null) {
+			if (other.animal != null)
+				return false;
+		} else if (!animal.equals(other.animal))
+			return false;
+		if (dtInicioGestacao == null) {
+			if (other.dtInicioGestacao != null)
+				return false;
+		} else if (!dtInicioGestacao.equals(other.dtInicioGestacao))
+			return false;
+		if (dtParto == null) {
+			if (other.dtParto != null)
+				return false;
+		} else if (!dtParto.equals(other.dtParto))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (inseminacao == null) {
+			if (other.inseminacao != null)
+				return false;
+		} else if (!inseminacao.equals(other.inseminacao))
+			return false;
+		if (obs == null) {
+			if (other.obs != null)
+				return false;
+		} else if (!obs.equals(other.obs))
+			return false;
+		if (pai == null) {
+			if (other.pai != null)
+				return false;
+		} else if (!pai.equals(other.pai))
+			return false;
+		if (partoSucesso == null) {
+			if (other.partoSucesso != null)
+				return false;
+		} else if (!partoSucesso.equals(other.partoSucesso))
+			return false;
+		if (procedencia != other.procedencia)
+			return false;
+		return true;
 	}
 	
 }

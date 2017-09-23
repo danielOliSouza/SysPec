@@ -1,11 +1,13 @@
 package br.com.ads.syspec.controller;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -66,14 +68,22 @@ public class CadastrarGestacaoBean implements Serializable{
 		animalsFemeas = animalRepository.findPorSexo("F");
 	}
 
-	public void salvar() {
+	public String salvar() {
+		String loadPage = null;
+		boolean redirect = gestacao.getPartoSucesso();
 		ValidacaoUtil vUtil = new ValidacaoUtil();
+		
 		gestacaoService.salvar(gestacao, vUtil);
 
-		if(vUtil.getValidacaoStatus() == ValidacaoStatus.VALID)
+		if(vUtil.getValidacaoStatus() == ValidacaoStatus.VALID){
+			if(redirect)
+				loadPage = "/Animal/CadastroNovoAnimalIndividual.xhtml?faces-redirect=true&idGestacao=" + gestacao.getId();
 			msgs.info(vUtil.getMensagemToString());
+		}
 		else
 			msgs.error(vUtil.getMensagemToString());
+		
+		return loadPage;
 	}
 
 	public List<Animal> getAnimalsFemeas() {
@@ -145,5 +155,24 @@ public class CadastrarGestacaoBean implements Serializable{
 	public List<Inseminacao> getInseminacaoPorAnimal() {
 		System.out.println(inseminacaoRepository.findPorAnimal(gestacao.getAnimal().getId()).size());
 		return inseminacaoRepository.findPorAnimal(gestacao.getAnimal().getId());
+	}
+
+	public void openCadastroAnimal() throws IOException{
+		ValidacaoUtil vUtil = new ValidacaoUtil();
+
+		if(gestacao.getPartoSucesso()){
+			gestacaoService.verificaRedirecionamento(gestacao, vUtil);
+
+			if(vUtil.getValidacaoStatus() == ValidacaoStatus.VALID){
+				//É necessario para requisições ajax para redirecionar para uma pagina
+				ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+				ec.redirect(ec.getRequestContextPath() 
+						+ "/Animal/CadastroNovoAnimalIndividual.xhtml?faces-redirect=true&idGestacao="+gestacao.getId());
+			}
+			else if(vUtil.getValidacaoStatus() == ValidacaoStatus.INVALID)
+				msgs.info(vUtil.getMensagemToString());
+			else
+				msgs.error(vUtil.getMensagemToString());
+		}
 	}
 }
