@@ -6,107 +6,91 @@ import java.util.Date;
 
 import javax.inject.Inject;
 
+import org.hibernate.annotations.PolymorphismType;
+
 import br.com.ads.syspec.model.Animal;
+import br.com.ads.syspec.model.Inseminacao;
 import br.com.ads.syspec.model.Procedencia;
 import br.com.ads.syspec.repository.AnimalRepository;
 import br.com.ads.syspec.util.Transacional;
+import br.com.ads.syspec.util.ValidacaoStatus;
+import br.com.ads.syspec.util.ValidacaoUtil;
 
 public class AnimalService implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Inject
 	private AnimalRepository animalRepository;
-	
+
 	@Transacional
-	public void salvar(Animal animal, Animal mae, Animal pai, boolean isDataEstimada, String txtDtEstimada) throws Exception {
-		validarAnimal(animal, mae, pai);
-		if(isDataEstimada)
-			animal = textoDataParaObjData(txtDtEstimada, animal);
-		else{
-			animal.setDtEstimadaFim(null);
-			animal.setDtEstimadaInicio(null);
+	public void salvar(Animal animal, ValidacaoUtil vUtil) {
+		if(animal.getIndentificador() == null){
+			vUtil.addMensagem("Indentificador não pode ser em branco");
+			vUtil.setValidacaoStatus(ValidacaoStatus.INVALID);
 		}
-		animalRepository.guardar(animal);
-	}
-	
-	public void validarAnimal(Animal animal, Animal mae, Animal pai) throws Exception{
-		if(animal.getProcedencia() == Procedencia.NASCIMENTO_NATURAL){
-			mae = validaProgenitor(mae, false);
-			pai = validaProgenitor(pai, true);
+
+		if(animal.getDtNascimento() == null){
+			vUtil.addMensagem("Dt. Nascimento não pode ser em branco");
+			vUtil.setValidacaoStatus(ValidacaoStatus.INVALID);
+		}
+
+		if(animal.getRaca() == null){
+			vUtil.addMensagem("Raça não pode ser em branco");
+			vUtil.setValidacaoStatus(ValidacaoStatus.INVALID);
+		}
+
+		if(animal.getSexo() == null){
+			vUtil.addMensagem("Sexo não pode ser em branco");
+			vUtil.setValidacaoStatus(ValidacaoStatus.INVALID);
+		}
+
+		if(animal.getGestacao() == null){
+			vUtil.addMensagem("Erro Interno - Gestação Não Criada");
+			vUtil.setValidacaoStatus(ValidacaoStatus.INVALID);
+		}
+		else{
+			if(animal.getGestacao().getInseminacao() != null){
+				Inseminacao inseminacao = animal.getGestacao().getInseminacao();
+				animal.getGestacao().setAnimal(inseminacao.getAnimal());
+				inseminacao.setGestacao(true);
+			}
+
+			animal.getGestacao().setPartoSucesso(true);
+		}
+
+		if(animal.getGestacao().getProcedencia() == Procedencia.ANIMAL_COMPRADO){
+			animal.getGestacao().setAnimal(null);
+			animal.getGestacao().setDtInicioGestacao(null);
+			animal.getGestacao().setInseminacao(null);
 		}
 		else
-			if(animal.getProcedencia() == Procedencia.NASCIMENTO_INSEMINACAO){
-				mae = validaProgenitor(mae, false);
-				pai = null;
+			if(animal.getGestacao().getProcedencia() == Procedencia.NASCIMENTO_INSEMINACAO){
+				animal.getGestacao().setPai(null);
+				if(animal.getGestacao().getInseminacao() == null){
+					vUtil.addMensagem("Selecione Inseminacao");
+					vUtil.setValidacaoStatus(ValidacaoStatus.INVALID);
+				}
 			}
-			else{
-				mae = null;
-				pai = null;
-			}
-		animal.setMae(mae);
-		animal.setPai(pai);
-	}
-	
-	public Animal validaProgenitor(Animal progenitor, boolean isMacho) throws Exception{
-		String progenitorNome = (isMacho) ? "Pai" : "Mãe";
-		String progenitoSexo = (isMacho) ? "M" : "F";
-		
-		if(progenitor == null)
-			throw new Exception(progenitorNome + " deve ser informado");
-		if(progenitor.getIndentificador() == null)
-			throw new Exception(progenitorNome + " deve ser informado");
-		if(progenitor.getIndentificador().isEmpty())
-			throw new Exception(progenitorNome + " deve ser informado");
-		if(progenitor.getId() == 0){
-			progenitor = animalRepository.findPorIndentificador(progenitor.getIndentificador());
-			if(progenitor == null)
-				throw new Exception(progenitorNome + " : invalido(a)");
-			if(!progenitor.getSexo().equals(progenitoSexo))
-				throw new Exception(progenitorNome + " : invalido(a)");
+			else
+				if(animal.getGestacao().getProcedencia() == Procedencia.NASCIMENTO_NATURAL){
+					animal.getGestacao().setInseminacao(null);
+					if(animal.getGestacao().getAnimal() == null){
+						vUtil.addMensagem("Selecione a Mãe do Animal");
+						vUtil.setValidacaoStatus(ValidacaoStatus.INVALID);
+					}
+				}
+				else{
+					vUtil.addMensagem("Selecione a Procedencia do Animal");
+					vUtil.setValidacaoStatus(ValidacaoStatus.INVALID);
+				}
+
+
+
+		if(vUtil.getValidacaoStatus() == ValidacaoStatus.VALID){
+			animalRepository.guardar(animal);
+			vUtil.addMensagem("Salvo Com Sucesso");
 		}
-		return progenitor;
+
 	}
 
-	public Animal textoDataParaObjData(String txtData, Animal animal) throws Exception {
-		String[] datas, dataInicio, dataFim;
-		int mesInicio, anoInicio, mesFim, anoFim;
-		Date dt = new Date();
-		Calendar c = Calendar.getInstance();
-		try{	
-			datas = txtData.split(" à ");
-			dataInicio = datas[0].split("/");
-			dataFim = datas[1].split("/");
-			
-			mesInicio = Integer.valueOf(dataInicio[0]);
-			anoInicio = Integer.valueOf(dataInicio[1]);
-			
-			mesFim = Integer.valueOf(dataFim[0]);
-			anoFim = Integer.valueOf(dataFim[1]);
-		}catch (Exception e) {
-			System.out.println(e.getMessage() + " - " + txtData);
-			throw new Exception("Não foi possivel Converter Data de Nascimento Estimada");
-		}
-		
-		if(mesInicio > 12 || mesFim > 12)
-			throw new Exception("Data de Nascimento Estimado : Mês invalido");
-		
-		if(anoFim > c.get(Calendar.YEAR) || anoInicio > c.get(Calendar.YEAR))
-			throw new Exception("Data de Nascimento Estimado : Ano invalido");
-		
-		if(anoInicio > anoFim)
-			throw new Exception("Data de Nacimento 'Inicial' Não Pode Ser Maior que a 'Final'");
-		
-		if(anoInicio == anoFim){
-			if(mesInicio > mesFim)
-				throw new Exception("Data de Nacimento 'Inicial' Não Pode Ser Maior que a 'Final'");
-		}
-		
-			animal.setDtNascimento(null);
-			
-			animal.setDtEstimadaInicio(datas[0]);
-			animal.setDtEstimadaFim(datas[1]);
-			
-			
-		return animal;
-	}
 }
