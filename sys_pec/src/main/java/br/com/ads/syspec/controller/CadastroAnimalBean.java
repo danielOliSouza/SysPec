@@ -60,7 +60,7 @@ public class CadastroAnimalBean implements Serializable {
 		animaisMachos = animalRepository.findPorSexo("M");
 		inseminacaosSemCria = inseminacaoRepository.findSemCria();
 		animal.setGestacao(new Gestacao());
-		/*
+		
 		try{
 			Map<String, String> params =FacesContext.getCurrentInstance().
 					getExternalContext().getRequestParameterMap();
@@ -74,25 +74,14 @@ public class CadastroAnimalBean implements Serializable {
 				
 				if(animalOld != null){
 					animal = animalOld;
-					mae = animal.getMae();
-					pai = animal.getPai();
 				}
 				else{
-					gestacao.setPartoSucesso(true);
 					animal.setGestacao(gestacao);
-					animal.setDtNascimento(gestacao.getDtParto());
-					animal.setMae(gestacao.getAnimal());
-					mae = animal.getMae();
-					animal.setPai(gestacao.getPai());
-					pai = animal.getPai();
-					animal.setInseminacao(gestacao.getInseminacao());
-					animal.setProcedencia(gestacao.getProcedencia());
-					animal.setRaca(gestacao.getAnimal().getRaca());
 				}
 			}
 		}catch (Exception e) {
 			System.err.println(e.getMessage());
-		}*/
+		}
 	}
 
 	public void salvar(){
