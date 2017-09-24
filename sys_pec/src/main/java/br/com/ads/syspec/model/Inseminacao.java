@@ -115,5 +115,10 @@ public class Inseminacao implements Serializable{
 			return false;
 		return true;
 	}
+	@Override
+	public String toString() {
+		return "Inseminacao [id=" + id + ", semen=" + semen + ", animal=" + animal + ", dtInsemincao=" + dtInsemincao
+				+ ", obs=" + obs + ", gestacao=" + gestacao + "]";
+	}
 	
 }

@@ -1,21 +1,21 @@
 INSERT INTO raca (descricao) VALUES('NEROLE'), ('HORLANDESA');
 
-INSERT INTO animal (descricao, dt_cadastro, dt_nascimento, indentificador, procedencia, sexo, raca_id) VALUES('Vaca Tropicalia', '2017-01-01', '2008-01-01', '1239', 'ANIMAL_COMPRADO', 'F', 1);
-INSERT INTO animal (descricao, dt_cadastro, dt_nascimento, indentificador, procedencia, sexo, raca_id) VALUES('Boi Azulao', '2017-01-01', '2008-01-01', '1233', 'ANIMAL_COMPRADO', 'M', 1);
-INSERT INTO animal (descricao, dt_cadastro, dt_nascimento, indentificador, procedencia, sexo, raca_id) VALUES('Boi To', '2017-01-01', '2008-01-01', '1234', 'ANIMAL_COMPRADO', 'M', 1);
-INSERT INTO animal (descricao, dt_cadastro, dt_nascimento, indentificador, procedencia, sexo, raca_id) VALUES('Vaca Amarela', '2017-01-01', '2008-01-01', '1235', 'ANIMAL_COMPRADO', 'F', 1);
-INSERT INTO animal (descricao, dt_cadastro, dt_nascimento, indentificador, procedencia, sexo, raca_id) VALUES('Vaca Lenga', '2017-01-01', '2008-01-01', '1236', 'ANIMAL_COMPRADO', 'F', 1);
-INSERT INTO animal (descricao, dt_cadastro, dt_nascimento, indentificador, procedencia, sexo, raca_id) VALUES('Vaca Truta', '2017-01-01', '2008-01-01', '1237', 'ANIMAL_COMPRADO', 'F', 1);
-INSERT INTO animal (descricao, dt_cadastro, dt_nascimento, indentificador, procedencia, sexo, raca_id) VALUES('Vaca Twister JR', '2017-01-01', '2008-01-01', '1238', 'ANIMAL_COMPRADO', 'F', 1);
-INSERT INTO animal (descricao, dt_cadastro, dt_nascimento, indentificador, procedencia, sexo, raca_id) VALUES('Vaca Macarrão', '2017-01-01', '2008-01-01', '1238', 'ANIMAL_COMPRADO', 'F', 1)
-INSERT INTO animal (descricao, dt_cadastro, dt_nascimento, indentificador, procedencia, sexo, raca_id) VALUES('Vaca Rei', '2017-01-01', '2008-01-01', '1238', 'ANIMAL_COMPRADO', 'F', 1)
-INSERT INTO animal (descricao, dt_cadastro, dt_nascimento, indentificador, procedencia, sexo, raca_id) VALUES('Vaca Zefa', '2017-01-01', '2008-01-01', '1238', 'ANIMAL_COMPRADO', 'F', 1)
-INSERT INTO animal (descricao, dt_cadastro, dt_nascimento, indentificador, procedencia, sexo, raca_id) VALUES('Vaca Zelda', '2017-01-01', '2008-01-01', '1238', 'ANIMAL_COMPRADO', 'F', 1)
-INSERT INTO animal (descricao, dt_cadastro, dt_nascimento, indentificador, procedencia, sexo, raca_id) VALUES('Boi Link', '2017-01-01', '2008-01-01', '1238', 'ANIMAL_COMPRADO', 'M', 1)
-INSERT INTO animal (descricao, dt_cadastro, dt_nascimento, indentificador, procedencia, sexo, raca_id) VALUES('Vaca Bat', '2017-01-01', '2008-01-01', '1238', 'ANIMAL_COMPRADO', 'F', 1)
-INSERT INTO animal (descricao, dt_cadastro, dt_nascimento, indentificador, procedencia, sexo, raca_id) VALUES('Vaca Lisa', '2017-01-01', '2008-01-01', '1238', 'ANIMAL_COMPRADO', 'F', 1)
-INSERT INTO animal (descricao, dt_cadastro, dt_nascimento, indentificador, procedencia, sexo, raca_id) VALUES('Vaca Xanaina', '2017-01-01', '2008-01-01', '1238', 'ANIMAL_COMPRADO', 'F', 1)
-INSERT INTO animal (descricao, dt_cadastro, dt_nascimento, indentificador, procedencia, sexo, raca_id) VALUES('Vaca Truco', '2017-01-01', '2008-01-01', '1238', 'ANIMAL_COMPRADO', 'F', 1)
+INSERT INTO animal (descricao, dt_cadastro, indentificador, sexo, raca_id) VALUES('Vaca Tropicalia', '2008-01-01', '1239', 'F', 1);
+INSERT INTO animal (descricao, dt_cadastro, indentificador, sexo, raca_id) VALUES('Boi Azulao', '2008-01-01', '1233', 'M', 1);
+INSERT INTO animal (descricao, dt_cadastro, indentificador, sexo, raca_id) VALUES('Boi To', '2008-01-01', '1234', 'M', 1);
+INSERT INTO animal (descricao, dt_cadastro, indentificador, sexo, raca_id) VALUES('Vaca Amarela', '2008-01-01', '1235', 'F', 1);
+INSERT INTO animal (descricao, dt_cadastro, indentificador, sexo, raca_id) VALUES('Vaca Lenga', '2008-01-01', '1236', 'F', 1);
+INSERT INTO animal (descricao, dt_cadastro, indentificador, sexo, raca_id) VALUES('Vaca Truta', '2008-01-01', '1237', 'F', 1);
+INSERT INTO animal (descricao, dt_cadastro, indentificador, sexo, raca_id) VALUES('Vaca Twister JR', '2008-01-01', '1238', 'F', 1);
+INSERT INTO animal (descricao, dt_cadastro, indentificador, sexo, raca_id) VALUES('Vaca Macarrão', '2008-01-01', '1238', 'F', 1)
+INSERT INTO animal (descricao, dt_cadastro, indentificador, sexo, raca_id) VALUES('Vaca Rei', '2008-01-01', '1238', 'F', 1)
+INSERT INTO animal (descricao, dt_cadastro, indentificador, sexo, raca_id) VALUES('Vaca Zefa', '2008-01-01', '1238', 'F', 1)
+INSERT INTO animal (descricao, dt_cadastro, indentificador, sexo, raca_id) VALUES('Vaca Zelda', '2008-01-01', '1238', 'F', 1)
+INSERT INTO animal (descricao, dt_cadastro, indentificador, sexo, raca_id) VALUES('Boi Link', '2008-01-01', '1238', 'M', 1)
+INSERT INTO animal (descricao, dt_cadastro, indentificador, sexo, raca_id) VALUES('Vaca Bat', '2008-01-01', '1238', 'F', 1)
+INSERT INTO animal (descricao, dt_cadastro, indentificador, sexo, raca_id) VALUES('Vaca Lisa', '2008-01-01', '1238', 'F', 1)
+INSERT INTO animal (descricao, dt_cadastro, indentificador, sexo, raca_id) VALUES('Vaca Xanaina', '2008-01-01', '1238', 'F', 1)
+INSERT INTO animal (descricao, dt_cadastro, indentificador, sexo, raca_id) VALUES('Vaca Truco', '2008-01-01', '1238', 'F', 1)
 
 
 INSERT INTo insumo (tipo, descricao, dt_cadastro, fornecedor) values('remedio', 'REMEDIO 01', '2017-01-01', 'FORNECEDOR 01');
@@ -41,3 +41,6 @@ INSERT INTO inseminacao (dtinsemincao, animal_id, semen_id, gestacao) values ('2
 
 INSERT INTO gestacao (dtiniciogestacao, dtparto, partosucesso, procedencia, animal_id, inseminacao_id) values ('2017-09-22', '2017-09-22', false, 'NASCIMENTO_INSEMINACAO', 5, 3)
 INSERT INTO gestacao (dtiniciogestacao, dtparto, partosucesso, procedencia, animal_id, pai_id) values ('2017-09-22', '2017-09-22', false, 'NASCIMENTO_INSEMINACAO', 5, 1)
+
+
+

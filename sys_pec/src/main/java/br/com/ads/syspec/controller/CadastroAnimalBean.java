@@ -16,8 +16,11 @@ import org.primefaces.event.SelectEvent;
 
 import br.com.ads.syspec.service.AnimalService;
 import br.com.ads.syspec.util.FacesMessages;
+import br.com.ads.syspec.util.ValidacaoStatus;
+import br.com.ads.syspec.util.ValidacaoUtil;
 import br.com.ads.syspec.model.Animal;
 import br.com.ads.syspec.model.Gestacao;
+import br.com.ads.syspec.model.Inseminacao;
 import br.com.ads.syspec.model.Procedencia;
 import br.com.ads.syspec.model.Raca;
 import br.com.ads.syspec.repository.AnimalRepository;
@@ -32,7 +35,7 @@ public class CadastroAnimalBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private AnimalService orcamentosService;
+	private AnimalService animalService;
 	@Inject
 	private RacaRepository racaRepository;
 	@Inject
@@ -48,23 +51,16 @@ public class CadastroAnimalBean implements Serializable {
 	private List<Raca> racas;
 	private List<Animal> animaisFemeas = new ArrayList<>();
 	private List<Animal> animaisMachos = new ArrayList<>();
-	private Animal pai = new Animal();
-	private Animal mae = new Animal();
-	private String txtDtEstimada;
-
-	//Habilitar e Desabilitar Campos
-	// var == true Disabled
-	// var != true Not Disabled
-	private boolean isItMaeDisabled = true;
-	private boolean isItPaiDisabled = true;
-	private boolean isItInseminacaoDisabled = true;
-	private boolean dtNascEstimada = true;
-	private boolean dtNascExata = false;
+	private List<Inseminacao> inseminacaosSemCria = new ArrayList<>();
 
 
 	public void initialize(){
-		animal = new Animal();
 		racas = racaRepository.findAll();
+		animaisFemeas = animalRepository.findPorSexo("F");
+		animaisMachos = animalRepository.findPorSexo("M");
+		inseminacaosSemCria = inseminacaoRepository.findSemCria();
+		animal.setGestacao(new Gestacao());
+		/*
 		try{
 			Map<String, String> params =FacesContext.getCurrentInstance().
 					getExternalContext().getRequestParameterMap();
@@ -74,171 +70,113 @@ public class CadastroAnimalBean implements Serializable {
 				long id = Long.valueOf(parameterOne);
 				Gestacao gestacao = gestacaoRepository.findById(id);
 
-				gestacao.setPartoSucesso(true);
-				animal.setGestacao(gestacao);
-				animal.setDtNascimento(gestacao.getDtParto());
-				animal.setMae(gestacao.getAnimal());
-				mae = animal.getMae();
-				animal.setPai(gestacao.getPai());
-				pai = getPai();
-				animal.setInseminacao(gestacao.getInseminacao());
-				animal.setProcedencia(gestacao.getProcedencia());
-				animal.setRaca(gestacao.getAnimal().getRaca());
+				Animal animalOld = animalRepository.findByGestacao(gestacao);
+				
+				if(animalOld != null){
+					animal = animalOld;
+					mae = animal.getMae();
+					pai = animal.getPai();
+				}
+				else{
+					gestacao.setPartoSucesso(true);
+					animal.setGestacao(gestacao);
+					animal.setDtNascimento(gestacao.getDtParto());
+					animal.setMae(gestacao.getAnimal());
+					mae = animal.getMae();
+					animal.setPai(gestacao.getPai());
+					pai = animal.getPai();
+					animal.setInseminacao(gestacao.getInseminacao());
+					animal.setProcedencia(gestacao.getProcedencia());
+					animal.setRaca(gestacao.getAnimal().getRaca());
+				}
 			}
 		}catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
+			System.err.println(e.getMessage());
+		}*/
+	}
+
+	public void salvar(){
+		ValidacaoUtil vUtil = new ValidacaoUtil();
 		
-		System.out.println(inseminacaoRepository.findSemCria().size());
+		animalService.salvar(animal, vUtil);
+		
+		if(vUtil.getValidacaoStatus() == ValidacaoStatus.VALID)
+			messages.info(vUtil.getMensagemToString());
+		else
+			messages.error(vUtil.getMensagemToString());
 	}
-
-	public void salvar() {
-		try {
-			orcamentosService.salvar(animal, mae, pai, !dtNascEstimada, txtDtEstimada);
-			animal = new Animal();
-			pai = new Animal();
-			mae = new Animal();
-			habilitarDesabilitarCampos();
-			txtDtEstimada = "";
-			messages.info("Animal salvo com sucesso!");
-		} catch (Exception e) {
-			messages.error(e.getMessage());
+	
+	public void tipoPorcedencia(){
+		Procedencia procedencia = animal.getGestacao().getProcedencia();
+		
+		if(procedencia == Procedencia.NASCIMENTO_INSEMINACAO){
+			animal.getGestacao().setPai(null);
+		}
+		else if(procedencia == Procedencia.NASCIMENTO_NATURAL){
+			animal.getGestacao().setInseminacao(null);
+		}
+		else{
+			animal.getGestacao().setPai(null);
+			animal.getGestacao().setInseminacao(null);
+			animal.getGestacao().setAnimal(null);
 		}
 	}
-
-	public void listarFemeas(){
-		animaisFemeas = animalRepository.findPorSexo("F");
-	}
-
-	public void listarMachos(){
-		animaisMachos = animalRepository.findPorSexo("M");
-	}
-
-	public void validarData(){
-		try {
-			orcamentosService.textoDataParaObjData(txtDtEstimada, animal);
-		} catch (Exception e) {
-			messages.error(e.getMessage());
-		}
-	}
-
+	
 	public Animal getAnimal() {
 		return animal;
 	}
-
-
 	public void setAnimal(Animal animal) {
 		this.animal = animal;
 	}
-
 	public List<Raca> getRacas() {
 		return racas;
 	}
-
 	public void setRacas(List<Raca> racas) {
 		this.racas = racas;
 	}
-
-	public Procedencia[] getProcedencia(){
-		return Procedencia.values();
-	}
-
-	public void habilitarDesabilitarCampos(){
-		Procedencia proc = animal.getProcedencia();
-		isItMaeDisabled = true;
-		isItPaiDisabled = true;
-		isItInseminacaoDisabled = true;
-
-		if(proc == Procedencia.NASCIMENTO_INSEMINACAO){
-			isItInseminacaoDisabled = false;
-			isItMaeDisabled = false;
-		}
-		else
-			if(proc == Procedencia.NASCIMENTO_NATURAL){
-				isItMaeDisabled = false;
-				isItPaiDisabled = false;
-			}
-	}
-
-	public void onRowSelectMae(SelectEvent event) {
-		mae = ((Animal) event.getObject());
-	}
-	public void onRowSelectPai(SelectEvent event) {
-		pai = ((Animal) event.getObject());
-	}
-
 	public List<Animal> getAnimaisFemeas() {
-		return this.animaisFemeas;
+		return animaisFemeas;
 	}
-
 	public void setAnimaisFemeas(List<Animal> animaisFemeas) {
 		this.animaisFemeas = animaisFemeas;
 	}
-
 	public List<Animal> getAnimaisMachos() {
 		return animaisMachos;
 	}
-
 	public void setAnimaisMachos(List<Animal> animaisMachos) {
 		this.animaisMachos = animaisMachos;
 	}
-
-	public Animal getPai() {
-		return pai;
+	public Procedencia[] getProcedencias(){
+		return Procedencia.values();
+	}
+	
+	public List<Inseminacao> getInseminacaosSemCria() {
+		return inseminacaosSemCria;
 	}
 
-	public void setPai(Animal pai) {
-		this.pai = pai;
+	public void setInseminacaosSemCria(List<Inseminacao> inseminacaosSemCria) {
+		this.inseminacaosSemCria = inseminacaosSemCria;
 	}
 
-	public Animal getMae() {
-		return mae;
+	public boolean isProcNatural(){
+		if(animal.getGestacao().getProcedencia() == Procedencia.NASCIMENTO_NATURAL)
+			return true;
+		else
+			return false;
 	}
-
-	public void setMae(Animal mae) {
-		this.mae = mae;
+	
+	public boolean isProcInseminacao(){
+		if(animal.getGestacao().getProcedencia() == Procedencia.NASCIMENTO_INSEMINACAO)
+			return true;
+		else
+			return false;
 	}
-
-	//isIt ... Not Working
-	public boolean getItMaeDisabled() {
-		return isItMaeDisabled;
+	
+	public boolean isProcComprado(){
+		if(animal.getGestacao().getProcedencia() == Procedencia.ANIMAL_COMPRADO)
+			return true;
+		else
+			return false;
 	}
-	public boolean getItPaiDisabled() {
-		return isItPaiDisabled;
-	}
-	public boolean getItInseminacaoDisabled() {
-		return isItInseminacaoDisabled;
-	}
-
-	public void addMessage() {
-		if(dtNascEstimada == dtNascExata)
-			dtNascExata = !dtNascExata;
-	}
-
-	public boolean isDtNascEstimada() {
-		return dtNascEstimada;
-	}
-
-	public void setDtNascEstimada(boolean dtNascEstimada) {
-		this.dtNascEstimada = dtNascEstimada;
-		this.dtNascExata = !dtNascEstimada;
-	}
-
-	public boolean isDtNascExata() {
-		return dtNascExata;
-	}
-
-	public void setDtNascExata(boolean dtNascExata) {
-		this.dtNascExata = dtNascExata;
-		this.dtNascEstimada = !dtNascExata;
-	}
-
-	public String getTxtDtEstimada() {
-		return txtDtEstimada;
-	}
-
-	public void setTxtDtEstimada(String txtDtEstimada) {
-		this.txtDtEstimada = txtDtEstimada;
-	}
-
+	
 }

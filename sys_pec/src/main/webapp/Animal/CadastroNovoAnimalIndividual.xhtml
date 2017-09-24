@@ -14,12 +14,12 @@
 
 			<p:toolbar>
 				<p:toolbarGroup>
-					<p:commandButton value="Salvar"
-						action="#{cadastroAnimalBean.salvar}" update="@form" />
+					<p:commandButton value="Salvar" update="@this"
+						action="#{cadastroAnimalBean.salvar}" />
 				</p:toolbarGroup>
 			</p:toolbar>
 
-			<p:messages id="msgs" autoUpdate="false" />
+			<p:messages id="msgs" autoUpdate="true" escape="false" />
 
 			<div class="ui-fluid">
 				<p:panelGrid columns="4" layout="grid"
@@ -41,9 +41,9 @@
 					columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-6">
 					<p:outputLabel value="Data Nascimento" for="dtNascimento" />
 					<p:calendar id="dtNascimento"
-						value="#{cadastroAnimalBean.animal.dtNascimento}"
-						pattern="dd/MM/yyyy" mask="true"
-						disabled="#{cadastroAnimalBean.dtNascExata}" />
+						value="#{cadastroAnimalBean.animal.gestacao.dtParto}"
+						pattern="dd/MM/yyyy" mask="true" />
+
 					<p:outputPanel deferred="true" deferredMode="visible">
 						<div class="ballon ui-messages-info ui-corner-all">
 							Caso Preferir Coloque uma Data Estimada do Nascimento do Animal <br />
@@ -56,33 +56,14 @@
 
 				<p:panelGrid columns="4" layout="grid"
 					styleClass="ui-panelgrid-blank"
-					columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-1, ui-grid-col-5">
-					<p:outputLabel value="Dt. Nasc. Estimada:" />
-					<p:inputMask mask="99/9999 à 99/9999" id="dtNascEstimada"
-						value="#{cadastroAnimalBean.txtDtEstimada}"
-						disabled="#{cadastroAnimalBean.dtNascEstimada}">
-						<p:ajax event="change"
-							listener="#{cadastroAnimalBean.validarData}" update="msgs"
-							process="dtNascEstimada" />
-					</p:inputMask>
-					<p:selectBooleanButton id="value1"
-						value="#{cadastroAnimalBean.dtNascEstimada}" onLabel="Sim"
-						offLabel="Não">
-						<p:ajax update="dtNascEstimada, dtNascimento"
-							listener="#{cadastroAnimalBean.addMessage}" />
-					</p:selectBooleanButton>
-					<p:outputLabel value="Usar Data Estimada ?" />
-				</p:panelGrid>
-				<p:panelGrid columns="4" layout="grid"
-					styleClass="ui-panelgrid-blank"
 					columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
 					<p:outputLabel value="Raça: " for="somRaca" />
 					<p:selectOneMenu id="somRaca"
-						converter="omnifaces.SelectItemsConverter"
-						value="#{cadastroAnimalBean.animal.raca}" filter="true">
+						value="#{cadastroAnimalBean.animal.raca}"
+						converter="omnifaces.SelectItemsConverter" filter="true">
 						<f:selectItem itemLabel="Selecione" />
 						<f:selectItems value="#{cadastroAnimalBean.racas}" var="raca"
-							itemLabel="#{raca.descricao}" />
+							itemLabel="#{raca.descricao}" itemValue="#{raca}" />
 					</p:selectOneMenu>
 
 					<p:outputLabel value="Sexo:" for="sorSexo" />
@@ -103,46 +84,38 @@
 
 					<p:outputLabel value="Procedência: " for="somProcedencia" />
 					<p:selectOneMenu id="somProcedencia"
-						value="#{cadastroAnimalBean.animal.procedencia}">
-						<p:ajax
-							listener="#{cadastroAnimalBean.habilitarDesabilitarCampos}"
-							update="pg1, pg2" process="@this" />
+						value="#{cadastroAnimalBean.animal.gestacao.procedencia}">
+						<p:ajax update="pg1, pg2" process="@this" listener="#{cadastroAnimalBean.tipoPorcedencia}"/>
 						<f:selectItem itemLabel="Selecione" />
-						<f:selectItems value="#{cadastroAnimalBean.procedencia}"
-							var="proc" itemLabel="#{proc.descricao}" itemValue="#{proc}" />
+						<f:selectItems var="proc" itemLabel="#{proc.descricao}"
+							itemValue="#{proc}" value="#{cadastroAnimalBean.procedencias}" />
 					</p:selectOneMenu>
 
 					<p:outputLabel value="Mãe: " for="itMae" />
-					<p:inputText id="itMae"
-						value="#{cadastroAnimalBean.mae.indentificador}"
-						disabled="#{cadastroAnimalBean.itMaeDisabled}" />
+					<p:inputText id="itMae" disabled="true"
+						value="#{cadastroAnimalBean.animal.gestacao.animal.indentificador}" />
 					<p:commandButton icon="fa fa-search-plus"
-						action="#{cadastroAnimalBean.listarFemeas}"
-						disabled="#{cadastroAnimalBean.itMaeDisabled}"
+						disabled="#{!cadastroAnimalBean.procNatural}"
 						oncomplete="PF('selecionarMaeDialog').show()" process="@this"
-						update="itMae, selecionarMaeDialog" />
+						update="itMae" />
 				</p:panelGrid>
 
 				<p:panelGrid id="pg2" columns="6" layout="grid"
 					styleClass="ui-panelgrid-blank"
 					columnClasses="ui-grid-col-2, ui-grid-col-3,ui-grid-col-1, ui-grid-col-2, ui-grid-col-3, ui-grid-col-1">
 					<p:outputLabel value="Inseminação: " for="itInseminacao" />
-					<p:inputText id="itInseminacao"
-						value="#{cadastroAnimalBean.animal.inseminacao.id}"
-						disabled="#{cadastroAnimalBean.itInseminacaoDisabled}" />
+					<p:inputText id="itInseminacao" disabled="true"
+						value="#{cadastroAnimalBean.animal.gestacao.inseminacao.id}" />
 					<p:commandButton icon="fa fa-search-plus"
-						disabled="#{cadastroAnimalBean.itInseminacaoDisabled}" 
-						oncomplete="PF('selecionarInseminacaoDialog').show()" process="@this"/>
+						oncomplete="PF('selecionarInseminacaoDialog').show()"
+						process="@this" disabled="#{!cadastroAnimalBean.procInseminacao}" />
 
 					<p:outputLabel value="Pai: " for="itPai" />
-					<p:inputText id="itPai"
-						disabled="#{cadastroAnimalBean.itPaiDisabled}"
-						value="#{cadastroAnimalBean.pai.indentificador}" />
+					<p:inputText id="itPai" disabled="true"
+						value="#{cadastroAnimalBean.animal.gestacao.pai.indentificador}" />
 					<p:commandButton icon="fa fa-search-plus"
-						disabled="#{cadastroAnimalBean.itPaiDisabled}"
-						action="#{cadastroAnimalBean.listarMachos}"
-						oncomplete="PF('selecionarPaiDialog').show()" process="@this"
-						update="itPai, selecionarPaiDialog" />
+						disabled="#{!cadastroAnimalBean.procNatural}"
+						oncomplete="PF('selecionarPaiDialog').show()" process="@this" />
 				</p:panelGrid>
 
 				<p:panelGrid columns="2" layout="grid"
@@ -150,50 +123,84 @@
 					columnClasses="ui-grid-col-2, ui-grid-col-10">
 
 					<p:outputLabel value="Obs: " for="itaObs" />
-					<p:inputTextarea id="itaObs" />
+					<p:inputTextarea id="itaObs"
+						value="#{cadastroAnimalBean.animal.obs}" />
 				</p:panelGrid>
 			</div>
-			<ui:include src="SelecionarAnimalMae.xhtml" />
-			<ui:include src="SelecionarAnimalPai.xhtml" />
 
-			<p:dialog  widgetVar="selecionarInseminacaoDialog"
-				header="Selecionar Inseminacao" resizable="false"
-				responsive="true" style="max-width: 800px;">
-				<div class="ui-fluid">
-					<p:dataTable reflow="true" paginator="true" rows="5"
-						emptyMessage="Sem Animais" widgetVar="animalTable"
-						rowKey="#{animal.id}" value="#{cadastroAnimalBean.animaisFemeas}"
-						var="animal" selectionMode="single">
+			<p:dialog widgetVar="selecionarMaeDialog" header="Selecionar Mãe"
+				style="max-width: 800px;">
+				<p:dataTable var="femea" id="tbMae"
+					value="#{cadastroAnimalBean.animaisFemeas}" reflow="true"
+					scrollable="true" scrollHeight="200" widgetVar="tbMae"
+					rowKey="#{femea.id}"
+					selection="#{cadastroAnimalBean.animal.gestacao.animal}"
+					selectionMode="single">
 
-						<f:facet name="header">
-							<p:outputPanel>
-								<h:outputText value="Search all fields:" />
-								<p:inputText id="globalFilter"
-									onkeyup="PF('animalTable').filter()" style="width:150px"
-									placeholder="Enter keyword" />
-							</p:outputPanel>
-						</f:facet>
+					<p:ajax event="rowSelect"
+						update=":frm:itMae, :frm:itPai"
+						process="tbMae" oncomplete="PF('selecionarMaeDialog').hide()" />
 
-						<p:ajax event="rowSelect"
-							listener="#{cadastroAnimalBean.onRowSelectMae}"
-							update=":frm:itMae" onsuccess="PF('selecionarMaeDialog').hide()" />
-
-						<p:column headerText="Indentificador"
-							filterBy="#{animal.indentificador}" filterEvent="change">
-							<h:outputText value="#{animal.indentificador}" />
-						</p:column>
-						<p:column headerText="Descricao" filterBy="#{animal.descricao}"
-							filterEvent="change">
-							<h:outputText value="#{animal.descricao}" />
-						</p:column>
-						<p:column headerText="Raça" filterBy="#{animal.raca.descricao}"
-							filterEvent="change">
-							<h:outputText value="#{animal.raca.descricao}" />
-						</p:column>
-					</p:dataTable>
-				</div>
+					<p:column headerText="Identificador">
+						<h:outputLabel value="#{femea.indentificador}" />
+					</p:column>
+					<p:column headerText="Descricao">
+						<h:outputLabel value="#{femea.descricao}" />
+					</p:column>
+					<p:column headerText="Raca">
+						<h:outputLabel value="#{raca.descricao}" />
+					</p:column>
+				</p:dataTable>
 			</p:dialog>
 
+			<p:dialog widgetVar="selecionarPaiDialog" header="Selecionar Pai"
+				style="max-width: 800px;">
+				<p:dataTable var="animal" id="tbPai"
+					value="#{cadastroAnimalBean.animaisMachos}" reflow="true"
+					scrollable="true" scrollHeight="200" widgetVar="tbPai"
+					rowKey="#{animal.id}"
+					selection="#{cadastroAnimalBean.animal.gestacao.pai}"
+					selectionMode="single">
+
+					<p:ajax event="rowSelect"
+						update=":frm:itMae, :frm:itPai"
+						process="tbPai" oncomplete="PF('selecionarPaiDialog').hide()" />
+
+					<p:column headerText="Identificador">
+						<h:outputLabel value="#{animal.indentificador}" />
+					</p:column>
+					<p:column headerText="Descricao">
+						<h:outputLabel value="#{animal.descricao}" />
+					</p:column>
+					<p:column headerText="Raca">
+						<h:outputLabel value="#{animal.raca.descricao}" />
+					</p:column>
+				</p:dataTable>
+			</p:dialog>
+
+			<p:dialog widgetVar="selecionarInseminacaoDialog"
+				header="Selecionar Inseminacao" style="max-width: 800px;">
+				<p:dataTable var="insem" id="tbInsem"
+					value="#{cadastroAnimalBean.inseminacaosSemCria}" reflow="true"
+					scrollable="true" scrollHeight="200" widgetVar="tbInsem	"
+					rowKey="#{insem.id}" selectionMode="single"
+					selection="#{cadastroAnimalBean.animal.gestacao.inseminacao}">
+
+					<p:ajax event="rowSelect" update=":frm:itMae, :frm:itInseminacao"
+						process="tbInsem"
+						oncomplete="PF('selecionarInseminacaoDialog').hide()" />
+
+					<p:column headerText="Num">
+						<h:outputLabel value="#{insem.id}" />
+					</p:column>
+					<p:column headerText="Semen">
+						<h:outputLabel value="#{insem.semen.descricao}" />
+					</p:column>
+					<p:column headerText="Data">
+						<h:outputLabel value="#{insem.dtInsemincao}" />
+					</p:column>
+				</p:dataTable>
+			</p:dialog>
 		</h:form>
 	</ui:define>
 </ui:composition>

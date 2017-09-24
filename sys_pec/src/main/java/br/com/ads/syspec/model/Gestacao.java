@@ -91,6 +91,8 @@ public class Gestacao implements Serializable{
 	}
 
 	public void setInseminacao(Inseminacao inseminacao) {
+		if(inseminacao != null)
+			this.animal = inseminacao.getAnimal();
 		this.inseminacao = inseminacao;
 	}
 

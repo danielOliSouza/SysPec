@@ -18,7 +18,9 @@ public class InseminacaoRepository implements Serializable {
 	}
 	
 	public Inseminacao findById(Long id){
-		return manager.find(Inseminacao.class, id);
+		 return manager.createQuery("FROM Inseminacao WHERE id =:id", Inseminacao.class)
+				.setParameter("id", id)
+				.getSingleResult();
 	}
 	
 	public void guardar(Inseminacao inseminacao) {
@@ -32,7 +34,7 @@ public class InseminacaoRepository implements Serializable {
 	}
 	public List<Inseminacao> findSemCria(){
 		return manager.createQuery("FROM Inseminacao as i WHERE NOT EXISTS"
-				+ "(SELECT a.inseminacao.id from Animal as a WHERE a.inseminacao.id = i.id)", Inseminacao.class)
+				+ "(SELECT a.gestacao.inseminacao.id from Animal as a WHERE a.gestacao.inseminacao.id = i.id)", Inseminacao.class)
 				.getResultList();
 	}
 }
