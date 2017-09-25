@@ -22,7 +22,6 @@ public class Estoque {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	@OneToOne(mappedBy="estoque")
-	@NotNull
 	private Insumo insumo;
 	
 	@OneToMany(mappedBy="estoque" ,cascade=CascadeType.ALL)

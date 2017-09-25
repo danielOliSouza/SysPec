@@ -52,6 +52,7 @@ public class EstoqueRepository implements Serializable{
 				.getResultList();
 	}
 
+	
 	public void guardar(AtualizacaoEstoque atualizacaoEstoque) {
 		manager.merge(atualizacaoEstoque);
 	}
