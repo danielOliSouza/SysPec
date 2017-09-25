@@ -41,28 +41,14 @@ public class AnimalService implements Serializable {
 					animal.setDtNascimento(dt);
 					
 					System.out.println(dt);
-					
-					//Dias de margen estimada
-					/*double milisegundos =  (double) (dt.getTime() - dtFim.getTime());
-					double segundos = milisegundos / (double) 1000;
-					double minutos = segundos / (double) 60;
-					double horas = minutos / (double) 60;
-					
-					System.out.println(horas);
-					
-					double dias = horas / (double) 24;
-					
-					System.out.println(dias);
-					*/
+
 					
 					double dias = DateUtil.interval(dtInicio, dtFim).dias();
 					
 					if(dias < 0)
-						dias *= -1D;// Caso valor dado for negativo aqui ele o deixa positivo
+						dias *= -1D;
 					
-					System.out.println(dias);
-					
-
+					animal.setMargemDiasDtNascimento(dias);
 				}
 			}
 		}
