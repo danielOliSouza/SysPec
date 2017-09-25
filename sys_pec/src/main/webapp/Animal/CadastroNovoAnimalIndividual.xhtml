@@ -41,6 +41,7 @@
 					columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-6">
 					<p:outputLabel value="Data Nascimento" for="dtNascimento" />
 					<p:calendar id="dtNascimento"
+						disabled="#{cadastroAnimalBean.dtEstimada}"
 						value="#{cadastroAnimalBean.animal.gestacao.dtParto}"
 						pattern="dd/MM/yyyy" mask="true" />
 
@@ -50,9 +51,34 @@
 							Abilite o Campo Dt. Nasc. Estimada Clicando no Botão Abaixo
 						</div>
 					</p:outputPanel>
+				</p:panelGrid>
+
+				<p:separator />
+
+				<p:panelGrid columns="6" layout="grid"
+					styleClass="ui-panelgrid-blank" id="painelDtEstimada"
+					columnClasses="ui-grid-col-2, ui-grid-col-2, ui-grid-col-2, ui-grid-col-2, ui-grid-col-1, ui-grid-col-2">
+
+					<h:outputLabel value="Usar Dt. Estimada?" />
+
+					<p:selectBooleanButton id="value1" onLabel="Não" offLabel="Sim"
+						style="max-width: 90px" value="#{cadastroAnimalBean.dtEstimada}">
+						<p:ajax event="change" process="value1" listener="#{cadastroAnimalBean.limparDatas}"
+							update="dtNascimento, painelDtEstimada" />
+					</p:selectBooleanButton>
+
+					<p:outputLabel value="Dt. Estimada"
+						style="text-align: right; width: 100%;"
+						styleClass="right-responsive" />
+					<p:calendar disabled="#{!cadastroAnimalBean.dtEstimada}"
+						value="#{cadastroAnimalBean.dtInicio}" />
+					<h:outputLabel value=" À " styleClass="ah" />
+					<p:calendar disabled="#{!cadastroAnimalBean.dtEstimada}"
+						value="#{cadastroAnimalBean.dtFim}" />
 
 
 				</p:panelGrid>
+				<p:separator />
 
 				<p:panelGrid columns="4" layout="grid"
 					styleClass="ui-panelgrid-blank"
@@ -85,7 +111,8 @@
 					<p:outputLabel value="Procedência: " for="somProcedencia" />
 					<p:selectOneMenu id="somProcedencia"
 						value="#{cadastroAnimalBean.animal.gestacao.procedencia}">
-						<p:ajax update="pg1, pg2" process="@this" listener="#{cadastroAnimalBean.tipoPorcedencia}"/>
+						<p:ajax update="pg1, pg2" process="@this"
+							listener="#{cadastroAnimalBean.tipoPorcedencia}" />
 						<f:selectItem itemLabel="Selecione" />
 						<f:selectItems var="proc" itemLabel="#{proc.descricao}"
 							itemValue="#{proc}" value="#{cadastroAnimalBean.procedencias}" />
@@ -137,8 +164,7 @@
 					selection="#{cadastroAnimalBean.animal.gestacao.animal}"
 					selectionMode="single">
 
-					<p:ajax event="rowSelect"
-						update=":frm:itMae, :frm:itPai"
+					<p:ajax event="rowSelect" update=":frm:itMae, :frm:itPai"
 						process="tbMae" oncomplete="PF('selecionarMaeDialog').hide()" />
 
 					<p:column headerText="Identificador">
@@ -162,8 +188,7 @@
 					selection="#{cadastroAnimalBean.animal.gestacao.pai}"
 					selectionMode="single">
 
-					<p:ajax event="rowSelect"
-						update=":frm:itMae, :frm:itPai"
+					<p:ajax event="rowSelect" update=":frm:itMae, :frm:itPai"
 						process="tbPai" oncomplete="PF('selecionarPaiDialog').hide()" />
 
 					<p:column headerText="Identificador">

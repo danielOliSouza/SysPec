@@ -18,19 +18,21 @@ INSERT INTO animal (descricao, dt_cadastro, indentificador, sexo, raca_id) VALUE
 INSERT INTO animal (descricao, dt_cadastro, indentificador, sexo, raca_id) VALUES('Vaca Truco', '2008-01-01', '1238', 'F', 1)
 
 
-INSERT INTo insumo (tipo, descricao, dt_cadastro, fornecedor) values('remedio', 'REMEDIO 01', '2017-01-01', 'FORNECEDOR 01');
-INSERT INTo insumo (tipo, descricao, dt_cadastro, fornecedor) values('remedio', 'REMEDIO 02', '2017-01-01', 'FORNECEDOR 01');
-INSERT INTo insumo (tipo, descricao, dt_cadastro, fornecedor) values('remedio', 'REMEDIO 03', '2017-01-04', 'FORNECEDOR 05');
-INSERT INTo insumo (tipo, descricao, dt_cadastro, fornecedor) values('remedio', 'REMEDIO 04', '2017-01-04', 'FORNECEDOR 01');
-INSERT INTo insumo (tipo, descricao, dt_cadastro, fornecedor) values('remedio', 'REMEDIO 05', '2017-01-06', 'FORNECEDOR 01');
-INSERT INTo insumo (tipo, descricao, dt_cadastro, fornecedor) values('remedio', 'REMEDIO 06', '2017-01-07', 'FORNECEDOR 02');
+INSERT INTO estoque values  (20), (21), (22), (23), (24), (25), (26), (27), (28), (29), (30), (31);
 
-INSERT INTo insumo (tipo, descricao, dt_cadastro, fornecedor, raca_id) values('semen', 'SEMEN 01', '2017-01-01', 'FORNECEDOR 01',1);
-INSERT INTo insumo (tipo, descricao, dt_cadastro, fornecedor, raca_id) values('semen', 'SEMEN 02', '2017-01-01', 'FORNECEDOR 01',1);
-INSERT INTo insumo (tipo, descricao, dt_cadastro, fornecedor, raca_id) values('semen', 'SEMEN 03', '2017-01-04', 'FORNECEDOR 05',1);
-INSERT INTo insumo (tipo, descricao, dt_cadastro, fornecedor, raca_id) values('semen', 'SEMEN 04', '2017-01-04', 'FORNECEDOR 01',1);
-INSERT INTo insumo (tipo, descricao, dt_cadastro, fornecedor, raca_id) values('semen', 'SEMEN 05', '2017-01-06', 'FORNECEDOR 01',2);
-INSERT INTo insumo (tipo, descricao, dt_cadastro, fornecedor, raca_id) values('semen', 'SEMEN 06', '2017-01-07', 'FORNECEDOR 02',1);
+INSERT INTo insumo (tipo, descricao, dt_cadastro, fornecedor, estoque_id) values('remedio', 'REMEDIO 01', '2017-01-01', 'FORNECEDOR 01', 20);
+INSERT INTo insumo (tipo, descricao, dt_cadastro, fornecedor, estoque_id) values('remedio', 'REMEDIO 02', '2017-01-01', 'FORNECEDOR 01', 21);
+INSERT INTo insumo (tipo, descricao, dt_cadastro, fornecedor, estoque_id) values('remedio', 'REMEDIO 03', '2017-01-04', 'FORNECEDOR 05', 22);
+INSERT INTo insumo (tipo, descricao, dt_cadastro, fornecedor, estoque_id) values('remedio', 'REMEDIO 04', '2017-01-04', 'FORNECEDOR 01', 23);
+INSERT INTo insumo (tipo, descricao, dt_cadastro, fornecedor, estoque_id) values('remedio', 'REMEDIO 05', '2017-01-06', 'FORNECEDOR 01', 24);
+INSERT INTo insumo (tipo, descricao, dt_cadastro, fornecedor, estoque_id) values('remedio', 'REMEDIO 06', '2017-01-07', 'FORNECEDOR 02', 25);
+
+INSERT INTo insumo (tipo, descricao, dt_cadastro, fornecedor, raca_id, estoque_id) values('semen', 'SEMEN 01', '2017-01-01', 'FORNECEDOR 01',1, 26);
+INSERT INTo insumo (tipo, descricao, dt_cadastro, fornecedor, raca_id, estoque_id) values('semen', 'SEMEN 02', '2017-01-01', 'FORNECEDOR 01',1, 27);
+INSERT INTo insumo (tipo, descricao, dt_cadastro, fornecedor, raca_id, estoque_id) values('semen', 'SEMEN 03', '2017-01-04', 'FORNECEDOR 05',1, 28);
+INSERT INTo insumo (tipo, descricao, dt_cadastro, fornecedor, raca_id, estoque_id) values('semen', 'SEMEN 04', '2017-01-04', 'FORNECEDOR 01',1, 29);
+INSERT INTo insumo (tipo, descricao, dt_cadastro, fornecedor, raca_id, estoque_id) values('semen', 'SEMEN 05', '2017-01-06', 'FORNECEDOR 01',2, 30);
+INSERT INTo insumo (tipo, descricao, dt_cadastro, fornecedor, raca_id, estoque_id) values('semen', 'SEMEN 06', '2017-01-07', 'FORNECEDOR 02',1, 31);
 
 INSERT INTO inseminacao (dtinsemincao, animal_id, semen_id, gestacao) values ('2017-01-01', 4, 7,false);
 INSERT INTO inseminacao (dtinsemincao, animal_id, semen_id, gestacao) values ('2017-01-01', 4, 8,true);
@@ -38,6 +40,16 @@ INSERT INTO inseminacao (dtinsemincao, animal_id, semen_id, gestacao) values ('2
 INSERT INTO inseminacao (dtinsemincao, animal_id, semen_id, gestacao) values ('2017-01-01', 5, 9,false);
 INSERT INTO inseminacao (dtinsemincao, animal_id, semen_id, gestacao) values ('2017-01-01', 4, 7,false);
 INSERT INTO inseminacao (dtinsemincao, animal_id, semen_id, gestacao) values ('2017-01-01', 4, 7,false);
+
+
+INSERT INTO atualizacaoestoque (motivo, qtd, estoque_id) values ('MOTIVO 01', 03, 20);
+INSERT INTO atualizacaoestoque (motivo, qtd, estoque_id) values ('MOTIVO 02', 03, 20);
+INSERT INTO atualizacaoestoque (motivo, qtd, estoque_id) values ('MOTIVO 03', 03, 20);
+INSERT INTO atualizacaoestoque (motivo, qtd, estoque_id) values ('MOTIVO 04', 03, 22);
+INSERT INTO atualizacaoestoque (motivo, qtd, estoque_id) values ('MOTIVO 05', 03, 20);
+INSERT INTO atualizacaoestoque (motivo, qtd, estoque_id) values ('MOTIVO 06', 03, 21);
+INSERT INTO atualizacaoestoque (motivo, qtd, estoque_id) values ('MOTIVO 07', 03, 21);
+INSERT INTO atualizacaoestoque (motivo, qtd, estoque_id) values ('MOTIVO 08', 03, 20);
 
 INSERT INTO gestacao (dtiniciogestacao, dtparto, partosucesso, procedencia, animal_id, inseminacao_id) values ('2017-09-22', '2017-09-22', false, 'NASCIMENTO_INSEMINACAO', 5, 3)
 INSERT INTO gestacao (dtiniciogestacao, dtparto, partosucesso, procedencia, animal_id, pai_id) values ('2017-09-22', '2017-09-22', false, 'NASCIMENTO_INSEMINACAO', 5, 1)

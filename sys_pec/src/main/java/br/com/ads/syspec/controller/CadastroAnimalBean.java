@@ -2,6 +2,7 @@ package br.com.ads.syspec.controller;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -53,7 +54,11 @@ public class CadastroAnimalBean implements Serializable {
 	private List<Animal> animaisMachos = new ArrayList<>();
 	private List<Inseminacao> inseminacaosSemCria = new ArrayList<>();
 
-
+	private Date dtInicio = null;
+	private Date dtFim = null;
+	
+	private boolean dtEstimada;
+	
 	public void initialize(){
 		racas = racaRepository.findAll();
 		animaisFemeas = animalRepository.findPorSexo("F");
@@ -77,6 +82,7 @@ public class CadastroAnimalBean implements Serializable {
 				}
 				else{
 					animal.setGestacao(gestacao);
+					animal.setRaca(gestacao.getAnimal().getRaca());
 				}
 			}
 		}catch (Exception e) {
@@ -87,7 +93,7 @@ public class CadastroAnimalBean implements Serializable {
 	public void salvar(){
 		ValidacaoUtil vUtil = new ValidacaoUtil();
 		
-		animalService.salvar(animal, vUtil);
+		animalService.salvar(animal,dtInicio, dtFim, dtEstimada,vUtil);
 		
 		if(vUtil.getValidacaoStatus() == ValidacaoStatus.VALID)
 			messages.info(vUtil.getMensagemToString());
@@ -167,5 +173,36 @@ public class CadastroAnimalBean implements Serializable {
 		else
 			return false;
 	}
-	
+
+	public boolean isDtEstimada() {
+		return dtEstimada;
+	}
+
+	public void setDtEstimada(boolean dtEstimada) {
+		this.dtEstimada = dtEstimada;
+	}
+
+	public Date getDtInicio() {
+		return dtInicio;
+	}
+
+	public void setDtInicio(Date dtInicio) {
+		this.dtInicio = dtInicio;
+	}
+
+	public Date getDtFim() {
+		return dtFim;
+	}
+
+	public void setDtFim(Date dtFim) {
+		this.dtFim = dtFim;
+	}
+	public void limparDatas(){
+		if(dtEstimada)
+			animal.getGestacao().setDtParto(null);
+		else{
+			dtFim = null;
+			dtInicio= null;
+		}
+	}
 }
