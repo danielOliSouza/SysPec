@@ -32,10 +32,7 @@ public class AplicacaoRemedio implements Serializable{
 	@OneToOne
 	private Animal animal;
 	
-	@NotNull
-	@OneToOne
-	private Insumo remedio;
-	
+
 	@NotNull
 	@OneToOne
 	private Vacinacao vacinacao;
@@ -78,14 +75,6 @@ public class AplicacaoRemedio implements Serializable{
 
 	public void setAnimal(Animal animal) {
 		this.animal = animal;
-	}
-
-	public Insumo getRemedio() {
-		return remedio;
-	}
-
-	public void setRemedio(Insumo remedio) {
-		this.remedio = remedio;
 	}
 
 	public Vacinacao getVacinacao() {

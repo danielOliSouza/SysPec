@@ -28,6 +28,8 @@ public class InseminacaoRepository implements Serializable {
 	}
 	
 	public List<Inseminacao> findPorAnimal(Long animalId){
+		if(animalId == null)
+			animalId = 0l;
 		return manager.createQuery("FROM Inseminacao  WHERE animal_id = :animalId ORDER BY dtInsemincao, id DESC", Inseminacao.class)
 				.setParameter("animalId", animalId)
 				.getResultList();

@@ -5,7 +5,10 @@ import java.io.Serializable;
 import javax.inject.Inject;import org.omg.PortableInterceptor.ORBInitInfoPackage.InvalidNameHelper;
 
 import br.com.ads.syspec.model.AplicacaoRemedio;
+import br.com.ads.syspec.model.AtualizacaoEstoque;
+import br.com.ads.syspec.model.MovimentacaoTipo;
 import br.com.ads.syspec.model.Vacinacao;
+import br.com.ads.syspec.repository.EstoqueRepository;
 import br.com.ads.syspec.repository.VacinacaoRepository;
 import br.com.ads.syspec.util.Transacional;
 import br.com.ads.syspec.util.ValidacaoStatus;
@@ -14,8 +17,10 @@ import br.com.ads.syspec.util.ValidacaoUtil;
 public class VacinaService implements Serializable{
 	@Inject
 	private VacinacaoRepository vacinacaoRepository;
+	@Inject 
+	private EstoqueRepository estoqueRepository;
 	
-	
+	@Transacional
 	public boolean salvar (Vacinacao vacinacao, ValidacaoUtil vUtil){
 		Boolean result = true;
 		
@@ -34,7 +39,18 @@ public class VacinaService implements Serializable{
 			vUtil.addMensagem("Sem remedio registrado");
 		}
 		
+		for(AplicacaoRemedio ar : vacinacao.getAplicacaoRemedios()){
+			AtualizacaoEstoque ae = new AtualizacaoEstoque();
+			ae.setEstoque(vacinacao.getRemedio().getEstoque());
+			ae.setMotivo("APLICAÇÃO DE REMEDIO");
+			ae.setMovimentacaoTipo(MovimentacaoTipo.BAIXA);
+			ae.setQtd(ar.getQtdDose());
+			
+			estoqueRepository.guardar(ae);
+		}
+		
 		if(vUtil.getValidacaoStatus() == ValidacaoStatus.VALID){
+			
 			vacinacaoRepository.guardar(vacinacao);
 			vUtil.setValidacaoStatus(ValidacaoStatus.VALID);
 			vUtil.addMensagem("Cadastrado com Sucesso");

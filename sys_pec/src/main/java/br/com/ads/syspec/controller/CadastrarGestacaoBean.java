@@ -41,7 +41,7 @@ public class CadastrarGestacaoBean implements Serializable{
 	private GestacaoService gestacaoService;
 	@Inject
 	private FacesMessages msgs;
-	private int tipo = 1;
+
 
 	public void initialize() {
 
