@@ -14,6 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -38,6 +40,10 @@ public abstract class Insumo implements Serializable{
 	@Temporal(TemporalType.DATE)
 	private Date dtCadastro = new Date();
 	
+	@OneToOne
+	@JoinColumn(name="estoque_id")
+	private Estoque estoque = new Estoque();
+	
 	public long getId() {
 		return id;
 	}
@@ -61,6 +67,14 @@ public abstract class Insumo implements Serializable{
 	}
 	public void setDtCadastro(Date dtCadastro) {
 		this.dtCadastro = dtCadastro;
+	}
+	
+	
+	public Estoque getEstoque() {
+		return estoque;
+	}
+	public void setEstoque(Estoque estoque) {
+		this.estoque = estoque;
 	}
 	@Override
 	public int hashCode() {

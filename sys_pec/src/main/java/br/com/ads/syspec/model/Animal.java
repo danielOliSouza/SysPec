@@ -37,7 +37,9 @@ public class Animal {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "dt_cadastro")
 	private Date dtCadastro = new Date();
-
+	
+	@Column(nullable=true)
+	private Double margemDiasDtNascimento ;
 	
 	private String sexo = "F";
 	
@@ -126,4 +128,12 @@ public class Animal {
 		this.obs = obs;
 	}
 
+	public double getMargemDiasDtNascimento() {
+		return margemDiasDtNascimento;
+	}
+
+	public void setMargemDiasDtNascimento(double margemDiasDtNascimento) {
+		this.margemDiasDtNascimento = margemDiasDtNascimento;
+	}
+	
 }
