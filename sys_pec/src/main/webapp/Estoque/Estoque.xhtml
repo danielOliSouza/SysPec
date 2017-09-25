@@ -19,7 +19,7 @@
 					scrollable="true" scrollHeight="250"
 					value="#{estoqueBean.estoques}" selectionMode="single"
 					selection="#{estoqueBean.estoqueSelecionado}"
-					rowKey="#{estoque.id}">
+					rowKey="#{estoque.id}" rowStyleClass="#{estoque.qtdEstoque lt 0? 'rowRed' : null}">
 
 					<p:column headerText="Insumo">
 						<h:outputLabel value="#{estoque.insumo.descricao}" />
@@ -36,22 +36,71 @@
 								styleClass="button-table-estoque" icon="ui-icon-search"
 								value="Visualizar" oncomplete="PF('viewDialog').show()"
 								update="@form" />
-							<p:commandButton process="singleDT"
-								styleClass="button-table-estoque" icon="ui-icon-search"
-								value="Editar" oncomplete="PF('carDialog').show()" />
 
 							<p:commandButton process="singleDT"
 								styleClass="button-table-estoque" icon="ui-icon-search"
-								value="Dar Baixa" oncomplete="PF('carDialog').show()" />
+								value="Dar Baixa" oncomplete="PF('baixaDialog').show()">
+								<p:ajax event="click"
+									listener="#{estoqueBean.setTipoMovimentacaoByOrdinal(0)}" />
+							</p:commandButton>
 
 							<p:commandButton process="singleDT"
 								styleClass="button-table-estoque" icon="ui-icon-search"
-								value="Entrada" oncomplete="PF('carDialog').show()" />
+								value="Entrada" oncomplete="PF('entradaDialog').show()">
+								<p:ajax event="click"
+									listener="#{estoqueBean.setTipoMovimentacaoByOrdinal(1)}" />
+							</p:commandButton>
 
 						</div>
 					</f:facet>
 				</p:dataTable>
 			</div>
+
+			<p:dialog widgetVar="baixaDialog" header="Dar Baixa"
+				style="max-width: 400px;">
+				<div class="ui-fluid">
+					<p:messages autoUpdate="true" />
+					<p:panelGrid columns="2" layout="grid"
+						styleClass="ui-panelgrid-blank" id="gridBaixa"
+						columnClasses="ui-grid-col-5, ui-grid-col-5">
+						<p:outputLabel value="Motivo: " for="itMotivoBaixa" />
+						<p:inputText value="#{estoqueBean.atualizacaoEstoque.motivo}"
+							id="itMotivoBaixa" />
+					
+						<p:outputLabel value="Quantidade: " for="itQtdBaixa" />
+						<p:inputNumber value="#{estoqueBean.atualizacaoEstoque.qtd}"
+							id="itQtdBaixa" />
+
+						<p:commandButton value="Confirmar" process="gridBaixa"
+							action="#{estoqueBean.atualizarEstoque}" update="@form" />
+						<p:commandButton value="Cancelar"
+							onclick="PF('baixaDialog').hide()" process="@this" />
+					</p:panelGrid>
+				</div>
+			</p:dialog>
+
+			<p:dialog widgetVar="entradaDialog" header="Entrada"
+				style="max-width: 400px;">
+				<div class="ui-fluid">
+					<p:messages autoUpdate="true" />
+					<p:panelGrid columns="2" layout="grid"
+						styleClass="ui-panelgrid-blank" id="gridEntrada"
+						columnClasses="ui-grid-col-5, ui-grid-col-5">
+						<p:outputLabel value="Motivo: " for="itMotivoEntrada" />
+						<p:inputText value="#{estoqueBean.atualizacaoEstoque.motivo}"
+							id="itMotivoEntrada" />
+
+						<p:outputLabel value="Quantidade: " for="itMotivoEntrada" />
+						<p:inputNumber value="#{estoqueBean.atualizacaoEstoque.qtd}"
+							id="inQtdEntrada" />
+
+						<p:commandButton value="Confirmar" process="gridEntrada"
+							action="#{estoqueBean.atualizarEstoque}" update="@form" />
+						<p:commandButton value="Cancelar"
+							onclick="PF('baixaDialog').hide()" process="@this" />
+					</p:panelGrid>
+				</div>
+			</p:dialog>
 
 			<p:dialog widgetVar="viewDialog" header="Info"
 				style="max-width: 800px;">
@@ -81,11 +130,15 @@
 				</div>
 
 				<p:dataTable reflow="true" scrollable="true" scrollHeight="200"
-					value="#{estoqueBean.atualizacaoEstoques}" var="atualizacao" style="margin-top: 30px">
+					rowStyleClass="#{atualizacao.movimentacaoTipo == 'BAIXA' ? 'rowRed' : null}"
+					value="#{estoqueBean.atualizacaoEstoques}" var="atualizacao"
+					style="margin-top: 30px">
 					<f:facet name="header">
 						<div align="left">Movimentações</div>
 					</f:facet>
-
+					<p:column headerText="Tipo">
+						<h:outputLabel value="#{atualizacao.movimentacaoTipo}" />
+					</p:column>
 					<p:column headerText=" - ">
 						<h:outputLabel value="#{atualizacao.id}" />
 					</p:column>
