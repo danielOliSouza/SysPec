@@ -33,6 +33,8 @@
 						var="semen" itemLabel="#{semen.id} - #{semen.descricao}"/>
 				</p:selectOneMenu>
 				
+				<p:outputLabel value="Dosagem: " for="inDosagem"/>
+				<p:inputNumber id="inDosagem" value="#{cadastrarAplicacaoInseminacao.inseminacao.dosagem}"/>
 			</p:panelGrid>
 			
 			<p:panelGrid columns="2" layout="grid"

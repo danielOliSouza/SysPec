@@ -3,6 +3,7 @@ package br.com.ads.syspec.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,6 +29,8 @@ public class Inseminacao implements Serializable{
 	private Date dtInsemincao = new Date();
 	private String obs;
 	private boolean gestacao;
+
+	private float dosagem = 0;
 	
 	public Long getId() {
 		return id;
@@ -64,6 +67,13 @@ public class Inseminacao implements Serializable{
 	}
 	public void setGestacao(boolean gestacao) {
 		this.gestacao = gestacao;
+	}
+	
+	public float getDosagem() {
+		return dosagem;
+	}
+	public void setDosagem(float dosagem) {
+		this.dosagem = dosagem;
 	}
 	@Override
 	public int hashCode() {
