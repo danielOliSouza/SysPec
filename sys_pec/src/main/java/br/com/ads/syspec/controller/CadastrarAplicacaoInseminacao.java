@@ -18,6 +18,8 @@ import br.com.ads.syspec.repository.InseminacaoRepository;
 import br.com.ads.syspec.repository.SemenRepository;
 import br.com.ads.syspec.service.InseminacaoService;
 import br.com.ads.syspec.util.FacesMessages;
+import br.com.ads.syspec.util.ValidacaoStatus;
+import br.com.ads.syspec.util.ValidacaoUtil;
 
 @Named
 @ViewScoped
@@ -40,34 +42,23 @@ public class CadastrarAplicacaoInseminacao implements Serializable{
 	
 	
 	public void initialize() {
-		/*Inseminacao in = new Inseminacao();
-		
-		Animal a = new Animal();
-		a.setDescricao("Teste 01");
-		a.setDtCadastro(new Date());
-		a.setDtNascimento(new Date());
-		a.setId(1L);
-		a.setIndentificador("Teste 02");
-		a.setProcedencia(Procedencia.ANIMAL_COMPRADO);
-		a.setSexo("F");
-		
-		in.setAnimal(a);
-		in.setDtInsemincao(new Date());
-		in.setId(1L);
-		in.setSemen(new Semen());
-		
-		insemincoes.add(in);*/
-		
 		insemincoes = inseminacaoRepository.findAll();
 		animalsFemeas = animalRepository.findPorSexo("F");
 		semens = semenRepository.findAll();
 	}
 	
 	public void salvar() {
-		inseminacaoService.salvar(inseminacao);
-		insemincoes = inseminacaoRepository.findAll();
-		inseminacao = new Inseminacao();
-		msgs.info("Add com Sucesso");
+		ValidacaoUtil vUtil = new ValidacaoUtil();
+		inseminacaoService.salvar(inseminacao, vUtil);
+		
+		if(vUtil.getValidacaoStatus() == ValidacaoStatus.VALID) {
+			insemincoes = inseminacaoRepository.findAll();
+			inseminacao = new Inseminacao();
+			msgs.info("Add com Sucesso");
+		}
+		
+		else
+			msgs.error(vUtil.getMensagemToString());
 	}
 	
 	public List<Inseminacao> getInsemincoes() {
