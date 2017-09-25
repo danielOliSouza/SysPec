@@ -10,6 +10,7 @@ import javax.persistence.NoResultException;
 
 import br.com.ads.syspec.model.AtualizacaoEstoque;
 import br.com.ads.syspec.model.Estoque;
+import br.com.ads.syspec.model.MovimentacaoTipo;
 
 public class EstoqueRepository implements Serializable{
 	@Inject
@@ -17,14 +18,30 @@ public class EstoqueRepository implements Serializable{
 
 	public List<Estoque> findAll() {
 		List<Estoque> estoques =  manager.createQuery("FROM Estoque", Estoque.class).getResultList();
+		
 
 		for(Estoque estq : estoques){
-			Double qtd = (Double) manager.createQuery("SELECT SUM(qtd) FROM AtualizacaoEstoque WHERE estoque_id = :id")
-			.setParameter("id", estq.getId())
-			.getSingleResult();
-		
-			estq.setQtdEstoque((qtd == null) ? 0f : qtd);
+			Float qtdEntrada = (Float) manager.createNativeQuery("SELECT SUM(qtd)  FROM atualizacaoestoque WHERE estoque_id = :id AND movimentacaotipo like :movi")
+					.setParameter("id", estq.getId())
+					.setParameter("movi", "ENTRADA")
+					.getSingleResult();
+			
+			Float qtdBaixa = (Float)  manager.createNativeQuery("SELECT SUM(qtd)  FROM atualizacaoestoque WHERE estoque_id = :id AND movimentacaotipo like :movi")
+					.setParameter("id", estq.getId())
+					.setParameter("movi", "BAIXA")
+					.getSingleResult();
+			
+			if(qtdBaixa == null)
+				qtdBaixa = 0f;
+			
+			if(qtdEntrada == null)
+				qtdEntrada = 0f;
+			
+			estq.setQtdEstoque(qtdEntrada - qtdBaixa);
 		}
+
+
+		
 		
 		return estoques;
 	}
@@ -33,6 +50,10 @@ public class EstoqueRepository implements Serializable{
 		return manager.createQuery("FROM AtualizacaoEstoque WHERE estoque_id = :id", AtualizacaoEstoque.class)
 				.setParameter("id", estoque.getId())
 				.getResultList();
+	}
+
+	public void guardar(AtualizacaoEstoque atualizacaoEstoque) {
+		manager.merge(atualizacaoEstoque);
 	}
 
 }

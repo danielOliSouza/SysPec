@@ -42,14 +42,14 @@ INSERT INTO inseminacao (dtinsemincao, animal_id, semen_id, gestacao) values ('2
 INSERT INTO inseminacao (dtinsemincao, animal_id, semen_id, gestacao) values ('2017-01-01', 4, 7,false);
 
 
-INSERT INTO atualizacaoestoque (motivo, qtd, estoque_id) values ('MOTIVO 01', 03, 20);
-INSERT INTO atualizacaoestoque (motivo, qtd, estoque_id) values ('MOTIVO 02', 03, 20);
-INSERT INTO atualizacaoestoque (motivo, qtd, estoque_id) values ('MOTIVO 03', 03, 20);
-INSERT INTO atualizacaoestoque (motivo, qtd, estoque_id) values ('MOTIVO 04', 03, 22);
-INSERT INTO atualizacaoestoque (motivo, qtd, estoque_id) values ('MOTIVO 05', 03, 20);
-INSERT INTO atualizacaoestoque (motivo, qtd, estoque_id) values ('MOTIVO 06', 03, 21);
-INSERT INTO atualizacaoestoque (motivo, qtd, estoque_id) values ('MOTIVO 07', 03, 21);
-INSERT INTO atualizacaoestoque (motivo, qtd, estoque_id) values ('MOTIVO 08', 03, 20);
+INSERT INTO atualizacaoestoque (motivo, qtd, estoque_id, movimentacaotipo) values ('MOTIVO 01', 03, 20, 'ENTRADA');
+INSERT INTO atualizacaoestoque (motivo, qtd, estoque_id, movimentacaotipo) values ('MOTIVO 02', 03, 20, 'ENTRADA');
+INSERT INTO atualizacaoestoque (motivo, qtd, estoque_id, movimentacaotipo) values ('MOTIVO 03', 03, 20, 'BAIXA');
+INSERT INTO atualizacaoestoque (motivo, qtd, estoque_id, movimentacaotipo) values ('MOTIVO 04', 03, 22, 'ENTRADA');
+INSERT INTO atualizacaoestoque (motivo, qtd, estoque_id, movimentacaotipo) values ('MOTIVO 05', 03, 20, 'ENTRADA');
+INSERT INTO atualizacaoestoque (motivo, qtd, estoque_id, movimentacaotipo) values ('MOTIVO 06', 03, 21, 'ENTRADA');
+INSERT INTO atualizacaoestoque (motivo, qtd, estoque_id, movimentacaotipo) values ('MOTIVO 07', 03, 21, 'BAIXA');
+INSERT INTO atualizacaoestoque (motivo, qtd, estoque_id, movimentacaotipo) values ('MOTIVO 08', 03, 20, 'ENTRADA');
 
 INSERT INTO gestacao (dtiniciogestacao, dtparto, partosucesso, procedencia, animal_id, inseminacao_id) values ('2017-09-22', '2017-09-22', false, 'NASCIMENTO_INSEMINACAO', 5, 3)
 INSERT INTO gestacao (dtiniciogestacao, dtparto, partosucesso, procedencia, animal_id, pai_id) values ('2017-09-22', '2017-09-22', false, 'NASCIMENTO_INSEMINACAO', 5, 1)
