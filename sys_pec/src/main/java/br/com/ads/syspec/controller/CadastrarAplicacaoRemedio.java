@@ -48,7 +48,6 @@ public class CadastrarAplicacaoRemedio implements Serializable{
 		
 		if(vacinaService.addAplicacaoRemedio(novaAplicacao, vacinacao, vUtil)){
 			novaAplicacao = new AplicacaoRemedio();
-			vacinacao = new Vacinacao();
 			messages.info("Add Com Sucesso");
 		}
 		else
@@ -61,8 +60,10 @@ public class CadastrarAplicacaoRemedio implements Serializable{
 		
 		System.out.println("OK");
 		
-		if(vacinaService.salvar(vacinacao, vUtil))
+		if(vacinaService.salvar(vacinacao, vUtil)) {
 			messages.info(vUtil.getMensagemToString());
+			vacinacao = new Vacinacao();
+		}
 		else
 			messages.error(vUtil.getMensagemToString());
 	}
