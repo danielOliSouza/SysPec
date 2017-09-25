@@ -3,6 +3,7 @@ package br.com.ads.syspec.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -40,7 +41,7 @@ public abstract class Insumo implements Serializable{
 	@Temporal(TemporalType.DATE)
 	private Date dtCadastro = new Date();
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="estoque_id")
 	private Estoque estoque = new Estoque();
 	
