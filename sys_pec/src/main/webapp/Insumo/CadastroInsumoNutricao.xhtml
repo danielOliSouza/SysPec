@@ -67,7 +67,7 @@
 							styleClass="ui-panelgrid-blank"
 							columnClasses="ui-grid-col-6, ui-grid-col-6">
 							<p:outputLabel value="QTD. Estoque" for="inQtdEstoque" />
-							<p:inputNumber id="inQtdEstoque" />
+							<p:inputNumber id="inQtdEstoque" value="#{cadastrarInsumoNutricao.nutricao.estoque.qtdEstoque}"/>
 
 							<p:commandButton value="OK"
 								action="#{cadastrarInsumoNutricao.salvar}" update="@form"

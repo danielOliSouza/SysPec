@@ -75,7 +75,7 @@
 						<h:outputText value="#{semen.animal.indentificador}" />
 					</p:column>
 					<p:column headerText="Estoque">
-						<h:outputText value="{não implementado}" />
+						<h:outputText value="#{semen.estoque.qtdEstoque}" />
 					</p:column>
 				</p:dataTable>
 
@@ -99,7 +99,7 @@
 							styleClass="ui-panelgrid-blank"
 							columnClasses="ui-grid-col-6, ui-grid-col-6">
 							<p:outputLabel value="QTD. Estoque" for="inQtdEstoque" />
-							<p:inputNumber id="inQtdEstoque" />
+							<p:inputNumber id="inQtdEstoque" value="#{cadastrarInsumoSemen.semen.estoque.qtdEstoque}"/>
 
 							<p:commandButton value="OK"
 								action="#{cadastrarInsumoSemen.salvar}" update="@form"
