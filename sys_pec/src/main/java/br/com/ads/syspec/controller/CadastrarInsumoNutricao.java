@@ -22,6 +22,7 @@ public class CadastrarInsumoNutricao implements java.io.Serializable{
 	private NutricaoService nutricaoService;
 	@Inject
 	private FacesMessages messages;
+	private float qtd;
 	
 	private List<Nutricao> nutricaos = new ArrayList<>();
 	private Nutricao nutricao = new Nutricao();
