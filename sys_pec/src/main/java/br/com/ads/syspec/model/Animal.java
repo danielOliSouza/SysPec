@@ -1,5 +1,6 @@
 package br.com.ads.syspec.model;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +23,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.br.CPF;
+
+import br.com.ads.syspec.util.DateUtil;
 
 @Entity
 @Table(name = "animal")
@@ -81,10 +84,15 @@ public class Animal {
 	}
 
 	public Date getDtNascimento() {
-		return gestacao.getDtParto();
+		if(gestacao != null)
+			return gestacao.getDtParto();
+		else
+			return new Date();
 	}
 
 	public void setDtNascimento(Date dtNascimento) {
+		if(gestacao == null)
+			gestacao = new Gestacao();
 		this.gestacao.setDtParto(dtNascimento);
 	}
 	
@@ -136,4 +144,16 @@ public class Animal {
 		this.margemDiasDtNascimento = margemDiasDtNascimento;
 	}
 	
+	public String getDtNascimentoEstimadaToString() {
+		String response = "";
+		
+		if(getDtNascimento() != null && margemDiasDtNascimento != null) {
+			Date min = DateUtil.match(getDtNascimento()).somarDias(margemDiasDtNascimento);
+			Date max = DateUtil.match(getDtNascimento()).subtrairDias(margemDiasDtNascimento);
+			
+			SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
+			response = dt.format(min) + " à " + dt.format(max);
+		}
+		return response;
+	}
 }

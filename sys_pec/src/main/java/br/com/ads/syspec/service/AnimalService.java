@@ -111,6 +111,7 @@ public class AnimalService implements Serializable {
 				else{
 					vUtil.addMensagem("Selecione a Procedencia do Animal");
 					vUtil.setValidacaoStatus(ValidacaoStatus.INVALID);
+					System.out.println(animal.getGestacao().getProcedencia());
 				}
 
 

@@ -71,7 +71,8 @@ public class DateUtil {
 		}
 		
 		public Date somarMilisegundos(Number n){
-			dt.setTime(dt.getTime() + (long)n);
+			
+			dt.setTime(dt.getTime() + (long)n.longValue());
 			return dt;
 		}
 		
@@ -93,7 +94,7 @@ public class DateUtil {
 		}
 		
 		public Date subtrairMilisegundos(Number n){
-			dt.setTime(dt.getTime() - (long)n);
+			dt.setTime(dt.getTime() - (long)n.longValue());
 			return dt;
 		}
 	}
