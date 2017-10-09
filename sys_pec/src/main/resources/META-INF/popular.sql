@@ -15,7 +15,7 @@ INSERT INTO animal (descricao, dt_cadastro, indentificador, sexo, raca_id) VALUE
 INSERT INTO animal (descricao, dt_cadastro, indentificador, sexo, raca_id) VALUES('Vaca Bat', '2008-01-01', '1238', 'F', 1)
 INSERT INTO animal (descricao, dt_cadastro, indentificador, sexo, raca_id) VALUES('Vaca Lisa', '2008-01-01', '1238', 'F', 1)
 INSERT INTO animal (descricao, dt_cadastro, indentificador, sexo, raca_id) VALUES('Vaca Xanaina', '2008-01-01', '1238', 'F', 1)
-INSERT INTO animal (descricao, dt_cadastro, indentificador, sexo, raca_id) VALUES('Vaca Truco', '2008-01-01', '1238', 'F', 1)
+INSERT INTO animal (descricao, dt_cadastro, indentificador, sexo, raca_id, margemdiasdtnascimento) VALUES('Vaca Truco', '2008-01-01', '1238', 'F', 1, '17.5')
 
 
 INSERT INTO estoque values  (20), (21), (22), (23), (24), (25), (26), (27), (28), (29), (30), (31);

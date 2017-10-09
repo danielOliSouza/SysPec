@@ -148,8 +148,8 @@ public class Animal {
 		String response = "";
 		
 		if(getDtNascimento() != null && margemDiasDtNascimento != null) {
-			Date min = DateUtil.match(getDtNascimento()).somarDias(margemDiasDtNascimento);
-			Date max = DateUtil.match(getDtNascimento()).subtrairDias(margemDiasDtNascimento);
+			Date max = DateUtil.somarDias(margemDiasDtNascimento / 2, getDtNascimento());
+			Date min = DateUtil.subtrairDias(margemDiasDtNascimento / 2, getDtNascimento());
 			
 			SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
 			response = dt.format(min) + " à " + dt.format(max);

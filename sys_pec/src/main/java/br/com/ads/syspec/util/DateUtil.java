@@ -8,10 +8,6 @@ public class DateUtil {
 		return new Interval(date01, date02);
 	}
 
-	public static Match match(Date dt){
-		return new Match(dt);
-	}
-	
 	public static class Interval{
 		private Date date01;
 		private Date date02;
@@ -48,54 +44,40 @@ public class DateUtil {
 		}
 	}
 
-	public static class Match{
-		Date dt;
-		public Match(Date dt){
-			this.dt = dt;
-		}
-		
-		public Date somarDias(Number n){
-			return somarHoras((double) n / (double) 24);
-		}
-		
-		public Date somarHoras(Number n){
-			return somarMinutos((double) n / (double) 60);
-		}
-		
-		public Date somarMinutos(Number n){
-			return somarSegundos((double) n / (double) 60);
-		}
-		
-		public Date somarSegundos(Number n){
-			return somarMilisegundos((double) n / (double) 1000);
-		}
-		
-		public Date somarMilisegundos(Number n){
-			
-			dt.setTime(dt.getTime() + (long)n.longValue());
-			return dt;
-		}
-		
-		
-		public Date subtrairDias(Number n){
-			return subtrairHoras((double) n / (double) 24);
-		}
-		
-		public Date subtrairHoras(Number n){
-			return subtrairMinutos((double) n / (double) 60);
-		}
-		
-		public Date subtrairMinutos(Number n){
-			return subtrairSegundos((double) n / (double) 60);
-		}
-		
-		public Date subtrairSegundos(Number n){
-			return subtrairMilisegundos((double) n / (double) 1000);
-		}
-		
-		public Date subtrairMilisegundos(Number n){
-			dt.setTime(dt.getTime() - (long)n.longValue());
-			return dt;
-		}
+
+	public static Date somarDias(Number n, Date data){
+		return somarHoras((double) n * (double) 24, data);
+	}
+	public static Date somarHoras(Number n, Date data){
+		return somarMinutos((double) n * (double) 60, data);
+	}
+	public static Date somarMinutos(Number n, Date data){
+		return somarSegundos((double) n * (double) 60, data);
+	}
+	public static Date somarSegundos(Number n, Date data){
+		return somarMilisegundos((double) n * (double) 1000, data);
+	}
+	public static Date somarMilisegundos(Number n, Date data){
+		Date dt = new Date();
+		dt.setTime(data.getTime() + n.longValue());
+		return dt;
+	}
+	
+	public static Date subtrairDias(Number n, Date data){
+		return subtrairHoras((double) n * (double) 24, data);
+	}
+	public static Date subtrairHoras(Number n, Date data){
+		return subtrairMinutos((double) n * (double) 60, data);
+	}
+	public static Date subtrairMinutos(Number n, Date data){
+		return subtrairSegundos((double) n * (double) 60, data);
+	}
+	public static Date subtrairSegundos(Number n, Date data){
+		return subtrairMilisegundos((double) n * (double) 1000, data);
+	}
+	public static Date subtrairMilisegundos(Number n, Date data){
+		Date dt = new Date();
+		dt.setTime(data.getTime() - n.longValue());
+		return dt;
 	}
 }
