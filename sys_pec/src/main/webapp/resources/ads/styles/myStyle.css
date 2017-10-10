@@ -64,3 +64,6 @@ label {
 	background: linear-gradient(to right, #ff3333, #ff4d4d);	/* Standard syntax */
 	color: white;
 }
+.review-table th span {
+  color: #004077;
+}

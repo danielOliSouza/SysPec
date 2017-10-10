@@ -4,40 +4,101 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/LayoutPadrao.xhtml">
-	<!-- 
-		TENTAR USAR  para olcutar data de nascimento
- 		select CASE WHEN margemdiasdtnascimento IS NULL THEN 'OK' END
-		from animal
-	 -->
+
 
 	<ui:define name="corpo">
+		<style>
+.review-table span {
+	color: #004077;
+}
+</style>
 		<h1 class="aw-page-title">Animais</h1>
 		<h:form id="frm">
-			<p:dataTable reflow="true" rows="10" paginator="true"
+			<p:dataTable id="tbAnimais" reflow="true" rows="10" paginator="true"
 				emptyMessage="Não foram encontrados registros"
-				value="${indexAnimalController.animals}" var="animal">
+				value="${indexAnimalController.animals}" var="animal"
+				selectionMode="single"
+				selection="#{indexAnimalController.animalSelecionado}"
+				rowKey="#{animal.id}" styleClass="review-table	">
 				<p:column headerText=" - ">
-					<h:outputLabel value="#{animal.id}"/>
+					<h:outputLabel value="#{animal.id}" />
 				</p:column>
 				<p:column headerText=" Indentificador ">
-					<h:outputLabel value="#{animal.indentificador}"/>
+					<h:outputLabel value="#{animal.indentificador}" />
 				</p:column>
 				<p:column headerText="Sexo">
-					<h:outputLabel value="#{animal.sexo}"/>
+					<h:outputLabel value="#{animal.sexo}" />
 				</p:column>
 				<p:column headerText="Descricao">
-					<h:outputLabel value="#{animal.descricao}"/>
+					<h:outputLabel value="#{animal.descricao}" />
 				</p:column>
 				<p:column headerText="Raça">
-					<h:outputLabel value="#{animal.raca.descricao}"/>
+					<h:outputLabel value="#{animal.raca.descricao}" />
 				</p:column>
 				<p:column headerText="Data Nascimento">
-					<p:calendar value="#{animal.dtNascimento}" disabled="true"/>
+					<h:outputLabel value="#{animal.dtNascimento}" disabled="true"
+						rendered="#{!animal.margemDiasDtNascimento}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputLabel>
+					<h:outputText value="" rendered="#{animal.margemDiasDtNascimento}" />
 				</p:column>
 				<p:column headerText="Data Nascimento Estimada">
-					<h:outputLabel value="${animal.dtNascimentoEstimadaToString}"/>
+					<h:outputLabel value="${animal.dtNascimentoEstimadaToString}" />
 				</p:column>
+				<f:facet name="footer">
+					<div align="left">
+						<p:commandButton styleClass="button-table-estoque"
+							icon="ui-icon-search" value="Visualizar" process="tbAnimais"
+							onsuccess="PF('visualizarDialog').show()"
+							update="@form:pgVisualizar" />
+						<p:commandButton styleClass="button-table-estoque"
+							icon="ui-icon-search" value="Novo" action="/Animal/CadastroNovoAnimalIndividual.xhtml?faces-redirect=true"/>
+						<p:commandButton styleClass="button-table-estoque"
+							icon="ui-icon-search" value="Editar" action="#{indexAnimalController.editarAnimal}" process="tbAnimais"/>
+					</div>
+				</f:facet>
 			</p:dataTable>
+			<p:dialog widgetVar="visualizarDialog" header="View"
+				style="max-width: 800px;" responsive="true">
+				<p:separator />
+				<div class="ui-fluid">
+					<p:panelGrid columns="4" layout="grid" id="pgVisualizar"
+						styleClass="ui-panelgrid-blank"
+						columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+						<p:outputLabel value="Dt Cadastro:" />
+						<h:outputLabel
+							value="#{indexAnimalController.animalSelecionado.dtCadastro}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputLabel>
+
+						<p:outputLabel />
+						<h:outputLabel />
+
+						<p:outputLabel value="Procedencia: " />
+						<h:outputLabel
+							value="#{indexAnimalController.animalSelecionado.gestacao.procedencia.descricao}" />
+
+						<p:outputLabel value="Mãe: "
+							rendered="#{indexAnimalController.animalSelecionado.gestacao.animal.indentificador != null}" />
+						<h:outputLabel
+							rendered="#{indexAnimalController.animalSelecionado.gestacao.animal != null}"
+							value="#{indexAnimalController.animalSelecionado.gestacao.animal.indentificador} - 
+								#{indexAnimalController.animalSelecionado.gestacao.animal.descricao}" />
+
+						<p:outputLabel value="Inseminacao: "
+							rendered="#{indexAnimalController.animalSelecionado.gestacao.inseminacao != null}" />
+						<h:outputLabel
+							value="#{indexAnimalController.animalSelecionado.gestacao.inseminacao.id}"
+							rendered="#{indexAnimalController.animalSelecionado.gestacao.inseminacao != null}" />
+
+						<p:outputLabel value="Semen: "
+							rendered="#{indexAnimalController.animalSelecionado.gestacao.inseminacao.semen != null}" />
+						<h:outputLabel
+							value="#{indexAnimalController.animalSelecionado.gestacao.inseminacao.semen.descricao}"
+							rendered="#{indexAnimalController.animalSelecionado.gestacao.inseminacao.semen != null}" />
+					</p:panelGrid>
+				</div>
+			</p:dialog>
 		</h:form>
 	</ui:define>
 </ui:composition>

@@ -156,4 +156,13 @@ public class Animal {
 		}
 		return response;
 	}
+	
+	public boolean isMargemDiasDtNascimento() {
+		if(margemDiasDtNascimento == null)
+			return false;
+		if(margemDiasDtNascimento <= 0)
+			return false;
+					
+		return true;
+	}
 }

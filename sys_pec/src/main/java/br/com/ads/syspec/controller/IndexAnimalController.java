@@ -16,8 +16,26 @@ import br.com.ads.syspec.repository.AnimalRepository;
 public class IndexAnimalController implements Serializable{
 	@Inject
 	private AnimalRepository animalRepository;
-	
+	private Animal animalSelecionado = new Animal();
+
 	public List<Animal> getAnimals(){
 		return animalRepository.findAll();
+	}
+
+	public Animal getAnimalSelecionado() {
+		return animalSelecionado;
+	}
+
+	public void setAnimalSelecionado(Animal animalSelecionado) {
+		this.animalSelecionado = animalSelecionado;
+	}
+
+	public String editarAnimal() {
+		if(animalSelecionado != null) {
+			if(animalSelecionado.getGestacao() != null)
+				return "/Animal/CadastroNovoAnimalIndividual.xhtml?faces-redirect=true&idGestacao=" 
+					+ String.valueOf(animalSelecionado.getGestacao().getId());
+		}
+		return null;
 	}
 }
