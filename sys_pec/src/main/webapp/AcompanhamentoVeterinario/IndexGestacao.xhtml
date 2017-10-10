@@ -28,6 +28,16 @@
 					<h:outputLabel value="INSEMINAÇÃO" rendered="#{gestacao.procedencia == 'NASCIMENTO_INSEMINACAO'}"/>
 					<h:outputLabel value="NATURAL" rendered="#{gestacao.procedencia == 'NASCIMENTO_NATURAL'}"/>
 				</p:column>
+				<p:column headerText="Inicio Gestação">
+					<h:outputLabel value="#{gestacao.dtInicioGestacao}">
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</h:outputLabel>
+				</p:column>
+				<p:column>
+					<h:outputLabel value="#{gestacao.dtParto}" rendered="#{gestacao.dtParto != null}">
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</h:outputLabel>
+				</p:column>
 				<f:facet name="footer">
 					<div align="left">
 						<p:commandButton styleClass="button-table-estoque"
