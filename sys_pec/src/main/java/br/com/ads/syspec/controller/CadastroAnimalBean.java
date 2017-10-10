@@ -90,15 +90,19 @@ public class CadastroAnimalBean implements Serializable {
 		}
 	}
 
-	public void salvar(){
+	public String salvar(){
 		ValidacaoUtil vUtil = new ValidacaoUtil();
 		
 		animalService.salvar(animal,dtInicio, dtFim, dtEstimada,vUtil);
 		
-		if(vUtil.getValidacaoStatus() == ValidacaoStatus.VALID)
+		if(vUtil.getValidacaoStatus() == ValidacaoStatus.VALID) {
 			messages.info(vUtil.getMensagemToString());
-		else
+			return "/Animal/IndexAnimal.xhtml";
+		}
+		else {
 			messages.error(vUtil.getMensagemToString());
+			return null;
+		}
 	}
 	
 	public void tipoPorcedencia(){
