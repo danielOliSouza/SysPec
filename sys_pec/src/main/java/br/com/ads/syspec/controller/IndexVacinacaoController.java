@@ -18,7 +18,7 @@ public class IndexVacinacaoController implements Serializable{
 	@Inject
 	private VacinacaoRepository vacinacaoRepository;
 	private List<Vacinacao> vacinacaos = null;
-	private Vacinacao vacinacaoSelecionado = new Vacinacao();
+	private Vacinacao vacinacaoSelecionado;
 	
 	public List<Vacinacao> getVacinacaos() {
 		if(vacinacaos == null)
@@ -31,5 +31,12 @@ public class IndexVacinacaoController implements Serializable{
 	}
 	public void setVacinacaoSelecionado(Vacinacao vacinacaoSelecionado) {
 		this.vacinacaoSelecionado = vacinacaoSelecionado;
+	}
+	public String editarVacinacao() {
+		if(vacinacaoSelecionado != null) {
+			return "/AcompanhamentoVeterinario/CadastrarVacinacao.xhtml?faces-redirect=true&idVacinacao=" 
+					+ String.valueOf(vacinacaoSelecionado.getId());
+		}
+		return null;
 	}
 }

@@ -9,7 +9,7 @@
 		<h1 class="aw-page-title">Vacinações</h1>
 
 		<h:form id="frm">
-			<p:dataTable id="tbGest" reflow="true" rows="10" paginator="true"
+			<p:dataTable id="tbVac" reflow="true" rows="10" paginator="true"
 				emptyMessage="Não foram encontrados registros"
 				value="${indexVacinacaoController.vacinacaos}" var="vacina"
 				styleClass="review-table" rowKey="#{vacina.id}"
@@ -34,7 +34,7 @@
 				<f:facet name="footer">
 					<div align="left">
 						<p:commandButton styleClass="button-table-estoque"
-							icon="ui-icon-search" value="Listar Animais" process="tbGest"
+							icon="ui-icon-search" value="Listar Animais" process="tbVac"
 							action="#{indexGestacaoController.addAnimalNascido}"
 							update="@form" />
 						<p:commandButton styleClass="button-table-estoque"
@@ -43,8 +43,8 @@
 							update="@form" />
 						<p:commandButton styleClass="button-table-estoque"
 							icon="ui-icon-search" value="Editar" update="@form"
-							action="#{indexGestacaoController.editarGestacao}"
-							process="tbGest" />
+							action="#{indexVacinacaoController.editarVacinacao}"
+							process="tbVac" />
 					</div>
 				</f:facet>
 			</p:dataTable>
