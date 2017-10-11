@@ -50,63 +50,8 @@
 			<h5>Dashboard</h5>
 		</div>
 		<div class="w3-bar-block">
-			<a href="#"
-				class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black"
-				onclick="w3_close()" title="close menu"> <h:form>
-					<p:slideMenu style="width:100%">
-						<p:submenu label="Animal" icon="ui-icon-refresh">
-							<p:menuitem value="Cadastro Individual" icon="ui-icon-disk"
-								action="/Animal/CadastroNovoAnimalIndividual.xhtml?faces-redirect=true" />
-							<p:menuitem value="Cadastro Multiplo"
-								icon="ui-icon-arrowrefresh-1-w" />
-						</p:submenu>
-						<p:submenu label="Acompanhamento Veterinario"
-							icon="ui-icon-refresh">
-							<p:menuitem value="Gestacao" icon="ui-icon-disk"
-								action="/AcompanhamentoVeterinario/CadastrarGestacao.xhmtl?faces-redirect=true" />
-							<p:menuitem value="Vacinacao" icon="ui-icon-arrowrefresh-1-w"
-								action="/AcompanhamentoVeterinario/CadastrarVacinacao.xhtml?faces-redirect=true" />
-							<p:menuitem value="Inseminacao" icon="ui-icon-arrowrefresh-1-w"
-								action="/AcompanhamentoVeterinario/CadastrarInseminacao.xhtml?faces-redirect=true" />
-						</p:submenu>
-						<p:submenu label="Insumo " icon="ui-icon-refresh">
-							<p:menuitem value="Nutricao" icon="ui-icon-disk"
-								action="/Insumo/CadastroInsumoNutricao.xhtml?faces-redirect=true" />
-							<p:menuitem value="Remedio" icon="ui-icon-arrowrefresh-1-w"
-								action="/Insumo/CadastroInsumoRemedio.xhtml?faces-redirect=true" />
-							<p:menuitem value="Semen" icon="ui-icon-arrowrefresh-1-w"
-								action="/Insumo/CadastroInsumoSemen.xhtml?faces-redirect=true" />
-						</p:submenu>
-						<p:submenu label="Producao " icon="ui-icon-refresh">
-							<p:menuitem value="Cadastrar" icon="ui-icon-disk"
-								action="/Producao/CadastroProducao.xhtml?faces-redirect=true" />
-						</p:submenu>
-						<p:submenu label="Estoque " icon="ui-icon-refresh">
-							<p:menuitem value="Estoque" icon="ui-icon-disk"
-								action="/Estoque/Estoque.xhtml?faces-redirect=true" />
-						</p:submenu>
-					</p:slideMenu>
-				</h:form> <!-- <i
-				class="fa fa-remove fa-fw"></i>  Close Menu</a> <a href="#"
-				class="w3-bar-item w3-button w3-padding w3-blue"><i
-				class="fa fa-users fa-fw"></i>  Overview</a> <a href="#"
-				class="w3-bar-item w3-button w3-padding"><i
-				class="fa fa-eye fa-fw"></i>  Views</a> <a href="#"
-				class="w3-bar-item w3-button w3-padding"><i
-				class="fa fa-users fa-fw"></i>  Traffic</a> <a href="#"
-				class="w3-bar-item w3-button w3-padding"><i
-				class="fa fa-bullseye fa-fw"></i>  Geo</a> <a href="#"
-				class="w3-bar-item w3-button w3-padding"><i
-				class="fa fa-diamond fa-fw"></i>  Orders</a> <a href="#"
-				class="w3-bar-item w3-button w3-padding"><i
-				class="fa fa-bell fa-fw"></i>  News</a> <a href="#"
-				class="w3-bar-item w3-button w3-padding"><i
-				class="fa fa-bank fa-fw"></i>  General</a> <a href="#"
-				class="w3-bar-item w3-button w3-padding"><i
-				class="fa fa-history fa-fw"></i>  History</a> <a href="#"
-				class="w3-bar-item w3-button w3-padding"><i
-				class="fa fa-cog fa-fw"></i>  Settings 
-				--></a><br /> <br />
+			<ui:include src="Menu.xhtml" />
+			
 		</div>
 	</nav>
 
