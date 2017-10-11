@@ -20,6 +20,7 @@ import br.com.ads.syspec.model.Gestacao;
 import br.com.ads.syspec.model.Inseminacao;
 import br.com.ads.syspec.model.Procedencia;
 import br.com.ads.syspec.repository.AnimalRepository;
+import br.com.ads.syspec.repository.GestacaoRepository;
 import br.com.ads.syspec.repository.InseminacaoRepository;
 import br.com.ads.syspec.service.AnimalService;
 import br.com.ads.syspec.service.GestacaoService;
@@ -40,19 +41,34 @@ public class CadastrarGestacaoBean implements Serializable{
 	@Inject
 	private GestacaoService gestacaoService;
 	@Inject
+	private GestacaoRepository gestacaoRepository;
+	@Inject
 	private FacesMessages msgs;
 
 
 	public void initialize() {
-
-
-
+		Map<String, String> params =FacesContext.getCurrentInstance().
+				getExternalContext().getRequestParameterMap();
+		
 		try {
-			Map<String, String> params =FacesContext.getCurrentInstance().
-					getExternalContext().getRequestParameterMap();
+			String parameterOne = params.get("idGestacao");
+			
+			if(!parameterOne.isEmpty() && parameterOne != null) {
+				Long id = new Long (Integer.valueOf(parameterOne));
+				gestacao = gestacaoRepository.findById(id);
+				
+				if(gestacao == null)
+					gestacao = new Gestacao();
+			}
+			
+		}catch (Exception e) {
+			System.err.println("Initialize - Cadastro Gestacao - idGestacao: " +e.getMessage());
+		}
+		
+		try {
 			String parameterOne = params.get("idinsem");
 
-			if(!parameterOne.isEmpty()) {
+			if(!parameterOne.isEmpty() && parameterOne != null) {
 				Long id = new Long (Integer.valueOf(parameterOne));
 				Inseminacao insem = inseminacaoRepository.findById(id);
 				insem.setGestacao(true);
@@ -60,8 +76,9 @@ public class CadastrarGestacaoBean implements Serializable{
 				gestacao.setProcedencia(Procedencia.NASCIMENTO_INSEMINACAO);
 				gestacao.setInseminacao(insem);
 			}
-		}catch(Exception e) {}
-
+		}catch(Exception e) {
+			System.err.println("Initialize - Cadastro Gestacao - idinsem: " + e.getMessage());
+		}
 
 		animalsMachos = animalRepository.findPorSexo("M");
 

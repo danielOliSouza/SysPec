@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>  
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
@@ -6,7 +7,7 @@
 	template="/WEB-INF/templates/LayoutPadrao.xhtml">
 
 	<ui:define name="corpo">
-		<h1 class="aw-page-title">GestaÃ§Ãµes</h1>
+		<h1 class="aw-page-title">Gestações</h1>
 
 		<f:metadata>
 			<f:viewAction action="#{cadastrarGestacaoBean.initialize}" />
@@ -39,8 +40,8 @@
 						<f:selectItem itemLabel="NATURAL" itemValue="2" />
 						<f:selectItem itemLabel="INSEMINACAO" itemValue="1" />
 
-						<!-- ATENÃ‡ÃƒO !!! Caso mudar os 'itemLabels' tambem deve se mudar a function 'opemModal()' -->
-						<!-- Pois ela leva em consideraÃ§Ã£o ps itemLabels -->
+						<!-- ATENÇÃO !!! Caso mudar os 'itemLabels' tambem deve se mudar a function 'opemModal()' -->
+						<!-- Pois ela leva em consideração ps itemLabels -->
 						<p:ajax event="change" onsuccess="openModal()" update="tipo" />
 					</p:selectOneMenu>
 
@@ -74,8 +75,8 @@
 					<p:outputLabel value="Obs. " />
 					<p:inputTextarea />
 
-					<h:outputLabel value="NutriÃ§Ãµes" />
-					<p:selectCheckboxMenu label="NutriÃ§Ãµes" multiple="true"
+					<h:outputLabel value="Nutrições" />
+					<p:selectCheckboxMenu label="Nutrições" multiple="true"
 						filter="true" filterMatchMode="startsWith"
 						panelStyle="width:250px">
 
@@ -91,7 +92,7 @@
 
 			</div>
 			<p:dialog id="insereAnimal" widgetVar="insereAnimal" modal="true"
-				header="Inserir Animal da GestaÃ§Ã£o" resizable="false" responsive="true"
+				header="Inserir Animal da Gestação" resizable="false" responsive="true"
 				style="max-width: 800px;" closable="false">
 				<div class="ui-fluid">
 					<p:panelGrid columns="2" layout="grid"
@@ -136,7 +137,7 @@
 						<p:column headerText="Descricao">
 							<h:outputText value="#{animal.descricao}" />
 						</p:column>
-						<p:column headerText="RaÃ§a">
+						<p:column headerText="Raça">
 							<h:outputText value="#{animal.raca.descricao}" />
 						</p:column>
 
@@ -187,34 +188,6 @@
 				</div>
 			</p:dialog>
 		</h:form>
-
-		<script>
-			window.onload = function() {
-				var idin = parseInt($.urlParam("idinsem"));
-				if (!$.isNumeric(idin))
-					PF('insereAnimal').show();
-			}
-
-			$.urlParam = function(name) {
-				var results = new RegExp('[\?&amp;]' + name + '=([^&amp;#]*)')
-						.exec(window.location.href);
-				if (results == null) {
-					return null;
-				} else {
-					return decodeURI(results[1]) || 0;
-				}
-			}
-		</script>
-		<script>
-			function openModal() {
-				var tipo = PF('wgvTipo').jq.find(".ui-selectonemenu-label")
-						.first().text();
-				console.log(tipo);
-				if (tipo == "NATURAL")
-					PF("modalNatural").show();
-				else if (tipo == "INSEMINACAO")
-					PF("modalInsem").show();
-			}
-		</script>
+		<h:outputScript library="ads" name="js/cadastrarGestacao.js" />
 	</ui:define>
 </ui:composition>

@@ -13,10 +13,11 @@
 		</f:metadata>
 
 		<h:form id="frm">
-			<p:dataTable id="tbAnimais" reflow="true" rows="10" paginator="true"
+			<p:dataTable id="tbGest" reflow="true" rows="10" paginator="true"
 				emptyMessage="Não foram encontrados registros"
 				value="${indexGestacaoController.gestacoes}" var="gestacao"
-				styleClass="review-table	">
+				selectionMode="single" selection="#{indexGestacaoController.gestacaoSelecionado}"
+				styleClass="review-table" rowKey="#{gestacao.id}">
 				<p:column headerText=" - ">
 					<h:outputLabel value="#{gestacao.id}" />
 				</p:column>
@@ -33,7 +34,7 @@
 						<f:convertDateTime pattern="dd/MM/yyyy"/>
 					</h:outputLabel>
 				</p:column>
-				<p:column>
+				<p:column headerText="Data de Parto">
 					<h:outputLabel value="#{gestacao.dtParto}" rendered="#{gestacao.dtParto != null}">
 						<f:convertDateTime pattern="dd/MM/yyyy"/>
 					</h:outputLabel>
@@ -41,15 +42,15 @@
 				<f:facet name="footer">
 					<div align="left">
 						<p:commandButton styleClass="button-table-estoque"
-							icon="ui-icon-search" value="Visualizar" process="tbAnimais"
-							onsuccess="PF('visualizarDialog').show()" />
+							icon="ui-icon-search" value="Cadastrar Animal Nascido" process="tbGest"
+							action="#{indexGestacaoController.addAnimalNascido}" update="@form"/>
 						<p:commandButton styleClass="button-table-estoque"
 							icon="ui-icon-search" value="Novo"
-							action="/AcompanhamentoVeterinario/CadastrarGestacao?faces-redirect=true" />
+							action="/AcompanhamentoVeterinario/CadastrarGestacao.xhtml?faces-redirect=true" update="@form"/>
 						<p:commandButton styleClass="button-table-estoque"
-							icon="ui-icon-search" value="Editar"
-							action="#{indexAnimalController.editarAnimal}"
-							process="tbAnimais" />
+							icon="ui-icon-search" value="Editar" update="@form"
+							action="#{indexGestacaoController.editarGestacao}"
+							process="tbGest" />
 					</div>
 				</f:facet>
 			</p:dataTable>
