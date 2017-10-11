@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/LayoutPadrao.xhtml">
+
+	<ui:define name="corpo">
+		<h1 class="aw-page-title">Vacinações</h1>
+
+		<h:form id="frm">
+			<p:dataTable id="tbGest" reflow="true" rows="10" paginator="true"
+				emptyMessage="Não foram encontrados registros"
+				value="${indexVacinacaoController.vacinacaos}" var="vacina"
+				styleClass="review-table" rowKey="#{vacina.id}"
+				selectionMode="single" selection="#{indexVacinacaoController.vacinacaoSelecionado}">
+				<p:column headerText=" - ">
+					<h:outputLabel value="#{vacina.id}" />
+				</p:column>
+				<p:column headerText=" Data Aplicação ">
+					<h:outputLabel value="#{vacina.dtAplicao}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputLabel>
+				</p:column>
+				<p:column headerText="Remedio">
+					<h:outputLabel value="#{vacina.remedio.descricao}" />
+				</p:column>
+				<p:column headerText="Campanha">
+					<h:outputLabel value="#{vacina.campanha}" />
+				</p:column>
+				<p:column headerText="Num. Animais">
+					<h:outputLabel value="#{vacina.aplicacaoRemedios.size()}" />
+				</p:column>
+				<f:facet name="footer">
+					<div align="left">
+						<p:commandButton styleClass="button-table-estoque"
+							icon="ui-icon-search" value="Listar Animais" process="tbGest"
+							action="#{indexGestacaoController.addAnimalNascido}"
+							update="@form" />
+						<p:commandButton styleClass="button-table-estoque"
+							icon="ui-icon-search" value="Novo"
+							action="/AcompanhamentoVeterinario/CadastrarVacinacao.xhtml?faces-redirect=true"
+							update="@form" />
+						<p:commandButton styleClass="button-table-estoque"
+							icon="ui-icon-search" value="Editar" update="@form"
+							action="#{indexGestacaoController.editarGestacao}"
+							process="tbGest" />
+					</div>
+				</f:facet>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
