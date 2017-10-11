@@ -13,7 +13,8 @@
 				emptyMessage="Não foram encontrados registros"
 				value="${indexVacinacaoController.vacinacaos}" var="vacina"
 				styleClass="review-table" rowKey="#{vacina.id}"
-				selectionMode="single" selection="#{indexVacinacaoController.vacinacaoSelecionado}">
+				selectionMode="single"
+				selection="#{indexVacinacaoController.vacinacaoSelecionado}">
 				<p:column headerText=" - ">
 					<h:outputLabel value="#{vacina.id}" />
 				</p:column>
@@ -35,8 +36,7 @@
 					<div align="left">
 						<p:commandButton styleClass="button-table-estoque"
 							icon="ui-icon-search" value="Listar Animais" process="tbVac"
-							action="#{indexGestacaoController.addAnimalNascido}"
-							update="@form" />
+							update="@form:tbAplic" oncomplete="PF('listarDialog').show()"/>
 						<p:commandButton styleClass="button-table-estoque"
 							icon="ui-icon-search" value="Novo"
 							action="/AcompanhamentoVeterinario/CadastrarVacinacao.xhtml?faces-redirect=true"
@@ -48,6 +48,30 @@
 					</div>
 				</f:facet>
 			</p:dataTable>
+			<p:dialog widgetVar="listarDialog" header="Listar Animais da Vacinação"
+				style="max-width: 800px;" responsive="true">
+				<p:separator />
+				<div class="ui-fluid">
+					<p:dataTable var="aplica" id="tbAplic"
+						value="#{indexVacinacaoController.vacinacaoSelecionado.aplicacaoRemedios}"
+						scrollRows="20" scrollable="true" liveScroll="true"
+						scrollHeight="250" reflow="true">
+						<p:column headerText=" - ">
+							<h:outputLabel value="#{aplica.id}"/>
+						</p:column>
+						<p:column headerText="Animal">
+							<h:outputLabel value="#{aplica.animal.indentificador} - #{aplica.animal.descricao}"/>
+						</p:column>
+						<p:column headerText="Doses">
+							<h:outputLabel value="#{aplica.qtdDose}"/>
+						</p:column>
+						<p:column headerText="Obs">
+							<h:outputLabel value="#{aplica.obs}"/>
+						</p:column>
+					</p:dataTable>
+				</div>
+			</p:dialog>
+
 		</h:form>
 	</ui:define>
 </ui:composition>
