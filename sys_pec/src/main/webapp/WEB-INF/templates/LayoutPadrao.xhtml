@@ -11,7 +11,6 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title><ui:insert name="titulo">Sistema de Pedidos de Venda</ui:insert></title>
 	<h:outputStylesheet library="ads" name="styles/font-family-raleway.css" />
-	<h:outputStylesheet library="ads" name="styles/font-awesome.min.css" />
 	<h:outputStylesheet library="ads" name="styles/w3.css" />
 	<h:outputStylesheet library="ads" name="styles/myStyle.css" />
 	<meta name="viewport" content="width=device-width, user-scalable=no" />
@@ -112,6 +111,14 @@ function w3_open() {
 function w3_close() {
     mySidebar.style.display = "none";
     overlayBg.style.display = "none";
+}
+function menuAccordion(id) {
+    var x = document.getElementById(id);
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else { 
+        x.className = x.className.replace(" w3-show", "");
+    }
 }
 </script>
 

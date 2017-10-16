@@ -8,24 +8,59 @@
 		<i class="fa fa-remove fa-fw"></i>  Close Menu
 	</p:commandLink>
 
-	<p:commandLink styleClass="w3-bar-item w3-button w3-padding">
+	<p:commandLink styleClass="w3-bar-item w3-button w3-padding ">
 		<i class="fa fa-users fa-fw"></i>  HOME
 	</p:commandLink>
 
 	<p:commandLink styleClass="w3-bar-item w3-button w3-padding">
 		<i class="fa fa-users fa-fw"></i>  Animal
 	</p:commandLink>
-	<div class="dropdown">
-		<span>
-			<a href="#" class="w3-bar-item w3-button w3-padding">
-				<i class="fa fa-eye fa-fw"/>  
-				Acompanhamento Veterinario
-			</a>
-		</span>
-		<div class="dropdown-content">
-		    <p>Hello World!</p>
-		</div>
+
+
+	<p:commandLink styleClass="w3-bar-item w3-button w3-padding"
+		onclick="menuAccordion('subMenuVeterinario')">
+		<i class="fa fa-users fa-fw"></i>  Acompanhamento Veterianário <i
+			class="fa fa-arrow-circle-down arrow" aria-hidden="true"></i>
+	</p:commandLink>
+
+	<div id="subMenuVeterinario"
+		class="w3-hide w3-container w3-light-gray submenu"
+		style="padding: 0 !important;">
+		<p:commandLink class="w3-bar-item w3-button">
+			<p>Gestação</p>
+		</p:commandLink>
+		<p:commandLink class="w3-bar-item w3-button ">
+			<p>Inseminação</p>
+		</p:commandLink>
+		<p:commandLink class="w3-bar-item w3-button">
+			<p>Aplicação de Vacina</p>
+		</p:commandLink>
 	</div>
+
+	<p:commandLink styleClass="w3-bar-item w3-button w3-padding">
+		<i class="fa fa-users fa-fw"></i>  Estoque
+	</p:commandLink>
+	<p:commandLink styleClass="w3-bar-item w3-button w3-padding"
+		onclick="menuAccordion('subMenuInsumo')">
+		<i class="fa fa-users fa-fw"></i>  Insumo <i
+			class="fa fa-arrow-circle-down arrow" aria-hidden="true" ></i>
+	</p:commandLink>
+	<div id="subMenuInsumo"
+		class="w3-hide w3-container w3-light-gray submenu"
+		style="padding: 0 !important;">
+		<p:commandLink class="w3-bar-item w3-button">
+			<p>Nutrição</p>
+		</p:commandLink>
+		<p:commandLink class="w3-bar-item w3-button ">
+			<p>Remedios/Vacinas</p>
+		</p:commandLink>
+		<p:commandLink class="w3-bar-item w3-button">
+			<p>Semens</p>
+		</p:commandLink>
+	</div>
+	<p:commandLink styleClass="w3-bar-item w3-button w3-padding">
+		<i class="fa fa-users fa-fw"></i>  Produção
+	</p:commandLink>
 	<!-- 
 <a href="#"
 				class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black"

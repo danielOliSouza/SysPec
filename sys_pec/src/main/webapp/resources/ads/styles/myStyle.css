@@ -67,3 +67,15 @@ label {
 	background: linear-gradient(to right, #ff3333, #ff4d4d);	/* Standard syntax */
 	color: white;
 }
+.submenu a {
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+}
+.submenu a p{
+	margin-left: 40px;
+}
+
+.arrow {
+	position: relative;
+	left: 50px;
+}
