@@ -10,8 +10,9 @@
 	<ui:define name="titulo">Dashboard</ui:define>
 
 	<ui:define name="corpo">
-		Olá JSF Sua Sumida
-		 
+		<h:panelGrid columns="2" columnClasses="left,right" style="width:100%">
+			 <p:chart type="bar" model="#{dashController.barProducao}" style="max-width:400px;" />
+		</h:panelGrid>
 	</ui:define>
 
 </ui:composition>
