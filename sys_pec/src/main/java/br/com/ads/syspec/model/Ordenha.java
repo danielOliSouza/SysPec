@@ -16,7 +16,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table
 public class Ordenha implements Serializable{
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
 	@OneToOne

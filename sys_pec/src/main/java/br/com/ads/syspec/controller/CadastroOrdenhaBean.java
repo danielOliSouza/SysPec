@@ -4,17 +4,21 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.ads.syspec.model.Animal;
 import br.com.ads.syspec.model.Extracao;
+import br.com.ads.syspec.model.Gestacao;
 import br.com.ads.syspec.model.Ordenha;
 import br.com.ads.syspec.model.Procedencia;
 import br.com.ads.syspec.model.Raca;
 import br.com.ads.syspec.repository.AnimalRepository;
+import br.com.ads.syspec.repository.ExtracaoRepository;
 import br.com.ads.syspec.service.ExtracaoService;
 import br.com.ads.syspec.util.FacesMessages;
 
@@ -29,6 +33,8 @@ public class CadastroOrdenhaBean implements Serializable{
 	private FacesMessages messages;
 	@Inject 
 	private AnimalRepository animalRepository;
+	@Inject 
+	private ExtracaoRepository extracaoRepository;
 	
 	private List<Animal> animaisFemeas = new ArrayList<>();
 	private Extracao extracao = new Extracao();
@@ -36,6 +42,21 @@ public class CadastroOrdenhaBean implements Serializable{
 	
 	public void initialize() {
 		animaisFemeas = animalRepository.findPorSexo("F");
+		
+		try{
+			Map<String, String> params =FacesContext.getCurrentInstance().
+					getExternalContext().getRequestParameterMap();
+			String parameterOne = params.get("idExtr");
+
+			if(!parameterOne.isEmpty()) {
+				Extracao extracaoParam = extracaoRepository.findById(Long.parseLong(parameterOne));
+				
+				if(extracaoParam != null)
+					extracao = extracaoParam;
+			}
+		}catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
 	}
 	
 	public void addOrdenha() {

@@ -54,5 +54,8 @@ INSERT INTO atualizacaoestoque (motivo, qtd, estoque_id, movimentacaotipo) value
 INSERT INTO gestacao (dtiniciogestacao, dtparto, partosucesso, procedencia, animal_id, inseminacao_id) values ('2017-09-22', '2017-09-22', false, 'NASCIMENTO_INSEMINACAO', 5, 3)
 INSERT INTO gestacao (dtiniciogestacao, dtparto, partosucesso, procedencia, animal_id, pai_id) values ('2017-09-22', '2017-09-22', false, 'NASCIMENTO_INSEMINACAO', 5, 1)
 
+insert into extracao (dt_cadastro, dt_extracao_fim, dt_extracao_inicio) values ( '2017-01-01', '2017-01-02', '2017-01-01')
 
+insert into ordenha (qtd, animal_id, extracao_id) values (35, 01, 01)
+insert into ordenha (qtd, animal_id, extracao_id) values (30, 05, 01)
 
