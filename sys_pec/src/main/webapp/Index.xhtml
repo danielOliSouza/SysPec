@@ -88,13 +88,19 @@
 					<p:panelGrid columns="2" layout="grid"
 						styleClass="ui-panelgrid-blank"
 						columnClasses="ui-grid-col-2, ui-grid-col-2">
-						<p:outputLabel value="Selecione Ano"/>
+						<p:outputLabel value="Selecione Ano" />
 						<p:inputMask mask="2099" value="#{dashController.anoAcomVet}">
-							<p:ajax event="change" update="barAcomVet"/>
+							<p:ajax event="change" update="barAcomVet" />
 						</p:inputMask>
 					</p:panelGrid>
 					<p:chart type="bar" id="barAcomVet"
 						model="#{dashController.barAcompanhamentoVet}" />
+
+					<p:panelGrid columns="2" layout="grid"
+						styleClass="ui-panelgrid-blank"
+						columnClasses="ui-grid-col-6, ui-grid-col-6">
+						<p:chart type="bar" model="#{dashController.barApliVaci}" />
+					</p:panelGrid>
 				</p:fieldset>
 			</div>
 		</h:form>

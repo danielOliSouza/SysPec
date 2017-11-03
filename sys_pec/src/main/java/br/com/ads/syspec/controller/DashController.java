@@ -70,7 +70,7 @@ public class DashController implements Serializable{
 		LineChartSeries producao = new LineChartSeries();
 		
 		int mes = this.mes;
-		List<Extracao> producaoDiaria = dashRespository.findProducaoDiaria(mes);
+		List<Extracao> producaoDiaria = dashRespository.findProducaoDiaria(mes, anoProducaoBar);
 		
 		System.out.println(mes);
 		
@@ -198,6 +198,28 @@ public class DashController implements Serializable{
 		
 		return barAcomVet;
 	}
+	
+	public BarChartModel getBarApliVaci() {
+		BarChartModel barAcomVet = new BarChartModel();
+		ChartSeries vacSerie = new ChartSeries();
+		
+		vacSerie.setLabel(anoAcomVet);
+		
+		barAcomVet.setTitle("Num Aplicações de Vacina");
+		barAcomVet.setAnimate(true); 
+		barAcomVet.setLegendPosition("ne");
+		
+		for(int i=1; i <= 12; i++) {
+			long num = dashRespository.findVacAplicadas(i, Integer.valueOf(anoAcomVet));
+			
+			vacSerie.set(getMes(i-1), num);
+		}
+		
+		barAcomVet.addSeries(vacSerie);
+		
+		return barAcomVet;
+	}
+	
 	public String getAnoProducaoBar() {
 		return anoProducaoBar;
 	}

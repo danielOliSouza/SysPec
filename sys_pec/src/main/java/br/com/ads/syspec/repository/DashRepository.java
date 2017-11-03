@@ -34,9 +34,10 @@ public class DashRepository implements Serializable{
 
 
 
-	public List<Extracao> findProducaoDiaria(int mes) {
-		return manager.createQuery("FROM Extracao WHERE MONTH(dtExtracaoInicio) = :mes")
+	public List<Extracao> findProducaoDiaria(int mes, String ano) {
+		return manager.createQuery("FROM Extracao WHERE MONTH(dtExtracaoInicio) = :mes AND YEAR(dtExtracaoInicio) = :ano")
 				.setParameter("mes", mes)
+				.setParameter("ano", Integer.valueOf(ano))
 				.getResultList();
 	}
 
@@ -52,6 +53,15 @@ public class DashRepository implements Serializable{
 	
 	public Long findCountInsemina(int mes, int ano) {
 		return (Long) manager.createQuery("SELECT COUNT(id) FROM Gestacao WHERE MONTH(dtParto) = :mes AND YEAR(dtParto) = :ano AND inseminacao != null")
+				.setParameter("mes", mes)
+				.setParameter("ano", ano)
+				.getSingleResult();
+	}
+
+
+
+	public long findVacAplicadas(int mes, Integer ano) {
+		return (Long) manager.createQuery("SELECT COUNT(id) FROM AplicacaoRemedio WHERE MONTH(vacinacao.dtAplicao) = :mes AND YEAR(vacinacao.dtAplicao) = :ano")
 				.setParameter("mes", mes)
 				.setParameter("ano", ano)
 				.getSingleResult();
