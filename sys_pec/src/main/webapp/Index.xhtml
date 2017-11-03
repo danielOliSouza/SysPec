@@ -12,71 +12,90 @@
 	<ui:define name="corpo">
 		<h:form>
 			<div class="ui-fluid">
-				<p:panelGrid columns="2" layout="grid"
-					styleClass="ui-panelgrid-blank"
-					columnClasses="ui-grid-col-6, ui-grid-col-6">
+				<p:fieldset legend="Produção" toggleable="true" toggleSpeed="500">
+					<p:panelGrid columns="2" layout="grid"
+						styleClass="ui-panelgrid-blank"
+						columnClasses="ui-grid-col-6, ui-grid-col-6">
 
-					<p:outputPanel>
-						<p:panelGrid columns="2" layout="grid"
-							styleClass="ui-panelgrid-blank"
-							columnClasses="ui-grid-col-6, ui-grid-col-6">
-							<p:outputLabel value="Selecione Ano: " />
-							<p:inputMask id="ano_producao_bar" mask="2099"
-								value="#{dashController.anoProducaoBar}">
-								<p:ajax event="keyup" process="ano_producao_bar"
-									update="barProducao" />
-							</p:inputMask>
-						</p:panelGrid>
-						<p:chart id="barProducao" type="bar"
-							model="#{dashController.barProducao}" />
-					</p:outputPanel>
+						<p:outputPanel>
+							<p:panelGrid columns="2" layout="grid"
+								styleClass="ui-panelgrid-blank"
+								columnClasses="ui-grid-col-6, ui-grid-col-6">
+								<p:outputLabel value="Selecione Ano: " />
+								<p:inputMask id="ano_producao_bar" mask="2099"
+									value="#{dashController.anoProducaoBar}">
+									<p:ajax event="keyup" process="ano_producao_bar"
+										update="barProducao" />
+								</p:inputMask>
+							</p:panelGrid>
+							<p:chart id="barProducao" type="bar"
+								model="#{dashController.barProducao}" />
+						</p:outputPanel>
 
 
-					<p:outputPanel>
-						<p:panelGrid columns="2" layout="grid"
-							styleClass="ui-panelgrid-blank"
-							columnClasses="ui-grid-col-6, ui-grid-col-6">
-							<p:outputLabel value="Selecione Mes: " />
-							<p:selectOneMenu value="#{dashController.mes}">
-								<f:selectItem itemValue="01" itemLabel="Janeiro" />
-								<f:selectItem itemValue="02" itemLabel="Fervereiro" />
-								<f:selectItem itemValue="03" itemLabel="Março" />
-								<f:selectItem itemValue="04" itemLabel="Abril" />
-								<f:selectItem itemValue="05" itemLabel="Maio" />
-								<f:selectItem itemValue="06" itemLabel="Junho" />
-								<f:selectItem itemValue="07" itemLabel="Julho" />
-								<f:selectItem itemValue="08" itemLabel="Agosto" />
-								<f:selectItem itemValue="09" itemLabel="Setembro" />
-								<f:selectItem itemValue="10" itemLabel="Outubro" />
-								<f:selectItem itemValue="11" itemLabel="Novembro" />
-								<f:selectItem itemValue="12" itemLabel="Dezembro" />
-								<p:ajax update="lineProducaoDiaria" />
-							</p:selectOneMenu>
-						</p:panelGrid>
-						<p:chart id="lineProducaoDiaria" type="line"
-							model="#{dashController.barProducaoDiaria}" />
-					</p:outputPanel>
-				</p:panelGrid>
+						<p:outputPanel>
+							<p:panelGrid columns="2" layout="grid"
+								styleClass="ui-panelgrid-blank"
+								columnClasses="ui-grid-col-6, ui-grid-col-6">
+								<p:outputLabel value="Selecione Mes: " />
+								<p:selectOneMenu value="#{dashController.mes}">
+									<f:selectItem itemValue="01" itemLabel="Janeiro" />
+									<f:selectItem itemValue="02" itemLabel="Fervereiro" />
+									<f:selectItem itemValue="03" itemLabel="Março" />
+									<f:selectItem itemValue="04" itemLabel="Abril" />
+									<f:selectItem itemValue="05" itemLabel="Maio" />
+									<f:selectItem itemValue="06" itemLabel="Junho" />
+									<f:selectItem itemValue="07" itemLabel="Julho" />
+									<f:selectItem itemValue="08" itemLabel="Agosto" />
+									<f:selectItem itemValue="09" itemLabel="Setembro" />
+									<f:selectItem itemValue="10" itemLabel="Outubro" />
+									<f:selectItem itemValue="11" itemLabel="Novembro" />
+									<f:selectItem itemValue="12" itemLabel="Dezembro" />
+									<p:ajax update="lineProducaoDiaria" />
+								</p:selectOneMenu>
+							</p:panelGrid>
+							<p:chart id="lineProducaoDiaria" type="line"
+								model="#{dashController.barProducaoDiaria}" />
+						</p:outputPanel>
+					</p:panelGrid>
+					<br />
+					<br />
+					<br />
+					<br />
+					<p:panelGrid columns="5" layout="grid"
+						styleClass="ui-panelgrid-blank"
+						columnClasses="ui-grid-col-2, ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-2">
+						<p:outputLabel value="Ano 01: " />
+						<p:inputMask mask="2099"
+							value="#{dashController.anoProducaoBarCompare}">
+							<p:ajax event="change" update="barProducaoCompare" />
+						</p:inputMask>
 
-				<p:panelGrid columns="5" layout="grid"
-					styleClass="ui-panelgrid-blank"
-					columnClasses="ui-grid-col-2, ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-2">
-					<p:outputLabel value="Ano 01: " />
-					<p:inputMask mask="2099"
-						value="#{dashController.anoProducaoBarCompare}">
-						<p:ajax event="change" update="barProducaoCompare" />
-					</p:inputMask>
+						<h:outputLabel />
 
-					<h:outputLabel />
+						<p:outputLabel value="Ano 02: " />
+						<p:inputMask mask="2099"
+							value="#{dashController.anoProducaoBarCompare02}">
+							<p:ajax event="change" update="barProducaoCompare" />
+						</p:inputMask>
+					</p:panelGrid>
+					<p:chart id="barProducaoCompare" type="bar"
+						model="#{dashController.barProducaoComparativo}" />
+				</p:fieldset>
 
-					<p:outputLabel value="Ano 02: " />
-					<p:inputMask mask="2099"
-						value="#{dashController.anoProducaoBarCompare02}">
-						<p:ajax event="change" update="barProducaoCompare" />
-					</p:inputMask>
-				</p:panelGrid>
-				<p:chart id="barProducaoCompare" type="bar"
-					model="#{dashController.barProducaoComparativo}" />
+				<p:fieldset legend="Acompanhamento Veterinario" toggleable="true"
+					toggleSpeed="500">
+					<p:panelGrid columns="2" layout="grid"
+						styleClass="ui-panelgrid-blank"
+						columnClasses="ui-grid-col-2, ui-grid-col-2">
+						<p:outputLabel value="Selecione Ano"/>
+						<p:inputMask mask="2099" value="#{dashController.anoAcomVet}">
+							<p:ajax event="change" update="barAcomVet"/>
+						</p:inputMask>
+					</p:panelGrid>
+					<p:chart type="bar" id="barAcomVet"
+						model="#{dashController.barAcompanhamentoVet}" />
+				</p:fieldset>
 			</div>
 		</h:form>
 	</ui:define>

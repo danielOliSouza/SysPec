@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import br.com.ads.syspec.model.Extracao;
+import br.com.ads.syspec.model.Procedencia;
 
 public class DashRepository implements Serializable{
 	@Inject
@@ -37,5 +38,22 @@ public class DashRepository implements Serializable{
 		return manager.createQuery("FROM Extracao WHERE MONTH(dtExtracaoInicio) = :mes")
 				.setParameter("mes", mes)
 				.getResultList();
+	}
+
+
+
+	public Long findCountGestacao(int mes, int ano) {
+		return (Long) manager.createQuery("SELECT COUNT(id) FROM Gestacao WHERE MONTH(dtParto) = :mes AND YEAR(dtParto) = :ano AND procedencia != :proc")
+				.setParameter("mes", mes)
+				.setParameter("ano", ano)
+				.setParameter("proc", Procedencia.ANIMAL_COMPRADO)
+				.getSingleResult();
+	}
+	
+	public Long findCountInsemina(int mes, int ano) {
+		return (Long) manager.createQuery("SELECT COUNT(id) FROM Gestacao WHERE MONTH(dtParto) = :mes AND YEAR(dtParto) = :ano AND inseminacao != null")
+				.setParameter("mes", mes)
+				.setParameter("ano", ano)
+				.getSingleResult();
 	}
 }

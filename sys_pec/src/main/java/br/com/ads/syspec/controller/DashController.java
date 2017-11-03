@@ -33,6 +33,8 @@ public class DashController implements Serializable{
 	private String anoProducaoBarCompare = String.valueOf(Calendar.getInstance().get(Calendar.YEAR) - 1);
 	private String anoProducaoBarCompare02 = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
 	private int mes = Calendar.getInstance().get(Calendar.MONTH) + 1;
+	private String anoAcomVet = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
+	
 	
 	public BarChartModel getBarProducao() {
 		BarChartModel barProducao = new BarChartModel();
@@ -130,7 +132,7 @@ public class DashController implements Serializable{
 		producao.setLabel("Produção: " + anoProducaoBarCompare);
 		producao02.setLabel("Produação: " + anoProducaoBarCompare02);
 		
-		barProducao.setTitle("Produção Mensal");
+		barProducao.setTitle("Comparar Anos");
 		barProducao.setAnimate(true); 
 		barProducao.setLegendPosition("ne");
 
@@ -171,7 +173,31 @@ public class DashController implements Serializable{
 		
 		return barProducao;
 	}
-
+	public BarChartModel getBarAcompanhamentoVet() {
+		BarChartModel barAcomVet = new BarChartModel();
+		ChartSeries gestacaoSerie = new ChartSeries();
+		ChartSeries inseminaSerie = new ChartSeries();
+		
+		gestacaoSerie.setLabel("Gestacao");
+		inseminaSerie.setLabel("Inseminacao");
+		
+		barAcomVet.setTitle("Taxa de Sucesso");
+		barAcomVet.setAnimate(true); 
+		barAcomVet.setLegendPosition("ne");
+		
+		for(int i=1; i <= 12; i++) {
+			long gestacaoNum = dashRespository.findCountGestacao(i, Integer.valueOf(anoAcomVet));
+			long inseminaNum = dashRespository.findCountInsemina(i, Integer.valueOf(anoAcomVet));
+			
+			gestacaoSerie.set(getMes(i-1), (int)gestacaoNum);
+			inseminaSerie.set(getMes(i-1), (int)inseminaNum);
+		}
+		
+		barAcomVet.addSeries(gestacaoSerie);
+		barAcomVet.addSeries(inseminaSerie);
+		
+		return barAcomVet;
+	}
 	public String getAnoProducaoBar() {
 		return anoProducaoBar;
 	}
@@ -204,6 +230,14 @@ public class DashController implements Serializable{
 
 	public void setAnoProducaoBarCompare02(String anoProducaoBarCompare02) {
 		this.anoProducaoBarCompare02 = anoProducaoBarCompare02.replace("_", "");
+	}
+
+	public String getAnoAcomVet() {
+		return anoAcomVet;
+	}
+
+	public void setAnoAcomVet(String anoAcomVet) {
+		this.anoAcomVet = anoAcomVet;
 	}
 
 	public String getMes(int i) {
