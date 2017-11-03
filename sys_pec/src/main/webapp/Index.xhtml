@@ -1,18 +1,63 @@
 <ui:composition template="/WEB-INF/templates/LayoutPadrao.xhtml"
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:f="http://xmlns.jcp.org/jsf/core"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:p="http://primefaces.org/ui">
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 
 
 
 	<ui:define name="titulo">Dashboard</ui:define>
 
 	<ui:define name="corpo">
-		<h:panelGrid columns="2" columnClasses="left,right" style="width:100%">
-			 <p:chart type="bar" model="#{dashController.barProducao}" style="max-width:400px;" />
-		</h:panelGrid>
+		<h:form>
+			<div class="ui-fluid">
+				<p:panelGrid columns="2" layout="grid"
+					styleClass="ui-panelgrid-blank"
+					columnClasses="ui-grid-col-6, ui-grid-col-6">
+
+					<p:outputPanel>
+						<p:panelGrid columns="2" layout="grid"
+							styleClass="ui-panelgrid-blank"
+							columnClasses="ui-grid-col-6, ui-grid-col-6">
+							<p:outputLabel value="Selecione Ano: " />
+							<p:inputMask id="ano_producao_bar" mask="2099"
+								value="#{dashController.anoProducaoBar}">
+								<p:ajax event="keyup" process="ano_producao_bar"
+									update="barProducao" />
+							</p:inputMask>
+						</p:panelGrid>
+						<p:chart id="barProducao" type="bar"
+							model="#{dashController.barProducao}" />
+					</p:outputPanel>
+
+
+					<p:outputPanel>
+						<p:panelGrid columns="2" layout="grid"
+							styleClass="ui-panelgrid-blank"
+							columnClasses="ui-grid-col-6, ui-grid-col-6">
+							<p:outputLabel value="Selecione Mes: " />
+							<p:selectOneMenu>
+								 <f:selectItem itemValue="01" itemLabel="Janeiro"/>
+								 <f:selectItem itemValue="02" itemLabel="Fervereiro"/>
+								 <f:selectItem itemValue="03" itemLabel="Março"/>
+								 <f:selectItem itemValue="04" itemLabel="Abril"/>
+								 <f:selectItem itemValue="05" itemLabel="Maio"/>
+								 <f:selectItem itemValue="06" itemLabel="Junho"/>
+								 <f:selectItem itemValue="07" itemLabel="Julho"/>
+								 <f:selectItem itemValue="08" itemLabel="Agosto"/>
+								 <f:selectItem itemValue="09" itemLabel="Setembro"/>
+								 <f:selectItem itemValue="10" itemLabel="Outubro"/>
+								 <f:selectItem itemValue="11" itemLabel="Novembro"/>
+								 <f:selectItem itemValue="12" itemLabel="Dezembro"/>
+							</p:selectOneMenu>
+						</p:panelGrid>
+						<p:chart id="barProducaoDiaria" type="bar"
+							model="#{dashController.barProducaoDiaria}" />
+					</p:outputPanel>
+				</p:panelGrid>
+			</div>
+		</h:form>
 	</ui:define>
 
 </ui:composition>
