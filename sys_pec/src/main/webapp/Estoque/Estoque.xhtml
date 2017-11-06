@@ -19,7 +19,8 @@
 					scrollable="true" scrollHeight="250"
 					value="#{estoqueBean.estoques}" selectionMode="single"
 					selection="#{estoqueBean.estoqueSelecionado}"
-					rowKey="#{estoque.id}" rowStyleClass="#{estoque.qtdEstoque lt 0? 'rowRed' : null}">
+					rowKey="#{estoque.id}"
+					rowStyleClass="#{estoque.qtdEstoque lt 0? 'rowRed' : null}">
 
 					<p:column headerText="Insumo">
 						<h:outputLabel value="#{estoque.insumo.descricao}" />
@@ -32,25 +33,25 @@
 					</p:column>
 					<f:facet name="footer">
 						<div align="left">
-							<p:commandButton process="singleDT"
-								styleClass="button-table-estoque" icon="ui-icon-search"
-								value="Visualizar" oncomplete="PF('viewDialog').show()"
-								update="@form" />
+							<p:panelGrid columns="6" layout="grid" id="pgSaida"
+								styleClass="ui-panelgrid-blank"
+								columnClasses="ui-grid-col-2, ui-grid-col-2, ui-grid-col-2, ui-grid-col-2, ui-grid-col-2, ui-grid-col-2">
+								<p:commandButton process="singleDT" icon="ui-icon-search"
+									value="Visualizar" oncomplete="PF('viewDialog').show()"
+									update="@form" />
 
-							<p:commandButton process="singleDT"
-								styleClass="button-table-estoque" icon="ui-icon-search"
-								value="Dar Baixa" oncomplete="PF('baixaDialog').show()">
-								<p:ajax event="click"
-									listener="#{estoqueBean.setTipoMovimentacaoByOrdinal(0)}" />
-							</p:commandButton>
+								<p:commandButton process="singleDT" icon="ui-icon-search"
+									value="Dar Baixa" oncomplete="PF('baixaDialog').show()">
+									<p:ajax event="click"
+										listener="#{estoqueBean.setTipoMovimentacaoByOrdinal(0)}" />
+								</p:commandButton>
 
-							<p:commandButton process="singleDT"
-								styleClass="button-table-estoque" icon="ui-icon-search"
-								value="Entrada" oncomplete="PF('entradaDialog').show()">
-								<p:ajax event="click"
-									listener="#{estoqueBean.setTipoMovimentacaoByOrdinal(1)}" />
-							</p:commandButton>
-
+								<p:commandButton process="singleDT" icon="ui-icon-search"
+									value="Entrada" oncomplete="PF('entradaDialog').show()">
+									<p:ajax event="click"
+										listener="#{estoqueBean.setTipoMovimentacaoByOrdinal(1)}" />
+								</p:commandButton>
+							</p:panelGrid>
 						</div>
 					</f:facet>
 				</p:dataTable>
@@ -66,7 +67,7 @@
 						<p:outputLabel value="Motivo: " for="itMotivoBaixa" />
 						<p:inputText value="#{estoqueBean.atualizacaoEstoque.motivo}"
 							id="itMotivoBaixa" />
-					
+
 						<p:outputLabel value="Quantidade: " for="itQtdBaixa" />
 						<p:inputNumber value="#{estoqueBean.atualizacaoEstoque.qtd}"
 							id="itQtdBaixa" />

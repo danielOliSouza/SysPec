@@ -8,82 +8,55 @@
 		<i class="fa fa-remove fa-fw"></i>  Close Menu
 	</p:commandLink>
 
-	<p:commandLink styleClass="w3-bar-item w3-button w3-padding ">
-		<i class="fa fa-users fa-fw"></i>  HOME
-	</p:commandLink>
+	<h:link styleClass="w3-bar-item w3-button w3-padding " outcome="/Index.xhtml">
+		<i class="fa fa-home"></i>  HOME
+	</h:link>
 
-	<p:commandLink styleClass="w3-bar-item w3-button w3-padding">
-		<i class="fa fa-users fa-fw"></i>  Animal
-	</p:commandLink>
+	<h:link styleClass="w3-bar-item w3-button w3-padding" outcome="/Animal/IndexAnimal.xhtml">
+		<i class="fa fa-bug"></i>  Animal
+	</h:link>
 
 
 	<p:commandLink styleClass="w3-bar-item w3-button w3-padding"
 		onclick="menuAccordion('subMenuVeterinario')">
-		<i class="fa fa-users fa-fw"></i>  Acompanhamento Veterianário <i
-			class="fa fa-arrow-circle-down arrow" aria-hidden="true"></i>
+		<i class="fa fa-angle-double-down"></i>  Acompanhamento Veterianário 
 	</p:commandLink>
 
 	<div id="subMenuVeterinario"
 		class="w3-hide w3-container w3-light-gray submenu"
 		style="padding: 0 !important;">
-		<p:commandLink class="w3-bar-item w3-button">
+		<h:link class="w3-bar-item w3-button" outcome="/AcompanhamentoVeterinario/IndexGestacao.xhtml">
 			<p>Gestação</p>
-		</p:commandLink>
-		<p:commandLink class="w3-bar-item w3-button ">
+		</h:link>
+		<h:link class="w3-bar-item w3-button" outcome="/AcompanhamentoVeterinario/CadastrarInseminacao.xhtml">
 			<p>Inseminação</p>
-		</p:commandLink>
-		<p:commandLink class="w3-bar-item w3-button">
+		</h:link>
+		<h:link class="w3-bar-item w3-button" outcome="/AcompanhamentoVeterinario/IndexVacinacao.xhtml">
 			<p>Aplicação de Vacina</p>
-		</p:commandLink>
+		</h:link>
 	</div>
 
-	<p:commandLink styleClass="w3-bar-item w3-button w3-padding">
-		<i class="fa fa-users fa-fw"></i>  Estoque
-	</p:commandLink>
+	<h:link styleClass="w3-bar-item w3-button w3-padding" outcome="/Estoque/Estoque.xhtml">
+		<i class="fa fa-calculator"></i>  Estoque
+	</h:link>
 	<p:commandLink styleClass="w3-bar-item w3-button w3-padding"
 		onclick="menuAccordion('subMenuInsumo')">
-		<i class="fa fa-users fa-fw"></i>  Insumo <i
-			class="fa fa-arrow-circle-down arrow" aria-hidden="true" ></i>
+		<i class="fa fa-angle-double-down"></i>  Insumo 
 	</p:commandLink>
 	<div id="subMenuInsumo"
 		class="w3-hide w3-container w3-light-gray submenu"
 		style="padding: 0 !important;">
-		<p:commandLink class="w3-bar-item w3-button">
+		<h:link class="w3-bar-item w3-button" outcome="/Insumo/CadastroInsumoNutricao.xhtml">
 			<p>Nutrição</p>
-		</p:commandLink>
-		<p:commandLink class="w3-bar-item w3-button ">
+		</h:link>
+		<h:link class="w3-bar-item w3-button" outcome="/Insumo/CadastroInsumoRemedio.xhtml">
 			<p>Remedios/Vacinas</p>
-		</p:commandLink>
-		<p:commandLink class="w3-bar-item w3-button">
+		</h:link>
+		<h:link class="w3-bar-item w3-button" outcome="/Insumo/CadastroInsumoSemen.xhtml">
 			<p>Semens</p>
-		</p:commandLink>
+		</h:link>
 	</div>
-	<p:commandLink styleClass="w3-bar-item w3-button w3-padding">
-		<i class="fa fa-users fa-fw"></i>  Produção
-	</p:commandLink>
-	<!-- 
-<a href="#"
-				class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black"
-				onclick="w3_close()" title="close menu"><i
-				class="fa fa-remove fa-fw"></i>  Close Menu</a> <a href="#"
-				class="w3-bar-item w3-button w3-padding w3-blue"><i
-				class="fa fa-users fa-fw"></i>  Overview</a> <a href="#"
-				class="w3-bar-item w3-button w3-padding"><i
-				class="fa fa-eye fa-fw"></i>  Views</a> <a href="#"
-				class="w3-bar-item w3-button w3-padding"><i
-				class="fa fa-users fa-fw"></i>  Traffic</a> <a href="#"
-				class="w3-bar-item w3-button w3-padding"><i
-				class="fa fa-bullseye fa-fw"></i>  Geo</a> <a href="#"
-				class="w3-bar-item w3-button w3-padding"><i
-				class="fa fa-diamond fa-fw"></i>  Orders</a> <a href="#"
-				class="w3-bar-item w3-button w3-padding"><i
-				class="fa fa-bell fa-fw"></i>  News</a> <a href="#"
-				class="w3-bar-item w3-button w3-padding"><i
-				class="fa fa-bank fa-fw"></i>  General</a> <a href="#"
-				class="w3-bar-item w3-button w3-padding"><i
-				class="fa fa-history fa-fw"></i>  History</a> <a href="#"
-				class="w3-bar-item w3-button w3-padding"><i
-				class="fa fa-cog fa-fw"></i>  Settings 
-				</a><br /> <br />
-				-->
+	<h:link styleClass="w3-bar-item w3-button w3-padding" outcome="/Producao/IndexProducao.xhtml">
+		<i class="fa fa-balance-scale"></i>  Produção
+	</h:link>
 </ui:composition>
