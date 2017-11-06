@@ -22,7 +22,7 @@ public class AnimalRepository implements Serializable {
 	}
 
 	public List<Animal> findPorSexo(String sexo){
-		return manager.createQuery("FROM Animal WHERE sexo = :sexo", Animal.class)
+		return manager.createQuery("FROM Animal WHERE sexo = :sexo AND dtFimAnimal = null", Animal.class)
 				.setParameter("sexo", sexo)
 				.getResultList();
 	}
@@ -38,7 +38,7 @@ public class AnimalRepository implements Serializable {
 	}
 
 	public List<Animal> findAll() {
-		return manager.createQuery("FROM Animal", Animal.class).getResultList();
+		return manager.createQuery("FROM Animal WHERE dtFimAnimal = null", Animal.class).getResultList();
 	}
 
 	public Animal findByGestacao(Gestacao gestacao){

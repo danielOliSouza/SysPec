@@ -39,20 +39,20 @@ public class AnimalService implements Serializable {
 					Date dt = new Date();
 					dt.setTime((dtInicio.getTime() + dtFim.getTime()) / 2);
 					animal.setDtNascimento(dt);
-					
+
 					System.out.println(dt);
 
-					
+
 					double dias = DateUtil.interval(dtInicio, dtFim).dias();
-					
+
 					if(dias < 0)
 						dias *= -1D;
-					
+
 					animal.setMargemDiasDtNascimento(dias);
 				}
 			}
 		}
-		
+
 		if(animal.getIndentificador() == null){
 			vUtil.addMensagem("Indentificador não pode ser em branco");
 			vUtil.setValidacaoStatus(ValidacaoStatus.INVALID);
@@ -87,34 +87,36 @@ public class AnimalService implements Serializable {
 			animal.getGestacao().setPartoSucesso(true);
 		}
 
-		if(animal.getGestacao().getProcedencia() == Procedencia.ANIMAL_COMPRADO){
-			animal.getGestacao().setAnimal(null);
-			animal.getGestacao().setDtInicioGestacao(null);
-			animal.getGestacao().setInseminacao(null);
-		}
-		else
-			if(animal.getGestacao().getProcedencia() == Procedencia.NASCIMENTO_INSEMINACAO){
-				animal.getGestacao().setPai(null);
-				if(animal.getGestacao().getInseminacao() == null){
-					vUtil.addMensagem("Selecione Inseminacao");
-					vUtil.setValidacaoStatus(ValidacaoStatus.INVALID);
-				}
+		if(animal.getGestacao() != null) {
+
+			if(animal.getGestacao().getProcedencia() == Procedencia.ANIMAL_COMPRADO){
+				animal.getGestacao().setAnimal(null);
+				animal.getGestacao().setDtInicioGestacao(null);
+				animal.getGestacao().setInseminacao(null);
 			}
 			else
-				if(animal.getGestacao().getProcedencia() == Procedencia.NASCIMENTO_NATURAL){
-					animal.getGestacao().setInseminacao(null);
-					if(animal.getGestacao().getAnimal() == null){
-						vUtil.addMensagem("Selecione a Mãe do Animal");
+				if(animal.getGestacao().getProcedencia() == Procedencia.NASCIMENTO_INSEMINACAO){
+					animal.getGestacao().setPai(null);
+					if(animal.getGestacao().getInseminacao() == null){
+						vUtil.addMensagem("Selecione Inseminacao");
 						vUtil.setValidacaoStatus(ValidacaoStatus.INVALID);
 					}
 				}
-				else{
-					vUtil.addMensagem("Selecione a Procedencia do Animal");
-					vUtil.setValidacaoStatus(ValidacaoStatus.INVALID);
-					System.out.println(animal.getGestacao().getProcedencia());
-				}
+				else
+					if(animal.getGestacao().getProcedencia() == Procedencia.NASCIMENTO_NATURAL){
+						animal.getGestacao().setInseminacao(null);
+						if(animal.getGestacao().getAnimal() == null){
+							vUtil.addMensagem("Selecione a Mãe do Animal");
+							vUtil.setValidacaoStatus(ValidacaoStatus.INVALID);
+						}
+					}
+					else{
+						vUtil.addMensagem("Selecione a Procedencia do Animal");
+						vUtil.setValidacaoStatus(ValidacaoStatus.INVALID);
+						System.out.println(animal.getGestacao().getProcedencia());
+					}
 
-
+		}
 
 		if(vUtil.getValidacaoStatus() == ValidacaoStatus.VALID){
 			animalRepository.guardar(animal);

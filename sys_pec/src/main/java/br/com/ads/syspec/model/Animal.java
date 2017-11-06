@@ -55,7 +55,14 @@ public class Animal {
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	private Gestacao gestacao;
-
+	
+	@Enumerated(EnumType.STRING)
+	private MotivoSaidaAnimal motivoFimAnimal = null;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name="dt_fim_animal")
+	private Date dtFimAnimal = null;
+	
 	private String obs;
 
 	
@@ -65,6 +72,22 @@ public class Animal {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public MotivoSaidaAnimal getMotivoFimAnimal() {
+		return motivoFimAnimal;
+	}
+
+	public void setMotivoFimAnimal(MotivoSaidaAnimal motivoFimAnimal) {
+		this.motivoFimAnimal = motivoFimAnimal;
+	}
+
+	public Date getDtFimAnimal() {
+		return dtFimAnimal;
+	}
+
+	public void setDtFimAnimal(Date dtFimAnimal) {
+		this.dtFimAnimal = dtFimAnimal;
 	}
 
 	public String getIndentificador() {
