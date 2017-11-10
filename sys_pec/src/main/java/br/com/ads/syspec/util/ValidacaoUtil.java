@@ -26,6 +26,6 @@ public class ValidacaoUtil implements Serializable{
 	}
 	
 	public void addMensagem(String msg){
-		mensagem.append(msg + "\n <br/>");
+		mensagem.append(msg + "\n ");
 	}
 }
