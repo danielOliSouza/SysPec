@@ -58,7 +58,7 @@
 							onsuccess="PF('visualizarDialog').show()"
 							update="@form:pgVisualizar" />
 						<p:commandButton styleClass="button-table-estoque"
-							icon="ui-icon-search" value="Novo"
+							icon="ui-icon-search" value="Novo" process="@this"
 							action="/Animal/CadastroNovoAnimalIndividual.xhtml?faces-redirect=true" />
 						<p:commandButton styleClass="button-table-estoque"
 							icon="ui-icon-search" value="Editar"
