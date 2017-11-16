@@ -17,8 +17,34 @@
 				<f:facet name="right">
 					<p:commandButton type="button" title="Print" icon="ui-icon-print"
 						value="Variação Produção" onclick="PF('relatVariacao').show()" />
+					<p:commandButton value="Produção Animal Mensal"  icon="ui-icon-print"
+						onclick="PF('relatAnimal').show()" style="margin-left: 10px"/>
 				</f:facet>
 			</p:toolbar>
+
+			<p:dialog widgetVar="relatAnimal" header="RELATORIO"
+				style="max-width: 800px;" responsive="true">
+				<p:separator />
+
+				<p:messages autoUpdate="true" closable="true" />
+
+				<p:toolbar style="margin-top: 20px">
+					<p:toolbarGroup>
+						<p:commandButton value="Imprimir"
+							action="#{relatorioProducaoController.prodAnimal}" ajax="false"
+							process="#form" />
+					</p:toolbarGroup>
+				</p:toolbar>
+
+				<p:panelGrid columns="2" 
+					style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+					<p:outputLabel value="ANO: "/>
+					<p:inputText value="#{relatorioProducaoController.ano}" >
+						<p:ajax event="change"/>
+					</p:inputText>
+				</p:panelGrid>
+			</p:dialog>
+
 
 			<p:dialog widgetVar="relatVariacao" header="RELATORIO"
 				style="max-width: 800px;" responsive="true">

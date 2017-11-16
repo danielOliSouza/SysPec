@@ -2,6 +2,7 @@ package br.com.ads.syspec.controller;
 
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,17 +37,16 @@ public class RelatorioProducaoController implements Serializable{
 	//30 dias antes do atual
 	private Date dtInicio = new Date(new Date().getTime() - (long) (86400l * 30l) * 1000l); 
 	private Date dtFim = new Date();
-
+	private int ano = Calendar.getInstance().get(Calendar.YEAR);
+	
 	public void imprimir() {
-		
-		System.out.println(dtInicio);
 		
 		Map<String, Object> parametros = new HashMap<>();
 		parametros.put("dt_inicio", this.dtInicio);
 		parametros.put("dt_fim", this.dtFim);
 		
 		ProcessadorRelatorios executor = new ProcessadorRelatorios("/relatorios/producao_por_dia.jasper",
-				this.response, parametros, "relatorio.pdf");
+				this.response, parametros, "producao_periodo.pdf");
 		
 		manager.unwrap(Session.class).doWork(executor);
 		
@@ -56,7 +56,24 @@ public class RelatorioProducaoController implements Serializable{
 			facesContext.responseComplete();
 		}
 	}
-
+	
+	public void prodAnimal() {
+		Map<String, Object> parametros = new HashMap<>();
+		parametros.put("ano", ano);
+		
+		ProcessadorRelatorios executor = new ProcessadorRelatorios("/relatorios/producao_animal.jasper",
+				this.response, parametros, "producao_animal.pdf");
+		
+		manager.unwrap(Session.class).doWork(executor);
+		
+		if (executor.isRelatorioVazio()) {
+			messages.error("Nenhuma Produção neste período!");
+		} else {
+			facesContext.responseComplete();
+		}		
+	
+	}
+	
 	public Date getDtInicio() {
 		return dtInicio;
 	}
@@ -72,4 +89,13 @@ public class RelatorioProducaoController implements Serializable{
 	public void setDtFim(Date dtFim) {
 		this.dtFim = dtFim;
 	}
+
+	public int getAno() {
+		return ano;
+	}
+
+	public void setAno(int ano) {
+		this.ano = ano;
+	}
+	
 }
