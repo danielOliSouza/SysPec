@@ -69,12 +69,15 @@ public class CadastroOrdenhaBean implements Serializable{
 		
 	}
 	
-	public void salvar() {
+	public String salvar() {
 		try {
 			extracaoService.salvar(extracao);
 			extracao = new Extracao();
+			messages.info("Salvo com sucesso !!");
+			return "/Producao/IndexProducao.xhtml?faces-redirect=true";
 		} catch (Exception e) {
 			messages.error(e.getMessage());
+			return null;
 		}
 	}
 	
