@@ -18,7 +18,7 @@ INSERT INTO animal (descricao, dt_cadastro, indentificador, sexo, raca_id, gesta
 INSERT INTO gestacao (dtiniciogestacao, dtparto, partosucesso, procedencia) values ('2017-09-22', '2017-09-22', true, 'ANIMAL_COMPRADO');
 INSERT INTO animal (descricao, dt_cadastro, indentificador, sexo, raca_id, gestacao_id) VALUES('Vaca Truta', '2008-01-01', '1237', 'F', 1, 6);
 
-INSERT INTO gestacao (dtiniciogestacao, dtparto, partosucesso, procedencia) values ('2017-09-22', '2017-09-22', true, 'ANIMAL_COMPRADO';
+INSERT INTO gestacao (dtiniciogestacao, dtparto, partosucesso, procedencia) values ('2017-09-22', '2017-09-22', true, 'ANIMAL_COMPRADO');
 INSERT INTO animal (descricao, dt_cadastro, indentificador, sexo, raca_id, gestacao_id) VALUES('Vaca Twister JR', '2008-01-01', '1240', 'F', 1, 7);
 
 INSERT INTO gestacao (dtiniciogestacao, dtparto, partosucesso, procedencia) values ('2017-09-22', '2017-09-22', true, 'ANIMAL_COMPRADO');
@@ -85,33 +85,33 @@ INSERT INTO atualizacaoestoque (motivo, qtd, estoque_id, movimentacaotipo) value
 INSERT INTO atualizacaoestoque (motivo, qtd, estoque_id, movimentacaotipo) values ('MOTIVO 07', 03, 21, 'BAIXA');
 INSERT INTO atualizacaoestoque (motivo, qtd, estoque_id, movimentacaotipo) values ('MOTIVO 08', 03, 20, 'ENTRADA');
 
-INSERT INTO gestacao (dtiniciogestacao, dtparto, partosucesso, procedencia, animal_id, inseminacao_id) values ('2016-09-22', '2017-09-22', false, 'NASCIMENTO_INSEMINACAO', 5, 3)
-INSERT INTO gestacao (dtiniciogestacao, dtparto, partosucesso, procedencia, animal_id, pai_id) values ('2016-09-22', '2017-09-22', false, 'NASCIMENTO_INSEMINACAO', 6, 1)
+INSERT INTO gestacao (dtiniciogestacao, dtparto, partosucesso, procedencia, animal_id, inseminacao_id) values ('2016-09-22', '2017-09-22', false, 'NASCIMENTO_INSEMINACAO', 5, 3);
+INSERT INTO gestacao (dtiniciogestacao, dtparto, partosucesso, procedencia, animal_id, pai_id) values ('2016-09-22', '2017-09-22', false, 'NASCIMENTO_INSEMINACAO', 6, 1);
 
-insert into extracao (dt_cadastro, dt_extracao_fim, dt_extracao_inicio) values ( '2017-01-01', '2017-01-02', '2017-01-01')
-insert into extracao (dt_cadastro, dt_extracao_fim, dt_extracao_inicio) values ( '2017-03-01', '2017-01-02', '2017-01-02')
-insert into extracao (dt_cadastro, dt_extracao_fim, dt_extracao_inicio) values ( '2017-03-01', '2017-01-03', '2017-01-03')
-insert into extracao (dt_cadastro, dt_extracao_fim, dt_extracao_inicio) values ( '2017-03-01', '2017-01-04', '2017-01-04')
-insert into extracao (dt_cadastro, dt_extracao_fim, dt_extracao_inicio) values ( '2017-03-01', '2017-01-05', '2017-01-05')
-insert into extracao (dt_cadastro, dt_extracao_fim, dt_extracao_inicio) values ( '2017-03-01', '2017-03-02', '2017-03-01')
-insert into extracao (dt_cadastro, dt_extracao_fim, dt_extracao_inicio) values ( '2017-01-01', '2017-01-02', '2017-06-01')
-insert into extracao (dt_cadastro, dt_extracao_fim, dt_extracao_inicio) values ( '2017-03-01', '2016-01-02', '2016-02-02')
-insert into extracao (dt_cadastro, dt_extracao_fim, dt_extracao_inicio) values ( '2017-03-01', '2016-01-03', '2016-06-03')
-insert into extracao (dt_cadastro, dt_extracao_fim, dt_extracao_inicio) values ( '2017-03-01', '2016-01-04', '2016-07-04')
-insert into extracao (dt_cadastro, dt_extracao_fim, dt_extracao_inicio) values ( '2017-03-01', '2016-01-05', '2016-01-05')
-insert into extracao (dt_cadastro, dt_extracao_fim, dt_extracao_inicio) values ( '2017-03-01', '2016-01-05', '2016-09-05')
-insert into extracao (dt_cadastro, dt_extracao_fim, dt_extracao_inicio) values ( '2017-03-01', '2016-12-05', '2016-10-05')
+insert into extracao (dt_cadastro, dt_extracao_fim, dt_extracao_inicio) values ( '2017-01-01', '2017-01-02', '2017-01-01');
+insert into extracao (dt_cadastro, dt_extracao_fim, dt_extracao_inicio) values ( '2017-03-01', '2017-01-02', '2017-01-02');
+insert into extracao (dt_cadastro, dt_extracao_fim, dt_extracao_inicio) values ( '2017-03-01', '2017-01-03', '2017-01-03');
+insert into extracao (dt_cadastro, dt_extracao_fim, dt_extracao_inicio) values ( '2017-03-01', '2017-01-04', '2017-01-04');
+insert into extracao (dt_cadastro, dt_extracao_fim, dt_extracao_inicio) values ( '2017-03-01', '2017-01-05', '2017-01-05');
+insert into extracao (dt_cadastro, dt_extracao_fim, dt_extracao_inicio) values ( '2017-03-01', '2017-03-02', '2017-03-01');
+insert into extracao (dt_cadastro, dt_extracao_fim, dt_extracao_inicio) values ( '2017-01-01', '2017-01-02', '2017-06-01');
+insert into extracao (dt_cadastro, dt_extracao_fim, dt_extracao_inicio) values ( '2017-03-01', '2016-01-02', '2016-02-02');
+insert into extracao (dt_cadastro, dt_extracao_fim, dt_extracao_inicio) values ( '2017-03-01', '2016-01-03', '2016-06-03');
+insert into extracao (dt_cadastro, dt_extracao_fim, dt_extracao_inicio) values ( '2017-03-01', '2016-01-04', '2016-07-04');
+insert into extracao (dt_cadastro, dt_extracao_fim, dt_extracao_inicio) values ( '2017-03-01', '2016-01-05', '2016-01-05');
+insert into extracao (dt_cadastro, dt_extracao_fim, dt_extracao_inicio) values ( '2017-03-01', '2016-01-05', '2016-09-05');
+insert into extracao (dt_cadastro, dt_extracao_fim, dt_extracao_inicio) values ( '2017-03-01', '2016-12-05', '2016-10-05');
 
-insert into ordenha (qtd, animal_id, extracao_id) values (035, 01, 01)
-insert into ordenha (qtd, animal_id, extracao_id) values (050, 01, 02)
-insert into ordenha (qtd, animal_id, extracao_id) values (040, 01, 03)
-insert into ordenha (qtd, animal_id, extracao_id) values (035, 01, 04)
-insert into ordenha (qtd, animal_id, extracao_id) values (045, 01, 05)
-insert into ordenha (qtd, animal_id, extracao_id) values (030, 05, 06)
-insert into ordenha (qtd, animal_id, extracao_id) values (060, 01, 07)
-insert into ordenha (qtd, animal_id, extracao_id) values (050, 05, 09)
-insert into ordenha (qtd, animal_id, extracao_id) values (050, 05, 10)
-insert into ordenha (qtd, animal_id, extracao_id) values (050, 05, 11)
-insert into ordenha (qtd, animal_id, extracao_id) values (050, 05, 12)
+insert into ordenha (qtd, animal_id, extracao_id) values (035, 01, 01);
+insert into ordenha (qtd, animal_id, extracao_id) values (050, 01, 02);
+insert into ordenha (qtd, animal_id, extracao_id) values (040, 01, 03);
+insert into ordenha (qtd, animal_id, extracao_id) values (035, 01, 04);
+insert into ordenha (qtd, animal_id, extracao_id) values (045, 01, 05);
+insert into ordenha (qtd, animal_id, extracao_id) values (030, 05, 06);
+insert into ordenha (qtd, animal_id, extracao_id) values (060, 01, 07);
+insert into ordenha (qtd, animal_id, extracao_id) values (050, 05, 09);
+insert into ordenha (qtd, animal_id, extracao_id) values (050, 05, 10);
+insert into ordenha (qtd, animal_id, extracao_id) values (050, 05, 11);
+insert into ordenha (qtd, animal_id, extracao_id) values (050, 05, 12);
 
 
